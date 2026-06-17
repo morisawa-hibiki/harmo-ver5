@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harmonie（アルモ）株式会社</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --white:   #FFFFFF;
+      --off:     #F7F7F5;
+      --border:  #E0DDD8;
+      --muted:   #999690;
+      --charcoal:#1A1A1A;
+      --navy:    #0A192F;
+      --orange:  #FF6500;
+      --orange-d:#E05800;
+
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'DM Sans', sans-serif;
+
+      --max: 1280px;
+      --gutter: clamp(24px, 5vw, 80px);
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      color: var(--charcoal);
+      background: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ===== UTILITY ===== */
+    .container {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    /* ===== HEADER / NAV ===== */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      padding: 28px var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      mix-blend-mode: normal;
+    }
+
+    /* frosted strip */
+    .site-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(224,221,216,0.5);
+    }
+
+    .site-header > * { position: relative; }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-mark svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .logo-text span {
+      display: block;
+      font-size: 9px;
+      font-family: var(--font-body);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Nav right */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 36px;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      letter-spacing: .12em;
+      font-weight: 400;
+      color: var(--charcoal);
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--orange); }
+
+    .btn-contact {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 11px 22px;
+      background: var(--orange);
+      color: var(--white);
+      border-radius: 2px;
+      transition: background .2s;
+    }
+
+    .btn-contact:hover { background: var(--orange-d); }
+
+    /* Hamburger (mobile) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--charcoal);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding-top: 88px;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Abstract orange blobs */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .18;
+    }
+
+    .blob-1 {
+      width: 520px;
+      height: 520px;
+      background: var(--orange);
+      top: -80px;
+      right: -120px;
+    }
+
+    .blob-2 {
+      width: 320px;
+      height: 320px;
+      background: #FF9A00;
+      bottom: 100px;
+      left: -60px;
+    }
+
+    /* Grid lines decoration */
+    .hero-grid-line {
+      position: absolute;
+      background: var(--border);
+      opacity: .6;
+    }
+
+    .hero-grid-line.v {
+      width: 1px;
+      height: 100%;
+      top: 0;
+    }
+
+    .hero-grid-line.v:nth-child(1) { left: calc(var(--gutter)); }
+    .hero-grid-line.v:nth-child(2) { right: calc(var(--gutter)); }
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 var(--gutter);
+      max-width: var(--max);
+      margin: 0 auto;
+      width: 100%;
+      gap: 40px;
+    }
+
+    .hero-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--orange);
+    }
+
+    .hero-heading {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 128px);
+      font-weight: 300;
+      line-height: .95;
+      letter-spacing: -.01em;
+      color: var(--charcoal);
+    }
+
+    .hero-heading em {
+      font-style: italic;
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      max-width: 400px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #666;
+      border-left: 2px solid var(--orange);
+      padding-left: 20px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .btn-primary {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      background: var(--charcoal);
+      color: var(--white);
+      border-radius: 2px;
+      transition: background .25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-primary svg {
+      width: 14px;
+      height: 14px;
+      transition: transform .25s;
+    }
+
+    .btn-primary:hover { background: var(--navy); }
+    .btn-primary:hover svg { transform: translateX(4px); }
+
+    .hero-scroll-hint {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: var(--muted);
+    }
+
+    /* Hero bottom strip */
+    .hero-bottom {
+      border-top: 1px solid var(--border);
+      padding: 20px var(--gutter);
+      max-width: var(--max);
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .hero-stat-num sup {
+      font-size: 14px;
+      color: var(--orange);
+    }
+
+    .hero-stat-label {
+      font-size: 10px;
+      letter-spacing: .15em;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 36px;
+      background: var(--border);
+    }
+
+    /* ===== ABOUT ===== */
+    .about {
+      padding: clamp(100px, 14vw, 200px) var(--gutter);
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(60px, 8vw, 140px);
+      align-items: start;
+    }
+
+    .about-left {
+      position: sticky;
+      top: 120px;
+    }
+
+    .about-heading {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-top: 20px;
+      color: var(--charcoal);
+    }
+
+    .about-heading em {
+      font-style: italic;
+      color: var(--orange);
+    }
+
+    .about-large-letter {
+      font-family: var(--font-display);
+      font-size: clamp(100px, 16vw, 220px);
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      line-height: .9;
+      pointer-events: none;
+      user-select: none;
+      display: block;
+      margin-top: 20px;
+    }
+
+    .about-right {
+      padding-top: 8px;
+    }
+
+    .about-message {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.4vw, 28px);
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--charcoal);
+      margin-bottom: 40px;
+    }
+
+    .about-body {
+      font-size: 14px;
+      line-height: 2;
+      color: #555;
+      margin-bottom: 48px;
+    }
+
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--charcoal);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      transition: border-color .2s, color .2s;
+    }
+
+    .about-link svg {
+      width: 16px;
+      height: 16px;
+      transition: transform .2s;
+    }
+
+    .about-link:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+    }
+
+    .about-link:hover svg { transform: translateX(5px); }
+
+    /* Values row */
+    .about-values {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .about-value {
+      background: var(--white);
+      padding: 28px 24px;
+    }
+
+    .about-value-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      color: var(--orange);
+      letter-spacing: .1em;
+      margin-bottom: 10px;
+    }
+
+    .about-value-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    .about-value-text {
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    /* ===== BUSINESS ===== */
+    .business {
+      background: var(--navy);
+      padding: clamp(80px, 12vw, 160px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .business-header {
+      padding: 0 var(--gutter);
+      max-width: var(--max);
+      margin: 0 auto 64px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .business-header .eyebrow { color: var(--orange); }
+
+    .business-heading {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 68px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      margin-top: 16px;
+    }
+
+    .business-heading em {
+      font-style: italic;
+      color: rgba(255,255,255,.4);
+    }
+
+    .business-count {
+      font-family: var(--font-display);
+      font-size: 80px;
+      font-weight: 300;
+      color: rgba(255,255,255,.06);
+      line-height: 1;
+    }
+
+    /* Cards scroll container */
+    .business-track-wrap {
+      overflow-x: auto;
+      padding: 0 var(--gutter) 20px;
+      scrollbar-width: none;
+    }
+
+    .business-track-wrap::-webkit-scrollbar { display: none; }
+
+    .business-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+    }
+
+    .biz-card {
+      width: clamp(280px, 30vw, 380px);
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #0F2540;
+    }
+
+    .biz-card-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease, filter .6s ease;
+      filter: brightness(.7) saturate(.8);
+    }
+
+    /* Placeholder gradient images */
+    .biz-card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      display: block;
+      transition: transform .6s ease, filter .6s ease;
+    }
+
+    .biz-card:hover .biz-card-img-placeholder {
+      transform: scale(1.06);
+      filter: brightness(.55) saturate(1.2);
+    }
+
+    .biz-card-img-placeholder.signage {
+      background: linear-gradient(160deg, #1a2a4a 0%, #0d1b2e 50%, #0a1020 100%);
+    }
+
+    .biz-card-img-placeholder.salon {
+      background: linear-gradient(160deg, #2d1a2a 0%, #1a0d1a 50%, #100a14 100%);
+    }
+
+    .biz-card-img-placeholder.health {
+      background: linear-gradient(160deg, #1a2d1a 0%, #0d1a0d 50%, #0a100a 100%);
+    }
+
+    .biz-card-img-placeholder.flag {
+      background: linear-gradient(160deg, #2d2a1a 0%, #1a170d 50%, #10100a 100%);
+    }
+
+    /* Decorative pattern */
+    .biz-card-img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,.015) 40px,
+        rgba(255,255,255,.015) 41px
+      );
+    }
+
+    /* Orange accent line that fills on hover */
+    .biz-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--orange);
+      transition: width .45s ease;
+      z-index: 3;
+    }
+
+    .biz-card:hover::before { width: 100%; }
+
+    /* Orange overlay on hover */
+    .biz-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--orange);
+      opacity: 0;
+      mix-blend-mode: multiply;
+      transition: opacity .45s ease;
+      z-index: 1;
+    }
+
+    .biz-card:hover .biz-card-overlay { opacity: .3; }
+
+    /* Card content */
+    .biz-card-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px 24px;
+      background: linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.2) 50%, transparent 100%);
+      z-index: 2;
+    }
+
+    .biz-card-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      color: var(--orange);
+      letter-spacing: .2em;
+      margin-bottom: 8px;
+    }
+
+    .biz-card-title {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .biz-card-sub {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,.6);
+      letter-spacing: .08em;
+      margin-bottom: 20px;
+    }
+
+    .biz-card-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      padding: 7px 14px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      width: fit-content;
+      transition: border-color .3s, color .3s;
+    }
+
+    .biz-card:hover .biz-card-tag {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* Decorative icon in card */
+    .biz-card-icon {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: border-color .3s, background .3s;
+    }
+
+    .biz-card:hover .biz-card-icon {
+      border-color: var(--orange);
+      background: rgba(255, 101, 0, .15);
+    }
+
+    .biz-card-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: rgba(255,255,255,.6);
+      transition: stroke .3s;
+    }
+
+    .biz-card:hover .biz-card-icon svg { stroke: var(--orange); }
+
+    /* scroll hint */
+    .business-scroll-hint {
+      padding: 32px var(--gutter) 0;
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+    }
+
+    .scroll-arrow {
+      display: flex;
+      gap: 6px;
+    }
+
+    .scroll-arrow span {
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: rgba(255,255,255,.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-arrow span::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--orange);
+      animation: slide-right 2s ease-in-out infinite;
+    }
+
+    .scroll-arrow span:nth-child(2)::after { animation-delay: .3s; }
+    .scroll-arrow span:nth-child(3)::after { animation-delay: .6s; }
+
+    @keyframes slide-right {
+      0%   { left: -100%; }
+      50%  { left: 0%; }
+      100% { left: 100%; }
+    }
+
+    /* ===== MARQUEE BAND ===== */
+    .marquee-band {
+      background: var(--orange);
+      overflow: hidden;
+      padding: 18px 0;
+    }
+
+    .marquee-inner {
+      display: flex;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding-right: 32px;
+    }
+
+    .marquee-text {
+      font-family: var(--font-display);
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      letter-spacing: .04em;
+    }
+
+    .marquee-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.5);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ===== CTA / FOOTER ===== */
+    .cta-section {
+      background: var(--charcoal);
+      padding: clamp(80px, 12vw, 160px) var(--gutter);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Large ghost text */
+    .cta-ghost {
+      position: absolute;
+      bottom: -20px;
+      left: var(--gutter);
+      font-family: var(--font-display);
+      font-size: clamp(80px, 15vw, 200px);
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.06);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+    }
+
+    .cta-heading {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5.5vw, 80px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+    }
+
+    .cta-heading em {
+      font-style: italic;
+      color: var(--orange);
+    }
+
+    .cta-body {
+      font-size: 13px;
+      line-height: 1.9;
+      color: rgba(255,255,255,.45);
+      margin-top: 24px;
+      max-width: 480px;
+    }
+
+    .cta-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    .btn-cta-orange {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 20px 40px;
+      background: var(--orange);
+      color: var(--white);
+      border-radius: 2px;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+
+    .btn-cta-orange svg {
+      width: 14px;
+      height: 14px;
+      transition: transform .2s;
+    }
+
+    .btn-cta-orange:hover { background: var(--orange-d); }
+    .btn-cta-orange:hover svg { transform: translateX(4px); }
+
+    .cta-tel {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 300;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .05em;
+    }
+
+    .cta-tel-label {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.25);
+      display: block;
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    /* Footer strip */
+    .footer {
+      background: #111111;
+      padding: 36px var(--gutter);
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .05em;
+    }
+
+    .footer-sns {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-sns a {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+      transition: color .2s;
+    }
+
+    .footer-sns a:hover { color: var(--orange); }
+
+    .footer-copy {
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.2);
+    }
+
+    /* ===== SECTION DIVIDER ===== */
+    .divider-line {
+      height: 1px;
+      background: var(--border);
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .btn-contact { display: none; }
+      .hamburger { display: flex; }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .about-left {
+        position: static;
+      }
+
+      .about-large-letter { display: none; }
+
+      .business-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .cta-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-right {
+        align-items: flex-start;
+      }
+
+      .hero-cta-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-bottom {
+        gap: 0;
+        justify-content: space-around;
+      }
+
+      .about-values {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* ==================================
+    OPENING ANIMATION — PARTICLE
+    ================================== */
+
+    #intro-screen {
+      position: fixed;
+      inset: 0;
+      background: #111008;
+      z-index: 99999;
+      overflow: hidden;
+      transition: opacity 1.2s ease, visibility 1.2s ease;
+    }
+
+    #intro-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #intro-canvas {
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+
+    #intro-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18%;
+      font-family: var(--font-display);
+      font-size: clamp(20px, 3vw, 38px);
+      font-weight: 300;
+      letter-spacing: .2em;
+      color: rgba(245,240,235,.75);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 1s ease, transform 1s ease;
+      transform: translateX(-50%) translateY(14px);
+    }
+
+    #intro-text.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ロゴ飛行用（#intro-screen上のimg） */
+    #intro-logo-fly {
+      position: fixed;
+      z-index: 100000;
+      object-fit: contain;
+      pointer-events: none;
+      transition: all 1.1s cubic-bezier(.22,1,.36,1);
+    }
+
+    /* Hero フェードイン */
+    .hero {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero.hero-show {
+      animation: heroShow 1.2s ease forwards;
+    }
+
+    @keyframes heroShow {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* 背景透かしロゴ */
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -150px;
+      top: -100px;
+      width: min(650px, 45vw);
+      height: min(650px, 45vw);
+      background: url("harmonie-logo1.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: .035;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================
+  OPENING ANIMATION — PARTICLE
+  ========================== -->
+  <div id="intro-screen">
+    <canvas id="intro-canvas"></canvas>
+    <div id="intro-text">人と空間を繋ぐ</div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <img
+          src="harmonie-logo1.png"
+          alt="Harmonie"
+          style="width:100%;height:100%;object-fit:contain;"
+        >
+      </div>
+      <div class="logo-text">
+        Harmonie
+        <span>アルモ株式会社</span>
+      </div>
+    </a>
+
+    <nav class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#business">Business</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn-contact">お問い合わせ</a>
+      <div class="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <!-- Background -->
+    <div class="hero-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="hero-grid-line v"></div>
+      <div class="hero-grid-line v"></div>
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-label">
+        <span class="eyebrow">Harmonie — 調和</span>
+      </div>
+
+      <h1 class="hero-heading">
+        人と空間<br>
+        を<em>繋ぐ</em>
+      </h1>
+
+      <p class="hero-sub">
+        それぞれ異なる4つの事業が、ひとつの「調和」へ向かう。<br>
+        Harmonieは、人と空間のあいだに、新しい価値を生みだす会社です。
+      </p>
+
+      <div class="hero-cta-row">
+        <a href="#business" class="btn-primary">
+          私たちの事業を見る
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M1 7h12M8 2l5 5-5 5"/>
+          </svg>
+        </a>
+        <div class="hero-scroll-hint">Scroll</div>
+      </div>
+    </div>
+
+    <div class="hero-bottom container">
+      <div class="hero-stat">
+        <div class="hero-stat-num">4<sup>+</sup></div>
+        <div class="hero-stat-label">事業領域</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">10<sup>年</sup></div>
+        <div class="hero-stat-label">業界経験</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">福岡</div>
+        <div class="hero-stat-label">拠点</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">可能性</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="marquee-inner">
+      <!-- 2セット繰り返してループ -->
+      <div class="marquee-item">
+        <span class="marquee-text">Harmony</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">調和</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Signage</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">サイネージ</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Salon</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">貸しサロン</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Health</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">整体</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Medical</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">開業支援</span>
+        <span class="marquee-dot"></span>
+      </div>
+      <!-- duplicate -->
+      <div class="marquee-item" aria-hidden="true">
+        <span class="marquee-text">Harmony</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">調和</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Signage</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">サイネージ</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Salon</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">貸しサロン</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Health</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">整体</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">Medical</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-text">開業支援</span>
+        <span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-left">
+        <span class="eyebrow">About Us</span>
+        <h2 class="about-heading">
+          調和という<br>
+          <em>哲学</em>から
+        </h2>
+        <span class="about-large-letter" aria-hidden="true">H</span>
+      </div>
+
+      <div class="about-right">
+        <p class="about-message">
+          私たちは、多様な事業領域を通じて、<br>
+          「人と空間の調和」を追求しています。
+        </p>
+
+        <p class="about-body">
+          Harmonie（アルモ）株式会社は、福岡を拠点とする総合プロデュース企業です。
+          サイネージ・貸しサロン・整体・医療開業支援という、一見バラバラに見える4つの事業——
+          しかし、そのすべての根底には「人と空間を繋ぐ」という一貫した思想が流れています。<br><br>
+          私たちは「ビジネス」だけを作るのではなく、そこに集う人々の体験と感情をデザインします。
+          調和（Harmonie）とは、単なるスローガンではなく、私たちの行動指針そのものです。
+        </p>
+
+        <a href="#" class="about-link">
+          会社概要を見る
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M1 8h14M9 2l6 6-6 6"/>
+          </svg>
+        </a>
+
+        <div class="about-values">
+          <div class="about-value">
+            <div class="about-value-num">— 01</div>
+            <div class="about-value-title">Vision</div>
+            <p class="about-value-text">人と空間が調和する社会を、4つの事業で実現する。</p>
+          </div>
+          <div class="about-value">
+            <div class="about-value-num">— 02</div>
+            <div class="about-value-title">Mission</div>
+            <p class="about-value-text">それぞれの専門性で、最高の体験を届けつづける。</p>
+          </div>
+          <div class="about-value">
+            <div class="about-value-num">— 03</div>
+            <div class="about-value-title">Value</div>
+            <p class="about-value-text">誠実さ・多様性・創造性を軸に、挑戦を続ける。</p>
+          </div>
+          <div class="about-value">
+            <div class="about-value-num">— 04</div>
+            <div class="about-value-title">Culture</div>
+            <p class="about-value-text">チームの「調和」が、最高のアウトプットを生む。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BUSINESS ===== -->
+  <section class="business" id="business">
+    <div class="business-header">
+      <div>
+        <span class="eyebrow">Our Business</span>
+        <h2 class="business-heading">
+          4つの事業が、<br>
+          <em>ひとつの調和</em>へ
+        </h2>
+      </div>
+      <div class="business-count" aria-hidden="true">04</div>
+    </div>
+
+    <div class="business-track-wrap">
+      <div class="business-track">
+
+        <!-- Card 1: サイネージ -->
+        <article class="biz-card">
+          <div class="biz-card-img-placeholder signage"></div>
+          <div class="biz-card-overlay"></div>
+          <div class="biz-card-icon">
+            <!-- Monitor icon -->
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="3" width="14" height="10" rx="1" stroke-width="1.2"/>
+              <path d="M6 15h6M9 13v2" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="biz-card-content">
+            <div class="biz-card-num">01</div>
+            <h3 class="biz-card-title">サイネージ事業</h3>
+            <p class="biz-card-sub">先進的な映像技術で、空間に新しい命を吹き込む。</p>
+            <span class="biz-card-tag">Digital Signage</span>
+          </div>
+        </article>
+
+        <!-- Card 2: 貸しサロン -->
+        <article class="biz-card">
+          <div class="biz-card-img-placeholder salon"></div>
+          <div class="biz-card-overlay"></div>
+          <div class="biz-card-icon">
+            <!-- Scissors icon -->
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="5" cy="5" r="2.5" stroke-width="1.2"/>
+              <circle cx="5" cy="13" r="2.5" stroke-width="1.2"/>
+              <path d="M7.5 5L14 13M7.5 13L14 5" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="biz-card-content">
+            <div class="biz-card-num">02</div>
+            <h3 class="biz-card-title">貸しサロン事業</h3>
+            <p class="biz-card-sub">美と癒やしのプロたちに、最高の空間を。</p>
+            <span class="biz-card-tag">Rental Salon</span>
+          </div>
+        </article>
+
+        <!-- Card 3: 整体 -->
+        <article class="biz-card">
+          <div class="biz-card-img-placeholder health"></div>
+          <div class="biz-card-overlay"></div>
+          <div class="biz-card-icon">
+            <!-- Heart icon -->
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 15s-6-4.5-6-8a4 4 0 018 0 4 4 0 018 0c0 3.5-6 8-6 8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="biz-card-content">
+            <div class="biz-card-num">03</div>
+            <h3 class="biz-card-title">整体事業<br>（理学塾）</h3>
+            <p class="biz-card-sub">身体の調和を取り戻す、科学的アプローチ。</p>
+            <span class="biz-card-tag">Holistic Health</span>
+          </div>
+        </article>
+
+        <!-- Card 4: フラッグラボ -->
+        <article class="biz-card">
+          <div class="biz-card-img-placeholder flag"></div>
+          <div class="biz-card-overlay"></div>
+          <div class="biz-card-icon">
+            <!-- Briefcase icon -->
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="6" width="14" height="10" rx="1" stroke-width="1.2"/>
+              <path d="M6 6V4a2 2 0 014 0v2" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M2 10h14" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="biz-card-content">
+            <div class="biz-card-num">04</div>
+            <h3 class="biz-card-title">フラッグラボ<br>事業</h3>
+            <p class="biz-card-sub">医療・クリニック・薬局の開業を、チームでサポート。</p>
+            <span class="biz-card-tag">Medical Support</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="business-scroll-hint">
+      <div class="scroll-arrow">
+        <span></span><span></span><span></span>
+      </div>
+      Swipe to explore
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section" id="contact">
+    <div class="cta-ghost" aria-hidden="true">Contact</div>
+    <div class="cta-inner">
+      <div>
+        <span class="eyebrow" style="color: var(--orange);">Get in Touch</span>
+        <h2 class="cta-heading" style="margin-top: 16px;">
+          共に、新しい<br>
+          <em>調和</em>を創ろう
+        </h2>
+        <p class="cta-body">
+          事業に関するご相談・ご質問・お問い合わせなど、<br>
+          どうぞお気軽にご連絡ください。<br>
+          チームが真摯にお応えします。
+        </p>
+      </div>
+
+      <div class="cta-right">
+        <a href="mailto:info@harmonie.co.jp" class="btn-cta-orange">
+          お問い合わせはこちら
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M1 7h12M8 2l5 5-5 5"/>
+          </svg>
+        </a>
+        <div>
+          <div class="cta-tel">092 — XXX — XXXX</div>
+          <span class="cta-tel-label">Weekday 09:00–18:00</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Harmonie Inc.</div>
+      <ul class="footer-sns">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">X (Twitter)</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">LINE</a></li>
+      </ul>
+      <p class="footer-copy">© 2025 Harmonie Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  /* ═══════════════════════════════════════════
+     PARTICLE OPENING ANIMATION
+     流れ:
+       0.0s  パーティクルが画面外から集合 → ロゴ形成
+       2.4s  キャッチコピーフェードイン
+       3.6s  パーティクル散乱開始（scatterモード）
+       3.8s  flyロゴ（img）をヘッダーへ飛ばす
+       5.0s  イントロ非表示 → Hero表示
+  ═══════════════════════════════════════════ */
+
+  (function(){
+    const intro  = document.getElementById('intro-screen');
+    const canvas = document.getElementById('intro-canvas');
+    const ctx    = canvas.getContext('2d');
+    const introText = document.getElementById('intro-text');
+
+    let W, H, CX, CY, dpr;
+    let particles = [], mode = 'assemble', frame = 0, rafId;
+    let mx = -9999, my = -9999;
+
+    /* ── マウス追跡 ── */
+    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    /* ── ロゴ画像（base64）── */
+    const logoImg = new Image();
+    logoImg.src = 'data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAF7AXUDASIAAhEBAxEB/8QAHAABAAIDAQEBAAAAAAAAAAAAAAEHAgYIBQQD/8QASBAAAgEDAgIGBwMICAQHAAAAAAECAwQRBQYhMQcSQVFhcQgTIoGRobEyQsEUFSMkM2LC0SVSY3JzgrLhJjVDojQ2U3SDkvH/xAAbAQEAAwEBAQEAAAAAAAAAAAAAAQYHBQQCA//EADYRAAIBAgQCCAYBBAIDAAAAAAABAgMEBQYRITGxEhMiQVFhcYEUNZGhwdHhIzIzUhVCJVPx/9oADAMBAAIRAxEAPwDssAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABkAEghvCCee8jUEgh+Y4kgkEe8hjUGQMc4JTyRqRqSB2gkkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPkY9q4ghmQMeJ81/fWdjQlXvLqlb0orLlUmopfE+XJRWrZ9RTk9Ej6yPeVxuHpa0GyUqemRq6hWXJpONP4vj8EzQtb6Vdz3zatqlCwp9nqY5l5Zln5JHEu8xWNts5avy3O1aZevrndR0XnsdAVasIJynNRS7W8I8i/3Vt2xbjc6zZQkucfXRz8MnM+o6vqmoyc77Ubm5z2VKrl8ny9x8RwK+c2tqdP6s71HJv8A7an0R0bc9Ju0KLa/OMqjXZCjN/PGD5J9LW048p3cvKj/ADOfCTwSzhePgkj3wyjZpdqTZf8AHpc2tnjG+j50f9z6aPSntCo8O9rU/wC9Ql+BzsklyJyyIZvvU+0k/Y+p5RsnwbXudPWO9dr3mPVa3ZJvsqVFB/Bnt291b3EVKhXpVIvk4TTycjc+bP3tL28sqnrLO7rW8/61Ocov5Huo5ylxqU9vJniq5Ni/8dXT1R1ynx7STnDRekvdenSjF335ZTivs3Eet81h/Fs3vQOmHTq7VPWbOrZz7alL24fz+p3rXMtjX2cuj6nCustX9utVHpLyLUB5eka3per0lW02/oXEe1QqLrLwa5r3npLjxyd2E4zWsXqjgyjKD6MlozIGK5rmZH2fIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEuREnz44AJlyPj1LULLTrWd1f3NO3owXGdRpI1Lf3SFpu24ytaDjeag1+xUvZh4yfZ5c/Io7cu4tX3Dd/lGp3U6mH7FNcIU/BIrmK5ioWWsIdqa7v2WHCsu177tz7MPH9Flbw6XIx69rtyh1uz8prxwv8sf5/Aq7WdZ1TWLj1+p31e5nnK9ZLhHyXJe5HweXAgz+/xi5vJf1JbeC2RoFhhFrYr+nHfx7yeGObRHAA5rnr3HT1HAkA+W9SAACAAAACCQSBl8x2doBPS8SXufrZ3dzZ3Ea9rXq0KkOKnTk0170WLtTpa1WxcLfWqKv6GcOpHEaqXf3P5eZWpGFjB7bPE7mzetKWh4LzDba8jpWgnzOqdt7j0nX7dVtNvI1cfag3icfOPM9hHI+nXt3p91G6srirb1ocp05YZb2welWlX6lhuNxp1eCjdR+zL+93efLyL9hWZ6NzpCv2ZePcUTFMsVrbWdDtR+5bYPxo1oVqcatKpGpCazGUXlNeB+uS1aprUqrWhIMU1lGRIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD5GFSShBycsJDVIE1ZRhTcpNKK4tsp/pL6TJRdTSdu1nlezWu4/NQf4/DvPh6V+kGd/OromjV2rVPq160X+1a5xX7v18udXPPa89pRMfzG03Qtn6tci84DlxPS4ul6L8smpOc5yqTnKc5PMpN54/iyM9gBRuserafEvWi8AsY8QAfDeoAAIAAAAAAAAAAAAAAAAAAAHDgufEEH0paIk3XYG/8AUNt1YWtxKd1pzftUm8un4w/lyL70PVrHWdPp32n3EK1Ga4OL4p9z7n4HKCzk2DZO7NR2vqCrW0/WW9SX6ahKXszX8/EteCZinaaU671h4+BVMby7C7Tq0FpPw7mdPrmjI8fbGuWOv6ZS1Cxq9anJe1Fv2oS7U12M9VvjzZo9OpGpFTg9UzOJwlTk4SWjRmDGL7OJkfofIAAAAAAAAAAAAAAAAAAAAAAAAAZjxwwCZ/ZZUPTNvjqRqbc0qt7TWLurHjhf1E/r8O82vpT3XHbehtUan69cpxoJfd75e76nOlapKrVlUnJylJ5bb4t+JTszY07ePw1F9p8fJFwyxg3xE/iaq7K4ebMcvg2857+YD8AZ1LXXRmhrTQAA+QAAAAAAAAAAAAAAAAAAAAAAAAAAAQTxax3kEn1GXR4Emw7G3Te7X1WNxQzUtqjXr6PWwpr8Gjo/Q9Us9Y02jqFlVVSjVjlNc14PuZyfnDT7jdeiveM9t6mrW6qSemXMsTi/+nLsmvDvRa8u418LNUKr7D+3/wBKpmLBFdU3XpLtr7nRa5kn50ZxqRjUhLrRlxTT4H6GlJrTYzYAAkAAAAAAAAAAAAAAAAAAAAAB8j5r26pWlrVua9RU6VKLlOT5JLmfRLkVf087gdlpNLRLepitdvrVcP8A6afBe9/Q8WIXkbO3lWl3cz12FpK8uI0Y97+xVm+derbj3FcahU6yp56lGL+7Bcl59/mzwuAfD3kGO3NeVao6k95Pdmx0KEKFKNOGyQJAPOz9QARz4DTbUEgY7Bx5dpKj4jVAHq6LtvXNYklp+m3FeL++o4gvOXI3TS+h/Xa6U72+s7aL7F1pyXw4fM6FthF5cb06baOfc4rZ221WokVsC57foZsUkrnWa0329Sko59zbPqn0N6H1PY1O/T/ecMfQ6SyrfvuX1Oa804f/ALP6FHAt++6F85dnrWO6NWjz96f4Gq630Y7p03M6VpC+prj1raWfk8P5HluMv31BayhqvLc9Vvj9hXekamj89jSgfpc0atvVlRrUqlKpB4lGccNPuaZ+fA5DpyjLos66aa1QAecg+WtHoSAAQAAAAAAAAACCXyzwb8wD6T0BdPQhu53VBbcvqnWq0Yt2k5cHKH9XzX08i11zTOR9MvbjTr+he2tR061GalGSfLB1BtDW6G4NAt9ToNJ1I4nBPjCS5p+/JpeWMW+KpdTUfajyM2zPhXw1Xr6a7Mvs/wCT2QREktZVQAAAAAAAAAAAAAAAAAAA+RjyXFgCpJRg5SaSSy8nL2/dYnru6r29c5On6xwpdyhF4RfHSlqv5p2XfVYz6tWrH1NPj2y4P5ZOaZNuWe8oub7z+ygvV/gvWTrPXp3D9F+R2Agkoci8gAgjTbULckYxxYxx4czfejbo+udwzp6jqPWt9MTzF8pVv7vcvH4d57bGzrXVVUqS1f2XmeW8vaNnSdWtLRczXdq7X1ncl2qOnW8nBcJ1prEIeb7/AA5ly7T6L9D0lQrX6/OV0v8A1MerT8I9vvz7jddLsLXTrWnaWdCFChTWIwjHCR9mF3GkYbl23tdJ1O3Lz/CM4xPMdzeNwp9iHguL9WfjRpU6UFCnCMIrglFJLywfplJ8jLC7hhdxYUkuBXdX3mDx1sY495klgnCGCSDFkP5meECNCTxdw7b0bXaEqWpWFKq2sKoo4qR8pFLb86NdQ0KE77TpSvrCLblhfpKS/eXavFfI6Ca4cFxMJpNSUkmsdpycSwW2v46TWku5ridXDsZubCWsHrHvT4fwchPK7MeYLf6Vuj1JVtc0KhGKSc7i3gsZXNyivqioMY4dvIzDEsNrWNXq6ns/E07DsSo39JVKfHvXgAQSc5rQ6AABAAAAAAAAAABZHQXuP83a1U0e5qKNvePMM8lUS/FZ+CK3P0ta9S3r0q1GbpzpzUoyXY0+Z0MNvHZ141l3fc8WI2avLaVF9511Hi0ZnkbR1anrm37LU6fD11PMo5+zJcGvcz1zZaVRVYKceDMcqU5U5uEuKAAPs+AAAAAAAAAAAAAAAAzF8ewyfIx7OJAKh9IfUvY0/Soy5uVaa+Uf4inu3JvPThd/lG+69LrZVClCmvLGX82aMZHmCv11/OXg9Ppsa1l+gqOH0147/UAA4rer1OyCY4/kR5npba0i41zW7bTLXhOtPDljhGK4uXuR+1vCc5qMFq/2fFWpGnByk9Et2bN0VbLluS+/LbxNabQn7ffVlz6q8O/zXu6Bt6NK3owoUqcYU4R6sYpYSXcfJt7S7TRtLt9Os6cY0qMer4t9rfienhdxrWD4XDD6Cgv7nxZkmMYpPEK7l/1XBeRjHnyMgDrnKAAAAAAAAAD5EEggH5ySaaaRQvTHtBaJqP51sKeLG7l7UIr9nPm/c+OPeX60scTyt1aTR1vb93ptZRxVg+rJr7Mual7mcrGMOjfWzg/7luvU6mD4jKwuVNcHs15HKflyZJ+17b1bO7q2taPVqUpuEl4ptH4mQ1IOEtHxNejJSSaAAPzJAAAAAAAAAA7W0Aj6T20JLi9HrWM073RKs2+q/XUk+xcpfh8S3zmDo21SWkbz0+562ITqKjPxjLh8nh+46ci8mo5WvOvslB8Y7e3cZfmi0VC96a4T39+8zBCzkkspWwAAAAAAAAAAAAAAAYSfAzMZdq8CGDl7pCrSuN66tUk84uZxXlGTS+h4J6W6Z+s3HqM3965qS/7meaYnfS6VxN+bNpso9C2px8EuQAIPL3HrJWM8XguvoE27+T2NbX7mmlVuPYoZXKC5v3v6FN6da1L3ULe0orNStUjCPm3g6s0Wyp6dpVrYUY9WnQpRppeSLhlKyVWs68ltHh6sqGbb50qCoR4y4+h9i5mRCWCTRzOgAAAAAAAAAAAAAACJcjDKaZ+hi0knhEMd5zv01aZHT9716kI9WF1CNZLHa+Dfxz8TSC2fSKoxV5pVdfalCcH7mn+JUxkGP0Y0b+pGPjr9dzXMBrOth9OT8NPpsAAcc64AAAAAAAAAAABNOUoVIzg2pJ5TR1Xta/Wp7fsb9c69GMnjseOKOUzofoRvPyvYtvTcsyoTnTfhxbXyaLnk2t0a86fiuRT84UOlbwq+D0+pvMXkkhEmimeIAAAAAAAAAAAAAAAMxkZGGOBEuAOVN1x6u5NRXdc1F/3HmHvdIVu7Xemq0WsfrMpLybbX1R4Jid/Ho3M4+DZtVlLp28JeKXIEcMEhdp54o9Pcbt0K6fC93xbSnHMbenKr78YX1z7jopJZKa9HS0jK61S8lhygoU4vuzlv8C5jUsr0VCwjJf8Abf8ABl+aazqYhKP+ui/I7QAWMrgAAAAAAAAAAAAAAAIfLJL5GD5cyGCm/SLqp3WlUU1mMZya7eLS/AqU3npt1OF/vWrSpz60bWnGjlPhlcX838jRjIcfqqrf1JL0+mxreAUnSw+nF+Gv13AAOMdgAAAAAAAAAAAAR5our0dK/W0jUqGeEa0ZpecUvwKVLY9HOq1eatRz9qFN48nL/YsOWanRxCC9eRwcyw6WHVPLTmXRHmSQuZJq5lQAAAAAAAAAAAAAAAZijJmLXEghnPHThaO335XrYxG4pwnH3Rw/mjRy4fSI079HpupwjxXWo1H4c1+JT3aZJj9s6V/UXi9fqa3gFwq2H034bfQEInmwnxOOkkzstbF1+jrBLStTmu2vFfCJaxUvo6Vc2Oq0M/ZqQl8U1+BbRreX/l9P35syXMGv/I1NfLkgADsnGAAAAAAADIAJBDBGoJBEnhdpCeRqRqTLkeRuvWKOhaDdanW4qlD2Yt/ak+CXvZ6VzWp0KE61arGnThFylKTwku15OfOlbeT3JqKtLKUlp1vJqHNeslycsd3dns8zkYzicLGg3r2nwR18GwyeIXCil2Vu35Gm391Uvbytd1pdapWqSnJ97bz+J+IeM8AZFVk5TbZrkYxjFRjwAAPgkAAAAAAAAAAAAh8i0PR4ljX9Qj2Ogn8ysEWh6PEH+fNQmuSoRXxb/kdzLvzCn6/g4uYfl1X0/JeC+0SYr7Rka4ZMAAAAAAAAAAAAAAAHyIZIANV6UNHWs7NvqEY9atSj66lwy1KPH5rKOaWsNx7VwOvpxjKDi0sPgcw9IOiVNA3Rd2UlilKXrKLxwcJcV8ORRs32erhcL0f4Lzk+906du/Vfk15PCHb4gFDbeiTL01xSLR9Hq9VLXtQsW8evpRmvKLx/EXgcy9F+prS972FecsU6k3Rnx7JLC+eDpeLzxNOyrcqrZdH/AFbMyzZQ6u+6f+yX22MwECzlZAAAAAAD5EdhJD5MgGFSrCDSnNR6zwsvmZKSfJ/MrT0g5ShtyycG4yVzlNd/VZUlpuvcVrDq0Ncv4xX3XcNpfHOCuYhmKnY3Dozi2WLDsu1b+3VaEkjqWbUY5b4d7Ne3DvHQNBoyd7qFKVVfZoUpdeo33YT4e/Bzxe7m3BeJxuNavqkWsOPr5dX4Hktttt8W+ZxrrOS00oU9/M7Ftk3ta1qm3gv5N0370ganuTr2tBys9Pzh0VLjP+8+3yXDzNLy+QBULm9q3VR1Kj3Lha2lG0pqnSjogwAeST1Z6QACAAAAAAAAAAAAAQ+Rbvo50n67WK7XDFOK+M/9ionyLy9Hu2dPb99cyWPW3OE+9JL8cljyvT6V/F+CfIr+Z6nQw+S8dOZZ6JITJNVMsAAAAAAAAAAAAAAAAAAEuRWnTlt16jolPVral1q1m/bwuMqb5/Dn72WW+Kwfjc0adejOjVhGcJxcZRkspp9h5L61hd0JUZd56rG6laXEa0e45Dl8AmbN0jbaq7a3BWt1Fu0qv1lvPvi+zzRrOMrJjdzbVKFWVOa3RsdrcU7ijGpB7MzpScKkZptOMk8rmjqHYurrWtr2WodZOc6aVRLsmuDXxOW8+BaXQNuJWmpVdAuav6K5zUo9Z8FNc0vNfQsOVr9W1y6cntLn3FezTYO4tesit4b+3eXeuKRJhDmkZmnGZgAAAAAB8iHyJfIhDQFY+kN/5bsf/cfgyjOZePpDP/h6w/x3/pKPMszX8wfojUMqrTD16vmQSQSVosYAAAAAAAAAAAAAAAAAAAHPkiUtUAuaOkeiKy/I9h6dFrEqsXVb7+s218mjnWxtp3d7QtKXGpWqRhFd7bwjq7TLWFnp1va04qMaVOMIruSRd8n2z62pUa4bfUpecbhKlTpLvev0PqisGRC7CTQEUBAAAAAAAAAAAAAAAAAAES4oxfBGYwu4hg1npA21b7m0SdpU6sbilmVCq/uy8fB9pzZqFncafe1bK7pOlWpScZxfemdcSS6pX3SlsenuC0d/p8Iw1KlHglwVZL7r8e5/HsKtmHBPi4qvSXbXHzRZ8vY18HPqKr7D4eTKAR+tncVbW6pXNvOVOtTkpQlHmmmY3FGrb1qlGvTlTqwk4yjJNNNc1jvRhhtcMmcRcoS2W6NKkozi/B/Q6d6PdyUdy6DSu01G4gupcU192WPo+a8zZDmDYW6bra+sxuqXWnazeLiknwnHv812HSOk39DU7CjfWVZVqFaClGSZqeBYtG/o6N9tcTK8ewmWH124rsPh+j7gYxbbw+wyO8jhAAAB8iF2kkdoIKu9Id/0Dp6/t3/pKQLu9Ij/AJHp3+PL6FImV5q+YP0RqWVvl8fV8wACtliAAAAAAAAAAAAAAAAAABGHzTJCT5H3HgDdOhnSfznva3qyi3StE60srK/d9+Wn7jotcOHIrboD0Z2e3auqVYLr3svYfdCOUvnlll4Xcatluz+Gsot8ZbsyvMt58TfS6PCOyIRIB3zgAAAAAAAAAAAAAAAAAAAAAB8jB5SfyMwAV90l9H9DcNKWoaeoUdSist8o1cck/HufxKH1Kxu9Nu6lpe0J0K1OXVlGaw0zriWEs4XA1reWz9K3PaOF1S9XcRjincQSU4+D714FVxrLsLvWtR2n9mWjBMxSs9KNbeH3RzI3xy1g3Ho23vd7XvI29br1tNqSzUpLnTb5yivw7T494bL1jbVaX5TSda1bxC5pr2H5/wBV+D+JrfLmmu/z/wDwosfisOr9PeMkXyatcSt+itJRZ1npN/aanaUr2yrxr0KsetCUX2H2nMOyd46tte5TtJutbSlmpbzl7Ms93c/FF+7R3XpW5LRVrG4SqpfpKE2lOD8UaPhOO0b+PRe0/D9GbYtgVfD5dJLWHc/2bCDDPLOSTuanE1MiPvBvgFyJIKs9In/kum/40voiki6/SKf9E6Yv7af0RShlWaX/AOQkvJcjU8r/AC6Pq+YABXCwgAAAAAAAAAAAAAAAAgAlcz7tv6bW1fWLXTqGfWV6iin2pdsvJLifAXD0B7cwq24riHNOlb9bu+9L8Pczq4PYu9uo0+7i/Q5uL3ysrWdTv4L1LW0izo6fp9Cxt4qNKhTUIpdmEfWYpLOTI2GEVGKiu4x+UnJtviAAfRAAAAAAAAAAAAAAAAAAAAAAAAAfIwaz2mYIB+NxRhXoypVqcKkJLEoSimmvFMrfd3RPpmoOdfRqysLiXH1cuNKT8ucfd8Czhhdx5LuwoXcejWjrzPVZ31ezl0qMtGcubi2juDQZy/OGnz9UnhVoe1Tfv7PI8eyuruzuo3FpcToV6bzGdOXVa+B1zUhGUHGUU0+aa5mq67sHbGrTc7jTqdCo/v279W/PC4N+ZU7rKcoy1tqns/2W21zcnHo3NPXzX6NC2f0uVKVOFruOhOulwVzRj7X+aPb5r4Fp6Hr+ka1QVfTb+jXj2xUkpR8HHmveVtqvQzTc5T0zV5Qi/u14Z+a/keDLow3lptdV9PuKE6kfszt7hwa8spfU/e2usXstIV6fTiu9cTz3Vtg17rOhU6uT7nw/gvpcV2+8yXIqDSbrpa0qSjWsZahTXZWlCXzUs/HJtmmbo3NOSjqOzL2n2ZoVYy+uPqd6jidOptOLi/NHCr4ZOlvGUZLyZrnpFv8AovSv8ap9EUqXB0+XFS50fSZ1bOvav1tT2a3Vb5L+rJlPmd5oeuIyfkuRoOWFph0PV82AAV4sAAAAAAAAAAAAAAABA5LJJOM+ylxZ9xjqg2entXRbnXdcttNtk+tUl7c+yEVxcjqDSbG30vTqFhaQUKNCChBeCNM6HNprQ9IV/e0kr+7Sk1JcaceyPn2v/YsDC7jUcuYX8JQ6ya7UuRl2Y8U+Mr9XB9mPMxXYZDC7gWQroAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfIxb8DIYXcAYS4rgsBZwZ4XcMAjQxBk0Q1wI0BUvpGcLDSF/aVfpEpkuX0jv8AwmjL+0q/SJTRlGZ/mU/bkjVcsfLYe/NgAFfO+AAAAAAAAAAAAAQMfDtJS14DhxJ58Cy+hrZn5zvI67qNL9UoyzQhNftJrt8k/n5HhdHGzrjdGpqVSLhp9F5rVOWf3V4v5fA6JsLWhZWlK1tqUadKlBQhGK4JIueXMD6yXxFZdlcPMp2ZMb6mPw1F9p8fI+iKw1jl2GQwDREZ6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCXyIIBUXpGv9W0XxnV+kCnC4vSO/YaIv3q30gU6ZPmf5lP25I1XLPy2HvzYABwDvAAAAAAAAAAAYeVw7SUtUAsZWTZ9g7Qvt0ago006VlTf6e4fJduF+8fV0e7GvtzV43NVTt9Ni/brY4zx2R/nyOgdF02z0nT6dlYUI0aFNYjGK5+PiW7AsvyudK1ZaQ5/wVTHMwxtU6NB6z5fyRoul2OkafS0+woxpUKawku3xfez7eODJEmjQhGEUorRIzicpTblJ6tkJ8kSMLuB9ogAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPkQSQiGCoPSO/Z6KvGt/AU8XB6Rr4aN/8v8ACU+ZPmb5lP25GrZa+W0/fmwADgHdAAAAIJxlcCVFvgAAs92T3tqbS1vcldRsLZxo9bEq801Tj78cfdk/ehbVK8lGkm2z8q1enQi51JJJHh04SqVIwhGUpSeEootPo96MK1xKnqG5ISpUecLTlKXc5dy8Offjibxsbo/0fbihXlFXl+lxr1I8F/dXZ9Tc1GK5JF9wfK8aOlS53fh3e5QsXzROqnStdl49/t4H421Gjb0IUKFKFKlBJQhBYSS7MH6PwM8LuGC5JJLRFOe+upjHg8GQws5wCSEAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQuRLIZDBTvpGv2tHX+L/CVCW76Rj/S6QvCp/CVCZPmbfEqntyRq+WvltP35skDHexjLwuPkcPq5aancAPS0rQNZ1WWNP025uE3jrQg2l5vkjddC6Itdu0qmpV7ewpv7ufWT+XD5nutsJu7l6U4M8FzilpbL+rUS+5XC4vB7e3Nq65r80tOsKs6TeHVkurBf5uXuXEu7bvRptnSXGrVt5X9ZffuWnH/64x9TdKNKnRgqdKnCEVwSisItVjk+T3uZbeC/ZV73N6Wqto+7/RWe0uiXTrFwr63VV9XXH1UeFNefbL6eBZNtb0bajChb0oUqUViMIRSS9yP3wsYwsAuNpYW9pHo0Y6FOu764u5dKtLXkQs5JAPYeQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPkYr7JkAQaT0jbJlu6pZSjqCtY2/WTzS6+c48V3Gu2vQxYp/rOs16i/s6Sj9Wy2MLuQwjmVsHs69R1KsNW+J06GL3lvTVKlNqKK/suibalu06kby5a7KlbH+lI2LTNpbb07DtdGtFJcpypqcl73lnvA/WjhlpQ3p00vY/GtiF1W/yVG/c/OMYwSUIqKXYieOeRmMLuPbppwPG9zFfaXeZAEoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/2Q==';
+
+    function rand(a, b){ return a + Math.random() * (b - a); }
+
+    function resize(){
+      dpr = window.devicePixelRatio || 1;
+      W = window.innerWidth; H = window.innerHeight;
+      CX = W / 2; CY = H / 2;
+      canvas.width  = W * dpr; canvas.height = H * dpr;
+      canvas.style.width  = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr, dpr);
+    }
+
+    function extractPts(){
+      const sz = Math.round(Math.min(W, H) * .40);
+      const ox = CX - sz / 2;
+      const oy = CY - sz / 2 - Math.min(W, H) * .06;
+      const off = document.createElement('canvas');
+      off.width = sz; off.height = sz;
+      const oc = off.getContext('2d');
+      oc.drawImage(logoImg, 0, 0, sz, sz);
+      const data = oc.getImageData(0, 0, sz, sz).data;
+      const res = [];
+      const step = Math.max(1, Math.round(sz / 90));
+      for(let y = 0; y < sz; y += step){
+        for(let x = 0; x < sz; x += step){
+          const i = (y * sz + x) * 4;
+          const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+          /* 透明ピクセルと白抜き（背景）は除外 */
+          if(a > 60 && !(r > 220 && g > 220 && b > 220)){
+            res.push({ x: ox + x, y: oy + y, r, g, b });
+          }
+        }
+      }
+      return res;
+    }
+
+    class P {
+      constructor(t){
+        const a = rand(0, Math.PI * 2);
+        const d = Math.max(W, H) * rand(.6, 1.2);
+        this.x = CX + Math.cos(a) * d;
+        this.y = CY + Math.sin(a) * d;
+        this.vx = 0; this.vy = 0;
+        this.homeX = t.x; this.homeY = t.y;
+        this.r = t.r; this.g = t.g; this.b = t.b;
+        this.alpha = rand(.6, 1);
+        this.size  = rand(1.4, 3.2);
+        this.oa = rand(0, Math.PI*2);
+        this.os = rand(.004, .014) * (Math.random() < .5 ? 1 : -1);
+        this.or = rand(4, 22);
+        this.ph = rand(0, Math.PI*2);
+        this.tw = rand(0, Math.PI*2);
+        this.delay = rand(0, 40);
+        this.born  = false;
+      }
+      update(f){
+        if(!this.born){ if(f > this.delay) this.born = true; else return; }
+        if(mode === 'assemble'){
+          this.vx += (this.homeX - this.x) * .07;
+          this.vy += (this.homeY - this.y) * .07;
+        } else if(mode === 'scatter'){
+          const a = Math.atan2(this.y - CY, this.x - CX) + rand(-.5, .5);
+          this.vx += Math.cos(a) * 2.2;
+          this.vy += Math.sin(a) * 2.2;
+        }
+        /* カーソル斥力 */
+        const dx = this.x - mx, dy = this.y - my;
+        const md = Math.sqrt(dx*dx + dy*dy);
+        if(md < 95 && md > 0){
+          const f2 = (95 - md) / 95 * 3.2;
+          this.vx += dx / md * f2; this.vy += dy / md * f2;
+        }
+        this.vx *= .86; this.vy *= .86;
+        this.x += this.vx; this.y += this.vy;
+        if(mode === 'scatter'){
+          if(this.x < -40) this.x = W + 40;
+          if(this.x > W + 40) this.x = -40;
+          if(this.y < -40) this.y = H + 40;
+          if(this.y > H + 40) this.y = -40;
+        }
+        this.tw += .035;
+      }
+      draw(){
+        if(!this.born) return;
+        const a = this.alpha * (.78 + .22 * Math.sin(this.tw));
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.r},${this.g},${this.b},${a})`;
+        ctx.fill();
+      }
+    }
+
+    function drawGlow(){
+      const g = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.min(W,H) * .32);
+      g.addColorStop(0, 'rgba(216,90,48,.045)');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(CX, CY, Math.min(W,H) * .32, 0, Math.PI*2); ctx.fill();
+    }
+
+    function loop(){
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#111008'; ctx.fillRect(0, 0, W, H);
+      drawGlow();
+      for(const p of particles){ p.update(frame); p.draw(); }
+      frame++;
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function init(){
+      resize();
+      const pts = extractPts();
+      particles = pts.map(t => new P(t));
+    }
+
+    /* ── 演出タイムライン ── */
+    function startTimeline(){
+      /* 2.4s: キャッチコピー表示 */
+      setTimeout(() => { introText.classList.add('show'); }, 2400);
+
+      /* 3.6s: scatterモードへ → パーティクル四散 */
+      setTimeout(() => { mode = 'scatter'; }, 3600);
+
+      /* 3.8s: ロゴimgをヘッダーへ飛ばす */
+      setTimeout(() => {
+        const headerLogo = document.querySelector('.logo-mark');
+        const destRect   = headerLogo.getBoundingClientRect();
+
+        /* 現在のロゴ中央 = canvas中央付近 */
+        const sz = Math.round(Math.min(W, H) * .40);
+        const fly = document.createElement('img');
+        fly.src = 'harmonie-logo1.png';
+        fly.id  = 'intro-logo-fly';
+        const startSize = sz;
+        fly.style.cssText = `
+          width:${startSize}px; height:${startSize}px;
+          top:${CY - sz/2 - Math.min(W,H)*.06}px;
+          left:${CX - sz/2}px;
+        `;
+        document.body.appendChild(fly);
+
+        /* 1フレーム後に目標へ */
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          fly.style.width  = '32px';
+          fly.style.height = '32px';
+          fly.style.top    = destRect.top  + 'px';
+          fly.style.left   = destRect.left + 'px';
+        }));
+
+        /* flyロゴが着いたら本物のheader logoを表示しflyを削除 */
+        fly.addEventListener('transitionend', () => fly.remove(), { once: true });
+
+      }, 3800);
+
+      /* 5.0s: イントロ非表示 → Hero表示 */
+      setTimeout(() => {
+        cancelAnimationFrame(rafId);
+        intro.classList.add('hide');
+        document.querySelector('.hero').classList.add('hero-show');
+      }, 5000);
+    }
+
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(rafId);
+      init(); loop();
+    });
+
+    logoImg.onload = () => { init(); loop(); startTimeline(); };
+    if(logoImg.complete && logoImg.naturalWidth > 0){ init(); loop(); startTimeline(); }
+
+  })();
+  </script>
+
+</body>
+</html>
