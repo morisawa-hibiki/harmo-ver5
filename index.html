@@ -1367,15 +1367,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* ロゴ飛行用（#intro-screen上のimg） */
-    #intro-logo-fly {
-      position: fixed;
-      z-index: 100000;
-      object-fit: contain;
-      pointer-events: none;
-      transition: all 1.1s cubic-bezier(.22,1,.36,1);
-    }
-
     /* Hero フェードイン */
     .hero {
       opacity: 0;
@@ -1932,8 +1923,7 @@
        0.0s  パーティクルが画面外から集合 → ロゴ形成
        2.4s  キャッチコピーフェードイン
        3.6s  パーティクル散乱開始（scatterモード）
-       3.8s  flyロゴ（img）をヘッダーへ飛ばす
-       5.0s  イントロ非表示 → Hero表示
+       5.0s  イントロ非表示（フェードアウト） → 下に既にあるヘッダー＆Heroが見える
   ═══════════════════════════════════════════ */
 
   (function(){
@@ -2075,38 +2065,7 @@
       /* 3.6s: scatterモードへ → パーティクル四散 */
       setTimeout(() => { mode = 'scatter'; }, 3600);
 
-      /* 3.8s: ロゴimgをヘッダーへ飛ばす */
-      setTimeout(() => {
-        const headerLogo = document.querySelector('.logo-mark');
-        const destRect   = headerLogo.getBoundingClientRect();
-
-        /* 現在のロゴ中央 = canvas中央付近 */
-        const sz = Math.round(Math.min(W, H) * .40);
-        const fly = document.createElement('img');
-        fly.src = window.LOGO_SRC;
-        fly.id  = 'intro-logo-fly';
-        const startSize = sz;
-        fly.style.cssText = `
-          width:${startSize}px; height:${startSize}px;
-          top:${CY - sz/2 - Math.min(W,H)*.06}px;
-          left:${CX - sz/2}px;
-        `;
-        document.body.appendChild(fly);
-
-        /* 1フレーム後に目標へ */
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          fly.style.width  = '32px';
-          fly.style.height = '32px';
-          fly.style.top    = destRect.top  + 'px';
-          fly.style.left   = destRect.left + 'px';
-        }));
-
-        /* flyロゴが着いたら本物のheader logoを表示しflyを削除 */
-        fly.addEventListener('transitionend', () => fly.remove(), { once: true });
-
-      }, 3800);
-
-      /* 5.0s: イントロ非表示 → Hero表示 */
+      /* 5.0s: イントロ非表示 → Hero表示（ヘッダーロゴは既に存在しフェードで見える） */
       setTimeout(() => {
         cancelAnimationFrame(rafId);
         intro.classList.add('hide');
