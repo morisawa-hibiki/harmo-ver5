@@ -1186,8 +1186,8 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* ===== CTA / FOOTER ===== */
-    .cta-section {
+    /* ===== CONTACT（旧 CTA + Access を統合） ===== */
+    .contact-section {
       background: var(--charcoal);
       padding: clamp(80px, 12vw, 160px) var(--gutter);
       position: relative;
@@ -1195,7 +1195,7 @@
     }
 
     /* Large ghost text */
-    .cta-ghost {
+    .contact-ghost {
       position: absolute;
       bottom: -20px;
       left: var(--gutter);
@@ -1209,42 +1209,69 @@
       pointer-events: none;
     }
 
-    .cta-inner {
+    .contact-inner {
       max-width: var(--max);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 60px;
-      align-items: center;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(40px, 6vw, 90px);
+      align-items: stretch;
       position: relative;
     }
 
-    .cta-heading {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 5.5vw, 80px);
-      font-weight: 300;
-      color: var(--white);
-      line-height: 1.05;
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .cta-heading em {
-      font-style: italic;
+    .contact-heading {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.3;
+      margin-top: 16px;
+    }
+
+    .contact-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,.12);
+      margin: 28px 0;
+    }
+
+    .contact-detail-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contact-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: clamp(13px, 1vw, 15px);
+      color: rgba(255,255,255,.7);
+      line-height: 1.7;
+    }
+
+    .contact-detail-item a {
+      color: rgba(255,255,255,.85);
+      transition: color .2s;
+    }
+
+    .contact-detail-item a:hover {
       color: var(--orange);
     }
 
-    .cta-body {
-      font-size: clamp(13px, 1vw, 15px);
-      line-height: 1.9;
-      color: rgba(255,255,255,.45);
-      margin-top: 24px;
-      max-width: 480px;
-    }
-
-    .cta-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 20px;
+    .contact-detail-icon {
+      width: 16px;
+      height: 16px;
+      stroke: var(--orange);
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
     .btn-cta-orange {
@@ -1255,12 +1282,13 @@
       font-weight: 500;
       letter-spacing: .2em;
       text-transform: uppercase;
-      padding: 20px 40px;
+      padding: 18px 36px;
       background: var(--orange);
       color: var(--white);
       border-radius: 2px;
       transition: background .2s;
       white-space: nowrap;
+      width: fit-content;
     }
 
     .btn-cta-orange svg {
@@ -1272,63 +1300,13 @@
     .btn-cta-orange:hover { background: var(--orange-d); }
     .btn-cta-orange:hover svg { transform: translateX(4px); }
 
-    .cta-tel {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 300;
-      color: rgba(255,255,255,.5);
-      letter-spacing: .05em;
-    }
-
-    .cta-tel-label {
-      font-size: 10px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.25);
-      display: block;
-      text-align: right;
-      margin-top: 2px;
-    }
-
-    /* ===== ACCESS / MAP ===== */
-    .cta-access {
-      max-width: var(--max);
-      margin: 80px auto 0;
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 0;
-      border-top: 1px solid rgba(255,255,255,.1);
-      padding-top: 64px;
-    }
-
-    .cta-access-info {
-      padding-right: 60px;
-    }
-
-    .cta-access-heading {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 2.2vw, 28px);
-      font-weight: 400;
-      color: var(--white);
-      margin-top: 14px;
-      margin-bottom: 20px;
-    }
-
-    .cta-access-text {
-      font-size: clamp(13px, 1vw, 15px);
-      line-height: 2;
-      color: rgba(255,255,255,.55);
-      margin-bottom: 28px;
-    }
-
-    .cta-access-meta {
+    .contact-meta {
       display: flex;
       gap: 36px;
-      margin-bottom: 32px;
+      margin-top: 28px;
     }
 
-    .cta-access-meta-label {
+    .contact-meta-label {
       display: block;
       font-size: 9px;
       letter-spacing: .18em;
@@ -1337,38 +1315,16 @@
       margin-bottom: 6px;
     }
 
-    .cta-access-meta-val {
+    .contact-meta-val {
       display: block;
       font-size: 13px;
       color: rgba(255,255,255,.7);
       font-family: var(--font-display);
     }
 
-    .cta-access-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-weight: 500;
-      color: var(--orange);
-      border-bottom: 1px solid rgba(255,101,0,.4);
-      padding-bottom: 8px;
-      transition: border-color .2s, gap .2s;
-    }
-
-    .cta-access-link svg {
-      width: 13px;
-      height: 13px;
-      transition: transform .2s;
-    }
-
-    .cta-access-link:hover svg { transform: translateX(4px); }
-
-    .cta-access-map {
+    .contact-map {
       width: 100%;
-      height: 320px;
+      min-height: 320px;
       border-radius: 4px;
       overflow: hidden;
       filter: grayscale(.15) contrast(1.05);
@@ -1449,32 +1405,20 @@
         gap: 16px;
       }
 
-      .cta-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-right {
-        align-items: flex-start;
-      }
-
       .hero-cta-row {
         flex-direction: column;
         align-items: flex-start;
         gap: 20px;
       }
 
-      /* Access / Map（旧・独立メディアクエリを統合） */
-      .cta-access {
+      /* Contact（連絡先 + 地図統合セクション） */
+      .contact-inner {
         grid-template-columns: 1fr;
         gap: 40px;
       }
 
-      .cta-access-info {
-        padding-right: 0;
-      }
-
-      .cta-access-map {
-        height: 260px;
+      .contact-map {
+        min-height: 260px;
       }
     }
 
@@ -2041,65 +1985,61 @@
   </section>
 
   <!-- ===== CTA ===== -->
-  <section class="cta-section" id="contact">
-    <div class="cta-ghost" aria-hidden="true">Contact</div>
-    <div class="cta-inner">
-      <div>
-        <span class="eyebrow" style="color: var(--orange);">Get in Touch</span>
-        <h2 class="cta-heading" style="margin-top: 16px;">
-          共に、新しい<br>
-          <em>調和</em>を創ろう
+  <section class="contact-section" id="contact">
+    <div class="contact-ghost" aria-hidden="true">Contact</div>
+
+    <div class="contact-inner">
+
+      <!-- 左：連絡先情報 -->
+      <div class="contact-info">
+        <span class="eyebrow" style="color: var(--orange);">Contact</span>
+        <h2 class="contact-heading">
+          人と空間を繋ぐ。<br>
+          まずはお気軽にご相談ください。
         </h2>
-        <p class="cta-body">
-          事業に関するご相談・ご質問・お問い合わせなど、<br>
-          どうぞお気軽にご連絡ください。<br>
-          チームが真摯にお応えします。
-        </p>
-      </div>
 
-      <div class="cta-right">
+        <div class="contact-divider"></div>
+
+        <ul class="contact-detail-list">
+          <li class="contact-detail-item">
+            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" class="contact-detail-icon"><path d="M2 5l7 5 7-5M2 5v8h14V5H2z"/></svg>
+            <a href="mailto:info@harmo.co.jp">info@harmo.co.jp</a>
+          </li>
+          <li class="contact-detail-item">
+            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" class="contact-detail-icon"><path d="M3 4c0-1 1-1 1-1h2l1.5 4L6 8.5a8 8 0 005.5 5.5L13 12.5l4 1.5s0 1-1 1-4 .5-7-1.5S3.5 9 3.5 9 3 5 3 4z"/></svg>
+            <a href="tel:09086482850">090-8648-2850</a>
+          </li>
+          <li class="contact-detail-item contact-detail-address">
+            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" class="contact-detail-icon"><path d="M9 16s6-5.5 6-9.5a6 6 0 10-12 0C3 10.5 9 16 9 16z"/><circle cx="9" cy="6.5" r="2"/></svg>
+            <span>
+              〒812-0013　福岡県福岡市博多区博多駅東1-3-3　博多ダイチビル402
+            </span>
+          </li>
+        </ul>
+
+        <div class="contact-divider"></div>
+
         <a href="mailto:info@harmo.co.jp" class="btn-cta-orange">
-          お問い合わせはこちら
+          お問い合わせする
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M1 7h12M8 2l5 5-5 5"/>
           </svg>
         </a>
-        <div>
-          <div class="cta-tel">090 — 8648 — 2850</div>
-          <span class="cta-tel-label">Harmonie Inc. Direct Line</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- ===== ACCESS / MAP ===== -->
-    <div class="cta-access">
-      <div class="cta-access-info">
-        <span class="eyebrow" style="color: var(--orange);">Access</span>
-        <h3 class="cta-access-heading">本社所在地</h3>
-        <p class="cta-access-text">
-          〒812-0013<br>
-          福岡県福岡市博多区博多駅東1-3-3<br>
-          博多ダイチビル402
-        </p>
-        <div class="cta-access-meta">
+        <div class="contact-meta">
           <div>
-            <span class="cta-access-meta-label">代表者</span>
-            <span class="cta-access-meta-val">岡本 大</span>
+            <span class="contact-meta-label">代表者</span>
+            <span class="contact-meta-val">岡本 大</span>
           </div>
           <div>
-            <span class="cta-access-meta-label">設立</span>
-            <span class="cta-access-meta-val">平成22年8月3日</span>
+            <span class="contact-meta-label">設立</span>
+            <span class="contact-meta-val">平成22年8月3日</span>
           </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%8D%9A%E5%A4%9A%E9%A7%85%E6%9D%B1%EF%BC%91-3-3%E3%80%80%E5%8D%9A%E5%A4%9A%E3%83%80%E3%82%A4%E3%83%81%E3%83%93%E3%83%AB402" target="_blank" rel="noopener" class="cta-access-link">
-          Googleマップで見る
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M1 7h12M8 2l5 5-5 5"/>
-          </svg>
-        </a>
       </div>
 
-      <div class="cta-access-map">
+      <!-- 右：地図 -->
+      <div class="contact-map">
         <iframe
           src="https://www.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%8D%9A%E5%A4%9A%E9%A7%85%E6%9D%B1%EF%BC%91-3-3%E3%80%80%E5%8D%9A%E5%A4%9A%E3%83%80%E3%82%A4%E3%83%81%E3%83%93%E3%83%AB402&output=embed"
           width="100%"
@@ -2111,6 +2051,7 @@
           title="Harmonie本社所在地マップ">
         </iframe>
       </div>
+
     </div>
   </section>
 
