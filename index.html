@@ -1489,6 +1489,90 @@
     }
 
     /* ==================================
+    PC画面（901px以上）のリッチ化設定
+    ================================== */
+    @media (min-width: 901px) {
+
+      /* ① HERO：テキストが横に広がりすぎないよう制限 */
+      .hero-sub {
+        max-width: 540px;
+      }
+
+      /* ② ABOUT：写真まわりに座布団レイヤーを追加
+         ※ about-photo は overflow:hidden なので::afterは親の外に出す必要がある
+            → about-photo自体をラッパーとして使い、内側のimgは別div管理
+            → ここでは about-left の sticky 調整のみ追加し、
+               座布団は about-photo の外側コンテナ(.about-photo)に
+               outline で代替（overflow:hidden を壊さない方法） */
+      .about-photo {
+        box-shadow: 0 30px 60px rgba(0,0,0,.15);
+        outline: 12px solid var(--off);
+        outline-offset: -12px;
+      }
+
+      .about-left {
+        top: 140px;
+      }
+
+      .about-inner {
+        grid-template-columns: 1.2fr 0.8fr 1fr;
+        align-items: center;
+      }
+
+      /* ③ BUSINESS：横スクロール → 2列グリッドに切り替え */
+      .business-track-wrap {
+        overflow-x: visible;
+        padding: 0 var(--gutter);
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+
+      .business-track {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+        width: 100%;
+      }
+
+      .biz-card {
+        width: 100%;
+        box-shadow: 0 20px 40px rgba(0,0,0,.2);
+        transition:
+          transform .4s cubic-bezier(.25,.8,.25,1),
+          box-shadow .4s ease;
+      }
+
+      .biz-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(255,101,0,.15);
+      }
+
+      .biz-card-img-placeholder {
+        aspect-ratio: 16/10;
+      }
+
+      .biz-card-img {
+        aspect-ratio: 16/10;
+      }
+
+      /* PCではスワイプヒントを非表示 */
+      .business-scroll-hint {
+        display: none;
+      }
+
+      /* ④ CONTACT：地図を左側の高さに合わせる */
+      .contact-inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+      }
+
+      .contact-map {
+        min-height: 450px;
+        box-shadow: 0 20px 50px rgba(0,0,0,.3);
+      }
+    }
+
+    /* ==================================
     OPENING ANIMATION — PARTICLE
     ================================== */
 
