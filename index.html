@@ -457,8 +457,8 @@
     }
 
     .hero-sub {
-      max-width: 400px;
-      font-size: 14px;
+      max-width: 420px;
+      font-size: clamp(14px, 1vw, 16px);
       line-height: 1.9;
       color: #666;
       border-left: 2px solid var(--orange);
@@ -618,7 +618,7 @@
     }
 
     .about-body {
-      font-size: 14px;
+      font-size: clamp(14px, 1vw, 16px);
       line-height: 2;
       color: #555;
       margin-bottom: 48px;
@@ -864,7 +864,7 @@
     }
 
     .biz-card-sub {
-      font-size: 11px;
+      font-size: clamp(11px, .85vw, 13px);
       font-weight: 300;
       color: rgba(255,255,255,.6);
       letter-spacing: .08em;
@@ -1058,7 +1058,7 @@
     }
 
     .cta-body {
-      font-size: 13px;
+      font-size: clamp(13px, 1vw, 15px);
       line-height: 1.9;
       color: rgba(255,255,255,.45);
       margin-top: 24px;
@@ -1141,7 +1141,7 @@
     }
 
     .cta-access-text {
-      font-size: 13px;
+      font-size: clamp(13px, 1vw, 15px);
       line-height: 2;
       color: rgba(255,255,255,.55);
       margin-bottom: 28px;
@@ -1476,19 +1476,25 @@
       <ul class="mega-menu-list">
         <li>
           <a href="#business">
-            フラッグラボ（医療開業支援）
+            サイネージ
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
           </a>
         </li>
         <li>
-          <a href="https://feria-partners.jp/" target="_blank" rel="noopener">
-            フェリアパートナーズ（結婚相談所）
+          <a href="#business">
+            貸しサロン
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
           </a>
         </li>
         <li>
           <a href="https://kaitaishinshou.jp/" target="_blank" rel="noopener">
-            解体新床（整体・理学塾）
+            整体・理学塾
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="#business">
+            フラッグラボ（医療開業支援）
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
           </a>
         </li>
@@ -1544,7 +1550,7 @@
       </h1>
 
       <p class="hero-sub">
-        それぞれ異なる4つの事業が、ひとつの「調和」へ向かう。<br>
+        それぞれ異なる事業が、ひとつの「調和」へ向かう。<br>
         Harmonieは、人と空間のあいだに、新しい価値を生みだす会社です。
       </p>
 
@@ -1654,7 +1660,7 @@
 
         <p class="about-body">
           Harmonie（アルモ）株式会社は、福岡を拠点とする総合プロデュース企業です。
-          サイネージ・貸しサロン・整体・医療開業支援という、一見バラバラに見える4つの事業——
+          サイネージ・貸しサロン・整体・医療開業支援という、一見バラバラに見える様々な事業——
           しかし、そのすべての根底には「人と空間を繋ぐ」という一貫した思想が流れています。<br><br>
           私たちは「ビジネス」だけを作るのではなく、そこに集う人々の体験と感情をデザインします。
           調和（Harmonie）とは、単なるスローガンではなく、私たちの行動指針そのものです。
@@ -1671,7 +1677,7 @@
           <div class="about-value">
             <div class="about-value-num">— 01</div>
             <div class="about-value-title">Vision</div>
-            <p class="about-value-text">人と空間が調和する社会を、4つの事業で実現する。</p>
+            <p class="about-value-text">人と空間が調和する社会を、様々な事業で実現する。</p>
           </div>
           <div class="about-value">
             <div class="about-value-num">— 02</div>
@@ -1699,11 +1705,11 @@
       <div>
         <span class="eyebrow">Our Business</span>
         <h2 class="business-heading">
-          4つの事業が、<br>
+          様々な事業が、<br>
           <em>ひとつの調和</em>へ
         </h2>
       </div>
-      <div class="business-count" aria-hidden="true">04</div>
+      <div class="business-count" aria-hidden="true">∞</div>
     </div>
 
     <div class="business-track-wrap">
@@ -1722,7 +1728,7 @@
           </div>
           <div class="biz-card-content">
             <div class="biz-card-num">01</div>
-            <h3 class="biz-card-title">サイネージ事業</h3>
+            <h3 class="biz-card-title">サイネージ</h3>
             <p class="biz-card-sub">先進的な映像技術で、空間に新しい命を吹き込む。</p>
             <span class="biz-card-tag">Digital Signage</span>
           </div>
@@ -1742,7 +1748,7 @@
           </div>
           <div class="biz-card-content">
             <div class="biz-card-num">02</div>
-            <h3 class="biz-card-title">貸しサロン事業</h3>
+            <h3 class="biz-card-title">貸しサロン</h3>
             <p class="biz-card-sub">美と癒やしのプロたちに、最高の空間を。</p>
             <span class="biz-card-tag">Rental Salon</span>
           </div>
@@ -1760,7 +1766,7 @@
           </div>
           <div class="biz-card-content">
             <div class="biz-card-num">03</div>
-            <h3 class="biz-card-title">整体事業<br>（理学塾）</h3>
+            <h3 class="biz-card-title">整体・理学塾</h3>
             <p class="biz-card-sub">身体の調和を取り戻す、科学的アプローチ。</p>
             <span class="biz-card-tag">Holistic Health</span>
           </div>
@@ -1780,7 +1786,7 @@
           </div>
           <div class="biz-card-content">
             <div class="biz-card-num">04</div>
-            <h3 class="biz-card-title">フラッグラボ<br>事業</h3>
+            <h3 class="biz-card-title">フラッグラボ</h3>
             <p class="biz-card-sub">医療・クリニック・薬局の開業を、チームでサポート。</p>
             <span class="biz-card-tag">Medical Support</span>
           </div>
