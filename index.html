@@ -359,6 +359,179 @@
       .mega-menu { width: 100vw; padding: 90px 28px 50px; }
     }
 
+    /* ===== SALON LIST MODAL ===== */
+    .salon-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,25,47,.55);
+      backdrop-filter: blur(3px);
+      z-index: 160;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .4s ease, visibility .4s ease;
+    }
+
+    .salon-modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .salon-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -48%) scale(.96);
+      width: min(560px, 90vw);
+      max-height: 84vh;
+      overflow-y: auto;
+      background: var(--white);
+      border-radius: 6px;
+      z-index: 170;
+      padding: 48px 40px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .35s ease, transform .35s cubic-bezier(.22,1,.36,1), visibility .35s ease;
+      box-shadow: 0 30px 80px rgba(0,0,0,.25);
+    }
+
+    .salon-modal.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .salon-modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      transition: border-color .2s, background .2s;
+    }
+
+    .salon-modal-close:hover {
+      border-color: var(--orange);
+      background: rgba(255,101,0,.06);
+    }
+
+    .salon-modal-close svg {
+      width: 13px;
+      height: 13px;
+      stroke: var(--charcoal);
+    }
+
+    .salon-modal-title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-top: 14px;
+      margin-bottom: 12px;
+    }
+
+    .salon-modal-lead {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #777;
+      margin-bottom: 32px;
+      max-width: 440px;
+    }
+
+    .salon-modal-list {
+      list-style: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .salon-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .salon-item-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 4px;
+      transition: padding-left .25s ease;
+    }
+
+    .salon-item-link:hover {
+      padding-left: 10px;
+    }
+
+    .salon-item-category {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .salon-item-name {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 6px;
+    }
+
+    .salon-item-desc {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #888;
+    }
+
+    .salon-item-arrow {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: transform .25s ease, color .25s ease;
+    }
+
+    .salon-item-link:hover .salon-item-arrow {
+      transform: translateX(4px);
+      color: var(--orange);
+    }
+
+    /* 仮データ（リンク未確定）のサロンは少し控えめな見た目に */
+    .salon-item-placeholder .salon-item-category {
+      color: var(--muted);
+    }
+
+    .salon-item-placeholder .salon-item-name {
+      color: #aaa;
+    }
+
+    .salon-item-placeholder .salon-item-link {
+      cursor: default;
+    }
+
+    .salon-item-placeholder .salon-item-link:hover {
+      padding-left: 4px;
+    }
+
+    .salon-item-placeholder .salon-item-link:hover .salon-item-arrow {
+      transform: none;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .salon-modal {
+        padding: 40px 24px;
+        width: 92vw;
+      }
+    }
+
     /* ===== HERO ===== */
     .hero {
       min-height: 100svh;
@@ -762,6 +935,11 @@
       cursor: pointer;
       background: #0F2540;
       text-decoration: none;
+      /* button要素として使われる場合のリセット */
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      text-align: left;
     }
 
     .biz-card-img {
@@ -1539,6 +1717,71 @@
     </div>
   </nav>
 
+  <!-- ===== SALON LIST MODAL（貸しサロン入居一覧） ===== -->
+  <!--
+    入居サロンを追加・編集する場合は、下の .salon-modal-list 内の
+    salon-item ブロック（liタグ）をコピーして増やすか、
+    name / desc / href を書き換えてください。
+  -->
+  <div class="salon-modal-overlay" id="salon-modal-overlay"></div>
+  <div class="salon-modal" id="salon-modal" role="dialog" aria-modal="true" aria-labelledby="salon-modal-title">
+    <div class="salon-modal-close" id="salon-modal-close">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M1 1l12 12M13 1L1 13"/>
+      </svg>
+    </div>
+
+    <span class="eyebrow" style="color: var(--orange);">Rental Salon</span>
+    <h3 class="salon-modal-title" id="salon-modal-title">入居サロン一覧</h3>
+    <p class="salon-modal-lead">Harmonieの貸しサロンには、様々なプロフェッショナルが入居しています。気になるサロンをお選びください。</p>
+
+    <ul class="salon-modal-list">
+
+      <!-- サロン1: フェリアパートナーズ（結婚相談所） -->
+      <li class="salon-item">
+        <a href="https://feria-partners.jp/" target="_blank" rel="noopener" class="salon-item-link">
+          <div class="salon-item-text">
+            <span class="salon-item-category">結婚相談所</span>
+            <h4 class="salon-item-name">フェリアパートナーズ</h4>
+            <p class="salon-item-desc">博多駅から徒歩5分。成婚数No.1のIBJ正規加盟店。</p>
+          </div>
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" class="salon-item-arrow">
+            <path d="M1 7h12M8 2l5 5-5 5"/>
+          </svg>
+        </a>
+      </li>
+
+      <!-- サロン2: 仮データ（名前・リンク確定後に書き換えてください） -->
+      <li class="salon-item salon-item-placeholder">
+        <a href="#" class="salon-item-link">
+          <div class="salon-item-text">
+            <span class="salon-item-category">準備中</span>
+            <h4 class="salon-item-name">入居サロン名（仮）</h4>
+            <p class="salon-item-desc">サロン詳細・リンクは確定後に追加します。</p>
+          </div>
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" class="salon-item-arrow">
+            <path d="M1 7h12M8 2l5 5-5 5"/>
+          </svg>
+        </a>
+      </li>
+
+      <!-- サロン3: 仮データ（名前・リンク確定後に書き換えてください） -->
+      <li class="salon-item salon-item-placeholder">
+        <a href="#" class="salon-item-link">
+          <div class="salon-item-text">
+            <span class="salon-item-category">準備中</span>
+            <h4 class="salon-item-name">入居サロン名（仮）</h4>
+            <p class="salon-item-desc">サロン詳細・リンクは確定後に追加します。</p>
+          </div>
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" class="salon-item-arrow">
+            <path d="M1 7h12M8 2l5 5-5 5"/>
+          </svg>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
   <!-- ===== HERO ===== -->
   <section class="hero">
     <!-- Background -->
@@ -1744,8 +1987,8 @@
           </div>
         </article>
 
-        <!-- Card 2: 貸しサロン -->
-        <article class="biz-card">
+        <!-- Card 2: 貸しサロン（クリックで入居サロン一覧モーダルを表示） -->
+        <button type="button" class="biz-card" id="salon-card-trigger" aria-haspopup="dialog">
           <div class="biz-card-img-placeholder salon"></div>
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
@@ -1762,7 +2005,7 @@
             <p class="biz-card-sub">美と癒やしのプロたちに、最高の空間を。</p>
             <span class="biz-card-tag">Rental Salon</span>
           </div>
-        </article>
+        </button>
 
         <!-- Card 3: 整体 -->
         <a href="https://kaitaishinshou.jp/" target="_blank" rel="noopener" class="biz-card">
@@ -1928,6 +2171,43 @@
     /* メニュー内リンククリックで自動的に閉じる */
     menu.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', closeMenu);
+    });
+  })();
+  </script>
+
+  <script>
+  /* ═══════════════════════════════════════════
+     SALON LIST MODAL TOGGLE（貸しサロン入居一覧）
+  ═══════════════════════════════════════════ */
+  (function(){
+    const trigger  = document.getElementById('salon-card-trigger');
+    const modal    = document.getElementById('salon-modal');
+    const overlay  = document.getElementById('salon-modal-overlay');
+    const closeBtn = document.getElementById('salon-modal-close');
+
+    function openModal(){
+      modal.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    trigger.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+
+    /* ESCキーで閉じる */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+
+    /* 仮データ（href="#"）のサロンはクリックしても遷移しない */
+    modal.querySelectorAll('.salon-item-placeholder .salon-item-link').forEach(a => {
+      a.addEventListener('click', (e) => e.preventDefault());
     });
   })();
   </script>
