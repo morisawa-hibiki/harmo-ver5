@@ -1273,10 +1273,10 @@
 
     .contact-heading {
       font-family: var(--font-display);
-      font-size: clamp(28px, 4.5vw, 72px);
+      font-size: clamp(26px, 3.6vw, 56px);
       font-weight: 300;
       color: var(--white);
-      line-height: 1.2;
+      line-height: 1.25;
       margin-top: 16px;
     }
 
@@ -1298,7 +1298,7 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      font-size: clamp(13px, 1vw, 15px);
+      font-size: clamp(14px, 1.1vw, 17px);
       color: rgba(255,255,255,.7);
       line-height: 1.7;
     }
@@ -1324,7 +1324,7 @@
       display: inline-flex;
       align-items: center;
       gap: 14px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       letter-spacing: .2em;
       text-transform: uppercase;
@@ -1354,7 +1354,7 @@
 
     .contact-meta-label {
       display: block;
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: .18em;
       text-transform: uppercase;
       color: rgba(255,255,255,.3);
@@ -1363,9 +1363,9 @@
 
     .contact-meta-val {
       display: block;
-      font-size: 13px;
+      font-size: 14px;
       color: rgba(255,255,255,.7);
-      font-family: var(--font-display);
+      font-family: var(--font-body);
     }
 
     .contact-map {
@@ -1505,7 +1505,7 @@
                座布団は about-photo の外側コンテナ(.about-photo)に
                outline で代替（overflow:hidden を壊さない方法） */
       .about-photo {
-        box-shadow: 0 30px 60px rgba(0,0,0,.15);
+        box-shadow: 0 20px 50px rgba(0,0,0,.08);
         outline: 12px solid var(--off);
         outline-offset: -12px;
       }
@@ -1536,7 +1536,7 @@
 
       .biz-card {
         width: 100%;
-        box-shadow: 0 20px 40px rgba(0,0,0,.2);
+        box-shadow: 0 12px 30px rgba(0,0,0,.07);
         transition:
           transform .4s cubic-bezier(.25,.8,.25,1),
           box-shadow .4s ease;
@@ -1544,7 +1544,7 @@
 
       .biz-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 30px 60px rgba(255,101,0,.15);
+        box-shadow: 0 20px 45px rgba(255,101,0,.12);
       }
 
       .biz-card-img-placeholder {
@@ -1568,7 +1568,55 @@
 
       .contact-map {
         min-height: 450px;
-        box-shadow: 0 20px 50px rgba(0,0,0,.3);
+        box-shadow: 0 16px 40px rgba(0,0,0,.1);
+      }
+    }
+
+    /* ==================================
+    SCROLL REVEAL — スクロールに合わせて
+    サイドからのポップ／文字スライド演出
+    ================================== */
+    .reveal {
+      opacity: 0;
+      transition:
+        opacity .9s cubic-bezier(.25,.8,.25,1),
+        transform .9s cubic-bezier(.25,.8,.25,1);
+      will-change: opacity, transform;
+    }
+
+    /* テキストが横からスライドして現れる */
+    .reveal-left  { transform: translateX(-44px); }
+    .reveal-right { transform: translateX(44px); }
+
+    /* 下からふわっと現れる（見出し・段落向け） */
+    .reveal-up { transform: translateY(32px); }
+
+    /* カード・写真などが少し小さい状態からポップして現れる */
+    .reveal-pop { transform: translateY(28px) scale(.94); }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* BUSINESSカードの順番ずらし（左→右に少しずつ遅れて登場） */
+    .business-track .biz-card:nth-child(1) { transition-delay: 0s; }
+    .business-track .biz-card:nth-child(2) { transition-delay: .12s; }
+    .business-track .biz-card:nth-child(3) { transition-delay: .24s; }
+    .business-track .biz-card:nth-child(4) { transition-delay: .36s; }
+
+    /* ABOUT VALUESの順番ずらし */
+    .about-values .about-value:nth-child(1) { transition-delay: 0s; }
+    .about-values .about-value:nth-child(2) { transition-delay: .1s; }
+    .about-values .about-value:nth-child(3) { transition-delay: .2s; }
+    .about-values .about-value:nth-child(4) { transition-delay: .3s; }
+
+    /* 動きを好まない設定のユーザーには配慮し、アニメーションを無効化 */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        transition: none;
+        opacity: 1;
+        transform: none;
       }
     }
 
@@ -1961,7 +2009,7 @@
     <div class="about-inner">
 
       <!-- 左：見出し -->
-      <div class="about-left">
+      <div class="about-left reveal reveal-left">
         <span class="eyebrow">About Us</span>
         <h2 class="about-heading">
           調和という<br>
@@ -1970,7 +2018,7 @@
       </div>
 
       <!-- 中央：写真 -->
-      <div class="about-photo">
+      <div class="about-photo reveal reveal-pop">
         <img
           src="images/pic_sbg.jpg"
           alt="Harmonie — 空間のイメージ"
@@ -1980,12 +2028,12 @@
 
       <!-- 右：テキスト -->
       <div class="about-right">
-        <p class="about-message">
+        <p class="about-message reveal reveal-right">
           私たちは、多様な事業領域を通じて、<br>
           「人と空間の調和」を追求しています。
         </p>
 
-        <p class="about-body">
+        <p class="about-body reveal reveal-up">
           Harmonie（アルモ）株式会社は、福岡を拠点とする総合プロデュース企業です。
           サイネージ・貸しサロン・整体・医療開業支援という、一見バラバラに見える様々な事業——
           しかし、そのすべての根底には「人と空間を繋ぐ」という一貫した思想が流れています。<br><br>
@@ -2001,22 +2049,22 @@
         </a>
 
         <div class="about-values">
-          <div class="about-value">
+          <div class="about-value reveal reveal-pop">
             <div class="about-value-num">— 01</div>
             <div class="about-value-title">Vision</div>
             <p class="about-value-text">人と空間が調和する社会を、様々な事業で実現する。</p>
           </div>
-          <div class="about-value">
+          <div class="about-value reveal reveal-pop">
             <div class="about-value-num">— 02</div>
             <div class="about-value-title">Mission</div>
             <p class="about-value-text">それぞれの専門性で、最高の体験を届けつづける。</p>
           </div>
-          <div class="about-value">
+          <div class="about-value reveal reveal-pop">
             <div class="about-value-num">— 03</div>
             <div class="about-value-title">Value</div>
             <p class="about-value-text">誠実さ・多様性・創造性を軸に、挑戦を続ける。</p>
           </div>
-          <div class="about-value">
+          <div class="about-value reveal reveal-pop">
             <div class="about-value-num">— 04</div>
             <div class="about-value-title">Culture</div>
             <p class="about-value-text">チームの「調和」が、最高のアウトプットを生む。</p>
@@ -2028,7 +2076,7 @@
 
   <!-- ===== BUSINESS ===== -->
   <section class="business" id="business">
-    <div class="business-header">
+    <div class="business-header reveal reveal-up">
       <div>
         <span class="eyebrow">Our Business</span>
         <h2 class="business-heading">
@@ -2043,7 +2091,7 @@
       <div class="business-track">
 
         <!-- Card 1: サイネージ -->
-        <article class="biz-card">
+        <article class="biz-card reveal reveal-pop">
           <div class="biz-card-img-placeholder signage"></div>
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
@@ -2062,7 +2110,7 @@
         </article>
 
         <!-- Card 2: 貸しサロン（クリックで入居サロン一覧モーダルを表示） -->
-        <button type="button" class="biz-card" id="salon-card-trigger" aria-haspopup="dialog">
+        <button type="button" class="biz-card reveal reveal-pop" id="salon-card-trigger" aria-haspopup="dialog">
           <div class="biz-card-img-placeholder salon"></div>
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
@@ -2082,7 +2130,7 @@
         </button>
 
         <!-- Card 3: 整体 -->
-        <a href="https://kaitaishinshou.jp/" target="_blank" rel="noopener" class="biz-card">
+        <a href="https://kaitaishinshou.jp/" target="_blank" rel="noopener" class="biz-card reveal reveal-pop">
           <img src="images/pic_kaitaishinshou.jpg" alt="整体・理学塾" class="biz-card-img">
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
@@ -2100,7 +2148,7 @@
         </a>
 
         <!-- Card 4: フラッグラボ -->
-        <article class="biz-card">
+        <article class="biz-card reveal reveal-pop">
           <img src="images/pic_flgp.jpg" alt="フラッグラボ" class="biz-card-img">
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
@@ -2137,7 +2185,7 @@
     <div class="contact-inner">
 
       <!-- 左：連絡先情報 -->
-      <div class="contact-info">
+      <div class="contact-info reveal reveal-left">
         <span class="eyebrow" style="color: var(--orange);">Contact</span>
         <h2 class="contact-heading">
           人と空間を繋ぐ。<br>
@@ -2185,7 +2233,7 @@
       </div>
 
       <!-- 右：地図 -->
-      <div class="contact-map">
+      <div class="contact-map reveal reveal-right">
         <iframe
           src="https://www.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%8D%9A%E5%A4%9A%E9%A7%85%E6%9D%B1%EF%BC%91-3-3%E3%80%80%E5%8D%9A%E5%A4%9A%E3%83%80%E3%82%A4%E3%83%81%E3%83%93%E3%83%AB402&output=embed"
           width="100%"
@@ -2448,6 +2496,35 @@
     logoImg.onload = () => { init(); loop(); startTimeline(); };
     if(logoImg.complete && logoImg.naturalWidth > 0){ init(); loop(); startTimeline(); }
 
+  })();
+  </script>
+
+  <script>
+  /* ═══════════════════════════════════════════
+     SCROLL REVEAL
+     .reveal が付いた要素が画面内に入ったら
+     .is-visible を付与してフェード＋スライド表示
+  ═══════════════════════════════════════════ */
+  (function(){
+    const targets = document.querySelectorAll('.reveal');
+    if(!targets.length) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(prefersReduced){
+      targets.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
+
+    targets.forEach(el => observer.observe(el));
   })();
   </script>
 
