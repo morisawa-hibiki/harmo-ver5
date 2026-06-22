@@ -1190,16 +1190,16 @@
       overflow: hidden;
     }
 
-    /* 軌道・粒の装飾（Heroの粒子演出と呼応） */
+    /* 軌道・粒の装飾（Heroの粒子演出と呼応）— 見出しブロックの背後に配置 */
     .contact-orbit {
       position: absolute;
-      right: clamp(-80px, -4vw, -20px);
-      bottom: clamp(-140px, -12vw, -60px);
-      width: clamp(280px, 32vw, 460px);
-      height: clamp(280px, 32vw, 460px);
+      top: -20px;
+      right: clamp(-40px, -6vw, 0px);
+      width: clamp(240px, 24vw, 320px);
+      height: clamp(240px, 24vw, 320px);
       user-select: none;
       pointer-events: none;
-      z-index: 0;
+      z-index: -1;
     }
 
     .contact-inner {
@@ -1216,6 +1216,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
     }
 
     .contact-heading {
@@ -2119,19 +2120,18 @@
 
   <!-- ===== CTA ===== -->
   <section class="contact-section" id="contact">
-    <svg class="contact-orbit" viewBox="0 0 380 380" aria-hidden="true">
-      <circle cx="190" cy="190" r="170" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-      <circle cx="190" cy="190" r="120" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-      <circle cx="190" cy="190" r="70" fill="none" stroke="rgba(255,101,0,.18)" stroke-width="1"/>
-      <circle cx="190" cy="120" r="2.5" fill="rgba(255,101,0,.5)"/>
-      <circle cx="280" cy="210" r="2" fill="rgba(255,255,255,.3)"/>
-      <circle cx="120" cy="260" r="1.5" fill="rgba(255,255,255,.2)"/>
-    </svg>
-
     <div class="contact-inner">
 
       <!-- 左：連絡先情報 -->
       <div class="contact-info reveal reveal-left">
+        <svg class="contact-orbit" viewBox="0 0 380 380" aria-hidden="true">
+          <circle cx="190" cy="190" r="170" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+          <circle cx="190" cy="190" r="120" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+          <circle cx="190" cy="190" r="70" fill="none" stroke="rgba(255,101,0,.18)" stroke-width="1"/>
+          <circle cx="190" cy="120" r="2.5" fill="rgba(255,101,0,.5)"/>
+          <circle cx="280" cy="210" r="2" fill="rgba(255,255,255,.3)"/>
+          <circle cx="120" cy="260" r="1.5" fill="rgba(255,255,255,.2)"/>
+        </svg>
         <span class="eyebrow" style="color: var(--orange);">お問い合わせ</span>
         <h2 class="contact-heading">
           人と空間を繋ぐ。<br>
