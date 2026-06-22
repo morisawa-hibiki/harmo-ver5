@@ -169,7 +169,7 @@
 
     .btn-contact:hover { background: var(--orange-d); }
 
-    /* ===== HAMBURGER MENU (全項目プルダウン) ===== */
+    /* ===== HAMBURGER MENU ===== */
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -503,7 +503,6 @@
       color: var(--orange);
     }
 
-    /* 仮データ（リンク未確定）のサロンは少し控えめな見た目に */
     .salon-item-placeholder .salon-item-category {
       color: var(--muted);
     }
@@ -543,7 +542,6 @@
       overflow: hidden;
     }
 
-    /* Abstract orange blobs */
     .hero-bg {
       position: absolute;
       inset: 0;
@@ -573,7 +571,6 @@
       left: -60px;
     }
 
-    /* Grid lines decoration */
     .hero-grid-line {
       position: absolute;
       background: var(--border);
@@ -641,41 +638,48 @@
     .hero-cta-row {
       display: flex;
       align-items: center;
-      gap: 40px;
+      gap: 32px;
     }
 
     .btn-primary {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 500;
       letter-spacing: .18em;
       text-transform: uppercase;
-      padding: 16px 36px;
+      padding: 18px 36px;
       background: var(--charcoal);
       color: var(--white);
       border-radius: 2px;
-      transition: background .25s;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
+      transition: background .25s, transform .25s;
+    }
+
+    .btn-primary:hover {
+      background: var(--orange);
+      transform: translateY(-2px);
     }
 
     .btn-primary svg {
       width: 14px;
       height: 14px;
+      stroke: currentColor;
       transition: transform .25s;
     }
 
-    .btn-primary:hover { background: var(--navy); }
-    .btn-primary:hover svg { transform: translateX(4px); }
+    .btn-primary:hover svg {
+      transform: translateX(4px);
+    }
 
     .hero-scroll-hint {
-      font-size: 10px;
-      letter-spacing: .2em;
+      font-size: 11px;
+      letter-spacing: .25em;
       text-transform: uppercase;
       color: var(--muted);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .hero-scroll-hint::after {
@@ -683,32 +687,81 @@
       display: block;
       width: 1px;
       height: 40px;
-      background: var(--muted);
+      background: var(--border);
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: clamp(40px, 6vw, 100px);
+      padding: 40px var(--gutter);
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .hero-stat-num sup {
+      font-size: 55%;
+      top: -0.2em;
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--orange);
+    }
+
+    .hero-stat-num-jp {
+      font-size: clamp(24px, 2.5vw, 36px) !important;
+      font-family: var(--font-body);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
     }
 
     /* ===== ABOUT ===== */
-    .about {
-      padding: clamp(100px, 14vw, 200px) var(--gutter);
-      background: var(--white);
+    .about-section {
+      padding: clamp(100px, 14vw, 200px) 0;
+      background: var(--off);
       position: relative;
-      overflow: hidden;
     }
 
     .about-inner {
-      max-width: var(--max);
-      margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 0.8fr 1fr;
-      gap: clamp(32px, 4vw, 72px);
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 100px);
       align-items: start;
     }
 
     .about-left {
       position: sticky;
-      top: 120px;
+      top: 140px;
     }
 
-    /* About 写真カラム */
     .about-photo {
       position: sticky;
       top: 100px;
@@ -732,13 +785,9 @@
       transform: scale(1.04);
     }
 
-    /* 写真がない場合のフォールバック（オレンジのグラデーション） */
     .about-photo-fallback {
       width: 100%;
       height: 100%;
-      background:
-        linear-gradient(160deg, rgba(255,101,0,.15) 0%, transparent 60%),
-        linear-gradient(200deg, #0a192f 0%, #111 100%);
       display: flex;
       align-items: flex-end;
       padding: 28px;
@@ -772,40 +821,26 @@
       padding-top: 8px;
     }
 
-    .about-message {
-      font-family: var(--font-display);
-      font-size: clamp(18px, 2.4vw, 28px);
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--charcoal);
-      margin-bottom: 40px;
-    }
-
     .about-body {
-      font-size: clamp(17px, 1.3vw, 19px);
-      line-height: 2;
-      color: #555;
-      margin-bottom: 48px;
+      font-size: clamp(16px, 1.2vw, 18px);
+      line-height: 1.9;
+      color: #4a4a4a;
+      margin-bottom: 56px;
     }
 
     .about-link {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-size: 14px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      font-weight: 500;
-      color: var(--charcoal);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-      transition: border-color .2s, color .2s;
-    }
-
-    .about-link svg {
-      width: 16px;
-      height: 16px;
-      transition: transform .2s;
+      margin-bottom: 80px;
+      border-bottom: 1px solid var(--charcoal);
+      padding-bottom: 6px;
+      transition: color .25s, border-color .25s;
     }
 
     .about-link:hover {
@@ -813,76 +848,67 @@
       border-color: var(--orange);
     }
 
-    .about-link:hover svg { transform: translateX(5px); }
-
-    /* Values row */
-    .about-values {
-      margin-top: 60px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+    .about-link svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
     }
 
-    .about-value {
-      background: var(--white);
-      padding: 28px 24px;
+    .about-values {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 32px;
+      border-top: 1px solid var(--border);
+      padding-top: 48px;
     }
 
     .about-value-num {
-      font-family: var(--font-display);
       font-size: 11px;
+      font-weight: 500;
       color: var(--orange);
-      letter-spacing: .1em;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .about-value-title {
       font-family: var(--font-display);
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 400;
       color: var(--charcoal);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .about-value-text {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      color: #666;
     }
 
     /* ===== BUSINESS ===== */
-    .business {
+    .business-section {
       background: var(--navy);
-      padding: clamp(80px, 12vw, 160px) 0;
+      color: var(--white);
+      padding: clamp(100px, 14vw, 200px) 0;
       position: relative;
-      overflow: hidden;
     }
 
     .business-header {
-      padding: 0 var(--gutter);
-      max-width: var(--max);
-      margin: 0 auto 64px;
       display: flex;
-      align-items: flex-end;
       justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: clamp(48px, 8vw, 96px);
     }
-
-    .business-header .eyebrow { color: var(--orange); }
 
     .business-heading {
       font-family: var(--font-display);
-      font-size: clamp(36px, 7.5vw, 120px);
+      font-size: clamp(36px, 5.5vw, 80px);
       font-weight: 300;
-      color: var(--white);
-      line-height: 1.0;
+      line-height: 1.05;
       margin-top: 16px;
     }
 
     .business-heading em {
       font-style: italic;
-      color: rgba(255,255,255,.4);
+      color: var(--orange);
     }
 
     .business-count {
@@ -893,24 +919,15 @@
       line-height: 1;
     }
 
-    /* Cards scroll container */
     .business-track-wrap {
       overflow-x: auto;
       padding: 0 var(--gutter) 20px;
       scrollbar-width: none;
-      cursor: grab;
     }
 
-    .business-track-wrap.is-dragging {
-      cursor: grabbing;
-      user-select: none;
+    .business-track-wrap::-webkit-scrollbar {
+      display: none;
     }
-
-    .business-track-wrap.is-dragging .biz-card {
-      pointer-events: none;
-    }
-
-    .business-track-wrap::-webkit-scrollbar { display: none; }
 
     .business-track {
       display: flex;
@@ -928,7 +945,6 @@
       cursor: pointer;
       background: #0F2540;
       text-decoration: none;
-      /* button要素として使われる場合のリセット */
       border: none;
       padding: 0;
       font-family: inherit;
@@ -944,7 +960,6 @@
       filter: brightness(.7) saturate(.8);
     }
 
-    /* Placeholder gradient images */
     .biz-card-img-placeholder {
       width: 100%;
       aspect-ratio: 3/4;
@@ -960,107 +975,59 @@
     .biz-card-img-placeholder.signage {
       background: linear-gradient(160deg, #1a2a4a 0%, #0d1b2e 50%, #0a1020 100%);
     }
-
     .biz-card-img-placeholder.salon {
-      background: linear-gradient(160deg, #2d1a2a 0%, #1a0d1a 50%, #100a14 100%);
+      background: linear-gradient(160deg, #2c1a4a 0%, #170d2e 50%, #100a20 100%);
+    }
+    .biz-card-img-placeholder.seitai {
+      background: linear-gradient(160deg, #1a4a34 0%, #0d2e1f 50%, #0a2015 100%);
+    }
+    .biz-card-img-placeholder.marry {
+      background: linear-gradient(160deg, #4a1a2b 0%, #2e0d19 50%, #200a12 100%);
     }
 
-    .biz-card-img-placeholder.health {
-      background: linear-gradient(160deg, #1a2d1a 0%, #0d1a0d 50%, #0a100a 100%);
-    }
-
-    .biz-card-img-placeholder.flag {
-      background: linear-gradient(160deg, #2d2a1a 0%, #1a170d 50%, #10100a 100%);
-    }
-
-    /* Decorative pattern */
-    .biz-card-img-placeholder::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 40px,
-        rgba(255,255,255,.015) 40px,
-        rgba(255,255,255,.015) 41px
-      );
-    }
-
-    /* Orange accent line that fills on hover */
-    .biz-card::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 3px;
-      background: var(--orange);
-      transition: width .45s ease;
-      z-index: 3;
-    }
-
-    .biz-card:hover::before { width: 100%; }
-
-    /* Orange overlay on hover */
     .biz-card-overlay {
       position: absolute;
       inset: 0;
-      background: var(--orange);
-      opacity: 0;
-      mix-blend-mode: multiply;
-      transition: opacity .45s ease;
+      background: linear-gradient(to top, rgba(10,25,47,.95) 0%, rgba(10,25,47,.4) 50%, rgba(10,25,47,0) 100%);
       z-index: 1;
     }
 
-    .biz-card:hover .biz-card-overlay { opacity: .3; }
-
-    /* Card content */
     .biz-card-content {
       position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 28px 24px;
-      background: linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.2) 50%, transparent 100%);
+      inset: auto 0 0 0;
+      padding: clamp(24px, 4vw, 44px);
       z-index: 2;
     }
 
     .biz-card-num {
       font-family: var(--font-display);
-      font-size: 11px;
+      font-size: 16px;
       color: var(--orange);
-      letter-spacing: .2em;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .biz-card-title {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 2.4vw, 30px);
+      font-size: clamp(22px, 3vw, 32px);
       font-weight: 400;
       color: var(--white);
-      line-height: 1.25;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .biz-card-sub {
-      font-size: clamp(14px, 1.2vw, 16px);
-      font-weight: 300;
+      font-size: 14px;
       color: rgba(255,255,255,.6);
-      letter-spacing: .08em;
-      margin-bottom: 20px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 360px;
     }
 
     .biz-card-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      letter-spacing: .16em;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .2em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.5);
-      padding: 7px 14px;
+      color: rgba(255,255,255,.4);
+      padding: 6px 14px;
       border: 1px solid rgba(255,255,255,.2);
       border-radius: 999px;
       width: fit-content;
@@ -1072,7 +1039,6 @@
       color: var(--orange);
     }
 
-    /* Decorative icon in card */
     .biz-card-icon {
       position: absolute;
       top: 24px;
@@ -1090,7 +1056,7 @@
 
     .biz-card:hover .biz-card-icon {
       border-color: var(--orange);
-      background: rgba(255, 101, 0, .15);
+      background: rgba(255,101,0,.15);
     }
 
     .biz-card-icon svg {
@@ -1100,7 +1066,9 @@
       transition: stroke .3s;
     }
 
-    .biz-card:hover .biz-card-icon svg { stroke: var(--orange); }
+    .biz-card:hover .biz-card-icon svg {
+      stroke: var(--orange);
+    }
 
     /* ===== 増枠用プレースホルダーカード ===== */
     .biz-card-future {
@@ -1121,144 +1089,108 @@
 
     .biz-card-future-inner {
       text-align: center;
-      padding: 28px 24px;
+      padding: 40px;
     }
 
     .biz-card-future-icon {
-      width: 44px;
-      height: 44px;
-      margin: 0 auto 18px;
-      border: 1px solid rgba(255,255,255,.22);
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: border-color .4s ease, background .4s ease;
-    }
-
-    .biz-card-future:hover .biz-card-future-icon {
-      border-color: var(--orange);
-      background: rgba(255,101,0,.12);
+      margin: 0 auto 20px;
     }
 
     .biz-card-future-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: rgba(255,255,255,.45);
-      transition: stroke .4s ease;
+      width: 20px;
+      height: 20px;
+      stroke: rgba(255,255,255,.4);
     }
-
-    .biz-card-future:hover .biz-card-future-icon svg { stroke: var(--orange); }
 
     .biz-card-future-title {
       font-family: var(--font-display);
-      font-size: clamp(20px, 2.2vw, 26px);
-      font-weight: 400;
-      color: rgba(255,255,255,.55);
-      margin-bottom: 12px;
-      transition: color .4s ease;
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: .05em;
+      color: rgba(245,240,235,.85);
+      margin-bottom: 8px;
     }
-
-    .biz-card-future:hover .biz-card-future-title { color: var(--white); }
 
     .biz-card-future-sub {
       font-size: 13px;
-      font-weight: 300;
-      line-height: 1.7;
-      letter-spacing: .04em;
-      color: rgba(255,255,255,.35);
-      margin-bottom: 18px;
+      line-height: 1.6;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 24px;
     }
 
     .biz-card-future-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
+      font-size: 9px;
       letter-spacing: .16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.4);
-      padding: 6px 14px;
-      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.3);
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,.12);
       border-radius: 999px;
-      transition: border-color .4s ease, color .4s ease;
     }
 
-    .biz-card-future:hover .biz-card-future-tag {
-      border-color: var(--orange);
-      color: var(--orange);
-    }
-
-    @media (max-width: 767px) {
-      .biz-card-future { aspect-ratio: 16/10; }
-    }
-
-    /* scroll hint */
     .business-scroll-hint {
-      padding: 32px var(--gutter) 0;
-      max-width: var(--max);
-      margin: 0 auto;
+      margin-top: 32px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 10px;
-      letter-spacing: .2em;
+      justify-content: center;
+      gap: 16px;
+      font-size: 12px;
+      letter-spacing: .15em;
       text-transform: uppercase;
       color: rgba(255,255,255,.3);
     }
 
     .scroll-arrow {
       display: flex;
-      gap: 6px;
+      gap: 3px;
     }
 
     .scroll-arrow span {
       display: block;
-      width: 30px;
-      height: 1px;
-      background: rgba(255,255,255,.2);
+      width: 6px;
+      height: 6px;
+      border-right: 1px solid rgba(255,255,255,.3);
+      border-bottom: 1px solid rgba(255,255,255,.3);
+      transform: rotate(-45deg);
+      animation: scrArr 1.5s infinite;
+    }
+
+    .scroll-arrow span:nth-child(2) { animation-delay: .2s; }
+    .scroll-arrow span:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes scrArr {
+      0% { opacity: 0; transform: translateX(-4px) rotate(-45deg); }
+      50% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(4px) rotate(-45deg); }
+    }
+
+    /* ===== MARQUEE ===== */
+    .marquee-section {
+      background: var(--orange);
+      padding: 24px 0;
+      overflow: hidden;
       position: relative;
-      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,.1);
+      border-bottom: 1px solid rgba(255,255,255,.1);
     }
 
-    .scroll-arrow span::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: var(--orange);
-      animation: slide-right 2s ease-in-out infinite;
-    }
-
-    .scroll-arrow span:nth-child(2)::after { animation-delay: .3s; }
-    .scroll-arrow span:nth-child(3)::after { animation-delay: .6s; }
-
-    @keyframes slide-right {
-      0%   { left: -100%; }
-      50%  { left: 0%; }
-      100% { left: 100%; }
-    }
-
-    /* ===== MARQUEE BAND ===== */
-    .marquee-band {
-      background: var(--orange);
-      overflow: hidden;
-      padding: 18px 0;
-    }
-
-    .marquee-inner {
+    .marquee-wrap {
       display: flex;
-      animation: marquee 22s linear infinite;
-      white-space: nowrap;
+      width: max-content;
+      animation: marquee 24s linear infinite;
     }
 
-    .marquee-item {
+    .marquee-group {
       display: flex;
       align-items: center;
-      gap: 32px;
-      padding-right: 32px;
+      gap: clamp(40px, 6vw, 80px);
+      padding-right: clamp(40px, 6vw, 80px);
     }
 
     .marquee-text {
@@ -1280,10 +1212,10 @@
 
     @keyframes marquee {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      to { transform: translateX(-50%); }
     }
 
-    /* ===== CONTACT（旧 CTA + Access を統合） ===== */
+    /* ===== CONTACT ===== */
     .contact-section {
       background: var(--charcoal);
       padding: clamp(80px, 12vw, 160px) var(--gutter);
@@ -1291,38 +1223,36 @@
       overflow: hidden;
     }
 
-    /* 軌道・粒の装飾（Heroの粒子演出と呼応）— 見出しブロックの背後に配置 */
     .contact-orbit {
       position: absolute;
-      top: -20px;
-      right: clamp(-40px, -6vw, 0px);
-      width: clamp(240px, 24vw, 320px);
-      height: clamp(240px, 24vw, 320px);
-      user-select: none;
+      top: -100px;
+      right: -60px;
+      width: min(540px, 45vw);
+      height: auto;
+      opacity: .12;
       pointer-events: none;
-      z-index: -1;
     }
 
     .contact-inner {
       max-width: var(--max);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: clamp(40px, 6vw, 90px);
-      align-items: stretch;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(48px, 6vw, 96px);
+      align-items: center;
       position: relative;
+      z-index: 2;
     }
 
     .contact-info {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      position: relative;
     }
 
     .contact-heading {
       font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 64px);
+      font-size: clamp(26px, 3.6vw, 56px);
       font-weight: 300;
       color: var(--white);
       line-height: 1.25;
@@ -1353,101 +1283,116 @@
     }
 
     .contact-detail-item a {
-      color: rgba(255,255,255,.85);
-      transition: color .2s;
+      color: rgba(255,255,255,.7);
+      border-bottom: 1px solid rgba(255,255,255,.2);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
     }
 
     .contact-detail-item a:hover {
       color: var(--orange);
+      border-color: var(--orange);
     }
 
-    .contact-detail-icon {
+    .contact-detail-item svg {
       width: 16px;
       height: 16px;
       stroke: var(--orange);
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 5px;
     }
 
     .btn-cta-orange {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 500;
-      letter-spacing: .2em;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      padding: 18px 36px;
+      padding: 18px 40px;
       background: var(--orange);
       color: var(--white);
       border-radius: 2px;
-      transition: background .2s;
-      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
       width: fit-content;
+      margin-top: 12px;
+      transition: background .2s, transform .2s;
+    }
+
+    .btn-cta-orange:hover {
+      background: var(--orange-d);
+      transform: translateY(-2px);
     }
 
     .btn-cta-orange svg {
       width: 14px;
       height: 14px;
+      stroke: currentColor;
       transition: transform .2s;
     }
 
-    .btn-cta-orange:hover { background: var(--orange-d); }
-    .btn-cta-orange:hover svg { transform: translateX(4px); }
+    .btn-cta-orange:hover svg {
+      transform: translateX(4px);
+    }
 
     .contact-meta {
       display: flex;
-      gap: 36px;
-      margin-top: 28px;
+      gap: 40px;
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,.06);
     }
 
     .contact-meta-label {
       display: block;
-      font-size: 11px;
-      letter-spacing: .18em;
+      font-size: 10px;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: rgba(255,255,255,.3);
       margin-bottom: 6px;
     }
 
     .contact-meta-val {
-      display: block;
-      font-size: 15px;
-      color: rgba(255,255,255,.7);
-      font-family: var(--font-body);
+      font-size: 14px;
+      color: rgba(255,255,255,.6);
     }
 
     .contact-map {
       width: 100%;
-      min-height: 320px;
+      height: 100%;
+      min-height: 400px;
+      background: #1f2d3d;
       border-radius: 4px;
       overflow: hidden;
-      filter: grayscale(.15) contrast(1.05);
-      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 20px 50px rgba(0,0,0,.3);
     }
 
-    /* Footer strip */
-    .footer {
-      background: #111111;
-      padding: 36px var(--gutter);
+    .contact-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(1) invert(0.9) contrast(1.2);
+      opacity: .65;
+      transition: opacity .3s ease, filter .3s ease;
+    }
+
+    .contact-map:hover iframe {
+      opacity: .85;
+      filter: grayscale(0.4) invert(0);
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: #111;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,.05);
     }
 
     .footer-inner {
-      max-width: var(--max);
-      margin: 0 auto;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 300;
-      color: rgba(255,255,255,.4);
-      letter-spacing: .05em;
+      align-items: center;
+      gap: 24px;
     }
 
     .footer-sns {
@@ -1484,213 +1429,64 @@
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .btn-contact { display: none; }
-      /* .hamburger は常時 display:flex のため再宣言不要 */
-
-      .about-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .about-photo {
-        display: none; /* タブレット以下では非表示 */
-      }
-
-      .about-left {
-        position: static;
-      }
-
-      .business-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-      }
-
-      .hero-cta-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-      }
-
-      /* Contact（連絡先 + 地図統合セクション） */
-      .contact-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .contact-map {
-        min-height: 260px;
-      }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-photo { display: none; }
+      .about-left { position: static; }
+      .business-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contact-map { min-height: 260px; }
     }
 
     @media (max-width: 600px) {
-      .about-values {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      /* ===== 本文系テキストのスマホ向け縮小 =====
-         PCと同じpx指定だと画面が小さい分大きく感じるため、
-         見出し・ボタン・ラベルは変えず「読む文章」だけ縮小する */
-      .hero-sub,
-      .about-body {
-        font-size: 15px;
-        line-height: 1.8;
-      }
-
-      .about-value-text,
-      .contact-detail-item,
-      .contact-meta-val,
-      .salon-item-desc,
-      .salon-modal-lead,
-      .biz-card-sub,
-      .mega-menu-contact-text {
-        font-size: 13px;
-      }
+      .about-values { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .hero-sub, .about-body { font-size: 15px; line-height: 1.8; }
+      .about-value-text, .contact-detail-item, .contact-meta-val, .salon-item-desc, .salon-modal-lead, .biz-card-sub, .mega-menu-contact-text { font-size: 13px; }
     }
 
-    /* ==================================
-    PC画面（901px以上）のリッチ化設定
-    ================================== */
+    /* ================================== PC画面（901px以上）のリッチ化設定 ================================== */
     @media (min-width: 901px) {
-
-      /* ① HERO：テキストが横に広がりすぎないよう制限 */
-      .hero-sub {
-        max-width: 540px;
-      }
-
-      /* ② ABOUT：写真まわりに座布団レイヤーを追加
-         ※ about-photo は overflow:hidden なので::afterは親の外に出す必要がある
-            → about-photo自体をラッパーとして使い、内側のimgは別div管理
-            → ここでは about-left の sticky 調整のみ追加し、
-               座布団は about-photo の外側コンテナ(.about-photo)に
-               outline で代替（overflow:hidden を壊さない方法） */
-      .about-photo {
-        box-shadow: 0 20px 50px rgba(0,0,0,.08);
-        outline: 12px solid var(--off);
-        outline-offset: -12px;
-      }
-
-      .about-left {
-        top: 140px;
-      }
-
-      .about-inner {
-        grid-template-columns: 1.2fr 0.8fr 1fr;
-        align-items: center;
-      }
-
-      /* ③ BUSINESS：横スクロール → 2列グリッドに切り替え */
-      .business-track-wrap {
-        overflow-x: visible;
-        padding: 0 var(--gutter);
-        max-width: var(--max);
-        margin: 0 auto;
-      }
-
-      .business-track {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 28px;
-        width: 100%;
-      }
-
-      .biz-card {
-        width: 100%;
-        box-shadow: 0 12px 30px rgba(0,0,0,.07);
-        transition:
-          transform .4s cubic-bezier(.25,.8,.25,1),
-          box-shadow .4s ease;
-      }
-
-      .biz-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 45px rgba(255,101,0,.12);
-      }
-
-      .biz-card-img-placeholder {
-        aspect-ratio: 16/10;
-      }
-
-      .biz-card-img {
-        aspect-ratio: 16/10;
-      }
-
-      /* PCではスワイプヒントを非表示 */
-      .business-scroll-hint {
-        display: none;
-      }
-
-      /* ④ CONTACT：地図を左側の高さに合わせる */
-      .contact-inner {
-        grid-template-columns: 1fr 1fr;
-        align-items: stretch;
-      }
-
-      .contact-map {
-        min-height: 450px;
-        box-shadow: 0 16px 40px rgba(0,0,0,.1);
-      }
+      .hero-sub { max-width: 540px; }
+      .about-photo { box-shadow: 0 20px 50px rgba(0,0,0,.08); outline: 12px solid var(--off); outline-offset: -12px; }
+      .about-left { top: 140px; }
+      .about-inner { grid-template-columns: 1.2fr 0.8fr 1fr; align-items: center; }
+      .business-track-wrap { overflow-x: visible; padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto; }
+      .business-track { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; width: 100%; }
+      .biz-card { width: 100%; box-shadow: 0 12px 30px rgba(0,0,0,.07); transition: transform .4s cubic-bezier(.25,.8,.25,1), box-shadow .4s ease; }
+      .biz-card:hover { transform: translateY(-8px); box-shadow: 0 20px 45px rgba(255,101,0,.12); }
+      .biz-card-img-placeholder { aspect-ratio: 16/10; }
+      .biz-card-img { aspect-ratio: 16/10; }
+      .business-scroll-hint { display: none; }
     }
 
-    /* ==================================
-    SCROLL REVEAL — スクロールに合わせて
-    サイドからのポップ／文字スライド演出
-    ================================== */
+    /* ===== SCROLL REVEAL ===== */
     .reveal {
       opacity: 0;
-      transition:
-        opacity .9s cubic-bezier(.25,.8,.25,1),
-        transform .9s cubic-bezier(.25,.8,.25,1);
+      transition: opacity .9s cubic-bezier(.25,.8,.25,1), transform .9s cubic-bezier(.25,.8,.25,1);
       will-change: opacity, transform;
     }
-
-    /* テキストが横からスライドして現れる */
-    .reveal-left  { transform: translateX(-44px); }
+    .reveal-left { transform: translateX(-44px); }
     .reveal-right { transform: translateX(44px); }
-
-    /* 下からふわっと現れる（見出し・段落向け） */
     .reveal-up { transform: translateY(32px); }
-
-    /* カード・写真などが少し小さい状態からポップして現れる */
     .reveal-pop { transform: translateY(28px) scale(.94); }
+    .reveal.is-visible { opacity: 1; transform: none; }
 
-    .reveal.is-visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* BUSINESSカードの順番ずらし（左→右に少しずつ遅れて登場） */
     .business-track .biz-card:nth-child(1) { transition-delay: 0s; }
     .business-track .biz-card:nth-child(2) { transition-delay: .12s; }
     .business-track .biz-card:nth-child(3) { transition-delay: .24s; }
     .business-track .biz-card:nth-child(4) { transition-delay: .36s; }
-    .business-track .biz-card:nth-child(5) { transition-delay: .48s; }
-    .business-track .biz-card:nth-child(6) { transition-delay: .6s; }
-    .business-track .biz-card:nth-child(7) { transition-delay: .72s; }
-    .business-track .biz-card:nth-child(8) { transition-delay: .84s; }
 
-    /* ABOUT VALUESの順番ずらし */
     .about-values .about-value:nth-child(1) { transition-delay: 0s; }
     .about-values .about-value:nth-child(2) { transition-delay: .1s; }
     .about-values .about-value:nth-child(3) { transition-delay: .2s; }
     .about-values .about-value:nth-child(4) { transition-delay: .3s; }
 
-    /* 動きを好まない設定のユーザーには配慮し、アニメーションを無効化 */
     @media (prefers-reduced-motion: reduce) {
-      .reveal {
-        transition: none;
-        opacity: 1;
-        transform: none;
-      }
+      .reveal { transition: none; opacity: 1; transform: none; }
     }
 
-    /* ==================================
-    OPENING ANIMATION — PARTICLE
-    ================================== */
-
+    /* ================================== OPENING ANIMATION — PARTICLE ================================== */
     #intro-screen {
       position: fixed;
       inset: 0;
@@ -1699,19 +1495,8 @@
       overflow: hidden;
       transition: opacity 1.2s ease, visibility 1.2s ease;
     }
-
-    #intro-screen.hide {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    #intro-canvas {
-      position: absolute;
-      inset: 0;
-      display: block;
-    }
-
+    #intro-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    #intro-canvas { position: absolute; inset: 0; display: block; }
     #intro-text {
       position: absolute;
       left: 50%;
@@ -1727,28 +1512,15 @@
       transition: opacity 1s ease, transform 1s ease;
       transform: translateX(-50%) translateY(14px);
     }
+    #intro-text.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    #intro-text.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* Hero フェードイン */
-    .hero {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .hero.hero-show {
-      animation: heroShow 1.2s ease forwards;
-    }
-
+    .hero { opacity: 0; transform: translateY(30px); }
+    .hero.hero-show { animation: heroShow 1.2s ease forwards; }
     @keyframes heroShow {
       from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: none; }
+      to { opacity: 1; transform: none; }
     }
 
-    /* 背景透かしロゴ（背景画像はJSでCSS変数--logo-srcに設定） */
     .hero::after {
       content: "";
       position: absolute;
@@ -1765,45 +1537,25 @@
     }
   </style>
   <script>
-    /* ロゴ画像データ（1箇所だけに定義し、他は全てこの変数を参照） */
-    window.LOGO_SRC = 'data:image/jpeg;base64,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';
-
-    /* CSS変数として設定（透かしロゴ用） */
-    document.documentElement.style.setProperty('--logo-src', `url(${window.LOGO_SRC})`);
-
-    /* ヘッダーロゴ画像にDOM構築後セット */
-    document.addEventListener('DOMContentLoaded', function() {
-      const headerLogoImg = document.getElementById('header-logo-img');
-      if (headerLogoImg) headerLogoImg.src = window.LOGO_SRC;
-    });
+    window.LOGO_SRC = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLQAAAAA=';
   </script>
 </head>
 <body>
 
-  <!-- ==========================
-  OPENING ANIMATION — PARTICLE
-  ========================== -->
   <div id="intro-screen">
     <canvas id="intro-canvas"></canvas>
-    <div id="intro-text">人と空間を繋ぐ</div>
+    <div id="intro-text">H A R M O N I E</div>
   </div>
 
-  <!-- ===== HEADER ===== -->
   <header class="site-header">
     <a href="#" class="logo">
       <div class="logo-mark">
-        <img
-          id="header-logo-img"
-          alt="Harmonie"
-          style="width:100%;height:100%;object-fit:contain;"
-        >
+        <img id="header-logo-img" alt="Harmonie" style="width:100%;height:100%;object-fit:contain;" >
       </div>
       <div class="logo-text">
-        Harmonie
-        <span>アルモ株式会社</span>
+        Harmonie <span>アルモ株式会社</span>
       </div>
     </a>
-
     <nav class="nav-right">
       <ul class="nav-links">
         <li><a href="#about">会社概要</a></li>
@@ -1817,38 +1569,34 @@
     </nav>
   </header>
 
-  <!-- ===== MEGA MENU OVERLAY ===== -->
   <div class="mega-menu-overlay" id="mega-overlay"></div>
 
-  <!-- ===== MEGA MENU ===== -->
   <nav class="mega-menu" id="mega-menu">
     <div class="mega-menu-close" id="mega-close">
       <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M1 1l12 12M13 1L1 13"/>
       </svg>
     </div>
-
     <div class="mega-menu-section">
       <span class="mega-menu-label">Navigate</span>
       <ul class="mega-menu-list">
-        <li><a href="#about" class="mega-link">会社概要<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a></li>
-        <li><a href="#business" class="mega-link">事業内容<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a></li>
-        <li><a href="#contact" class="mega-link">お問い合わせ<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a></li>
+        <li><a href="#about" class="mega-link">会社概要<div class="mega-menu-sub">Who We Are</div></a></li>
+        <li><a href="#business" class="mega-link">事業内容<div class="mega-menu-sub">Our Services</div></a></li>
+        <li><a href="#contact" class="mega-link">お問い合わせ<div class="mega-menu-sub">Get In Touch</div></a></li>
       </ul>
     </div>
-
     <div class="mega-menu-section">
-      <span class="mega-menu-label">Our Services</span>
+      <span class="mega-menu-label">Our Projects</span>
       <ul class="mega-menu-list">
         <li>
-          <a href="#business">
-            サイネージ
+          <a href="#business" class="mega-link">
+            デジタルサイネージ・動画制作
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
           </a>
         </li>
         <li>
-          <a href="#business">
-            貸しサロン
+          <a href="#business" class="mega-link">
+            シェアサロン・貸しサロン
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
           </a>
         </li>
@@ -1859,63 +1607,43 @@
           </a>
         </li>
         <li>
-          <a href="#business">
+          <a href="#business" class="mega-link">
             フラッグラボ（医療開業支援）
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
           </a>
         </li>
       </ul>
     </div>
-
     <div class="mega-menu-section mega-menu-contact">
       <span class="mega-menu-label">Contact Info</span>
-
       <div class="mega-menu-contact-row">
-        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 4c0-1 1-1 1-1h2l1.5 4L6 8.5a8 8 0 005.5 5.5L13 12.5l4 1.5s0 1-1 1-4 .5-7-1.5S3.5 9 3.5 9 3 5 3 4z"/></svg>
-        <div class="mega-menu-contact-text">
-          <a href="tel:09086482850">090-8648-2850</a>
-        </div>
-      </div>
-
-      <div class="mega-menu-contact-row">
-        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 16s6-5.5 6-9.5a6 6 0 10-12 0C3 10.5 9 16 9 16z"/><circle cx="9" cy="6.5" r="2"/></svg>
-        <div class="mega-menu-contact-text">
-          〒812-0013<br>
-          福岡県福岡市博多区博多駅東1-3-3<br>
-          博多ダイチビル402
-        </div>
-      </div>
-
-      <div class="mega-menu-contact-row">
-        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 5l7 5 7-5M2 5v8h14V5H2z"/></svg>
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 4c0-1 1-1 1-1h2l1.5 4L6 8.5a8 8 0 005.5 5.5L13 12.5l4 1.5s0 1-1 1-4-1-4-1l-2.5-1.5z"/></svg>
         <div class="mega-menu-contact-text">
           <a href="mailto:info@harmo.co.jp">info@harmo.co.jp</a>
+        </div>
+      </div>
+      <div class="mega-menu-contact-row">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 16s6-4.5 6-9A6 6 0 103 7c0 4.5 6 9 6 9z"/><circle cx="9" cy="7" r="2"/></svg>
+        <div class="mega-menu-contact-text">
+          福岡県福岡市博多区博多駅東1-3-3<br>博多ダイチビル402
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- ===== SALON LIST MODAL（貸しサロン入居一覧） ===== -->
-  <!--
-    入居サロンを追加・編集する場合は、下の .salon-modal-list 内の
-    salon-item ブロック（liタグ）をコピーして増やすか、
-    name / desc / href を書き換えてください。
-  -->
-  <div class="salon-modal-overlay" id="salon-modal-overlay"></div>
+  <div class="salon-modal-overlay" id="salon-overlay" role="presentation"></div>
+
   <div class="salon-modal" id="salon-modal" role="dialog" aria-modal="true" aria-labelledby="salon-modal-title">
-    <div class="salon-modal-close" id="salon-modal-close">
+    <div class="salon-modal-close" id="salon-modal-close" aria-label="モーダルを閉じる">
       <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M1 1l12 12M13 1L1 13"/>
       </svg>
     </div>
-
     <span class="eyebrow" style="color: var(--orange);">レンタルサロン</span>
     <h3 class="salon-modal-title" id="salon-modal-title">入居サロン一覧</h3>
     <p class="salon-modal-lead">Harmonieの貸しサロンには、様々なプロフェッショナルが入居しています。気になるサロンをお選びください。</p>
-
+    
     <ul class="salon-modal-list">
-
-      <!-- サロン1: フェリアパートナーズ（結婚相談所） -->
       <li class="salon-item">
         <a href="https://feria-partners.jp/" target="_blank" rel="noopener" class="salon-item-link">
           <div class="salon-item-text">
@@ -1928,64 +1656,41 @@
           </svg>
         </a>
       </li>
-
-      <!-- サロン2: 仮データ（名前・リンク確定後に書き換えてください） -->
       <li class="salon-item salon-item-placeholder">
-        <a href="#" class="salon-item-link">
+        <a href="#" class="salon-item-link" onclick="return false;">
           <div class="salon-item-text">
             <span class="salon-item-category">準備中</span>
             <h4 class="salon-item-name">入居サロン名（仮）</h4>
-            <p class="salon-item-desc">サロン詳細・リンクは確定後に追加します。</p>
+            <p class="salon-item-desc">新店舗、近日オープン予定。詳細が決まり次第公開いたします。</p>
           </div>
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" class="salon-item-arrow">
             <path d="M1 7h12M8 2l5 5-5 5"/>
           </svg>
         </a>
       </li>
-
-      <!-- サロン3: 仮データ（名前・リンク確定後に書き換えてください） -->
-      <li class="salon-item salon-item-placeholder">
-        <a href="#" class="salon-item-link">
-          <div class="salon-item-text">
-            <span class="salon-item-category">準備中</span>
-            <h4 class="salon-item-name">入居サロン名（仮）</h4>
-            <p class="salon-item-desc">サロン詳細・リンクは確定後に追加します。</p>
-          </div>
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" class="salon-item-arrow">
-            <path d="M1 7h12M8 2l5 5-5 5"/>
-          </svg>
-        </a>
-      </li>
-
     </ul>
   </div>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
-    <!-- Background -->
+  <section class="hero" id="hero">
     <div class="hero-bg">
       <div class="blob blob-1"></div>
       <div class="blob blob-2"></div>
-      <div class="hero-grid-line v"></div>
-      <div class="hero-grid-line v"></div>
     </div>
+    <div class="hero-grid-line v"></div>
+    <div class="hero-grid-line v"></div>
 
     <div class="hero-inner">
-      <div class="hero-label">
-        <span class="eyebrow">Harmonie — 調和</span>
+      <div class="hero-label reveal reveal-up">
+        <span class="eyebrow">人と空間の調和</span>
       </div>
-
-      <h1 class="hero-heading">
-        人と空間<br>
-        を<em>繋ぐ</em>
+      <h1 class="hero-heading reveal reveal-up" style="transition-delay: .1s;">
+        人と空間<br>を<em>繋ぐ</em>
       </h1>
-
-      <p class="hero-sub">
+      <p class="hero-sub reveal reveal-up" style="transition-delay: .2s;">
         それぞれ異なる事業が、ひとつの「調和」へ向かう。<br>
         Harmonieは、人と空間のあいだに、新しい価値を生みだす会社です。
       </p>
-
-      <div class="hero-cta-row">
+      <div class="hero-cta-row reveal reveal-up" style="transition-delay: .3s;">
         <a href="#business" class="btn-primary">
           私たちの事業を見る
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1995,89 +1700,45 @@
         <div class="hero-scroll-hint">Scroll</div>
       </div>
     </div>
-  </section>
 
-  <!-- ===== MARQUEE ===== -->
-  <div class="marquee-band" aria-hidden="true">
-    <div class="marquee-inner">
-      <!-- 2セット繰り返してループ -->
-      <div class="marquee-item">
-        <span class="marquee-text">Harmony</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">調和</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Signage</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">サイネージ</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Salon</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">貸しサロン</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Health</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">整体</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Medical</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">開業支援</span>
-        <span class="marquee-dot"></span>
+    <div class="hero-bottom container reveal reveal-up" style="transition-delay: .4s;">
+      <div class="hero-stat">
+        <div class="hero-stat-num">4<sup>+</sup></div>
+        <div class="hero-stat-label">事業領域</div>
       </div>
-      <!-- duplicate -->
-      <div class="marquee-item" aria-hidden="true">
-        <span class="marquee-text">Harmony</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">調和</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Signage</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">サイネージ</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Salon</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">貸しサロン</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Health</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">整体</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">Medical</span>
-        <span class="marquee-dot"></span>
-        <span class="marquee-text">開業支援</span>
-        <span class="marquee-dot"></span>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">10<sup>年</sup></div>
+        <div class="hero-stat-label">業界経験</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num hero-stat-num-jp">福岡</div>
+        <div class="hero-stat-label">拠点</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">可能性</div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ===== ABOUT ===== -->
-  <section class="about" id="about">
-    <div class="about-inner">
-
-      <!-- 左：見出し -->
-      <div class="about-left reveal reveal-left">
-        <span class="eyebrow">会社概要</span>
-        <h2 class="about-heading">
-          調和という<br>
-          <em>哲学</em>から
-        </h2>
+  <section class="about-section" id="about">
+    <div class="container about-inner">
+      <div class="about-left">
+        <div class="about-photo">
+          <div class="about-photo-fallback">
+            <div class="about-photo-fallback-text">Harmonie<br>Proportion</div>
+          </div>
+        </div>
       </div>
-
-      <!-- 中央：写真 -->
-      <div class="about-photo reveal reveal-pop">
-        <img
-          src="images/pic_sbg.jpg"
-          alt="Harmonie — 空間のイメージ"
-          onerror="this.parentElement.innerHTML='<div class=\'about-photo-fallback\'><span class=\'about-photo-fallback-text\'>Harmony &amp;<br>Space</span></div>'"
-        >
-      </div>
-
-      <!-- 右：テキスト -->
       <div class="about-right">
-        <p class="about-message reveal reveal-right">
-          私たちは、多様な事業領域を通じて、<br>
-          「人と空間の調和」を追求しています。
-        </p>
-
+        <span class="eyebrow reveal reveal-up">Corporate Identity</span>
+        <h2 class="about-heading reveal reveal-up" style="transition-delay: .1s;">
+          空間の可能性を<br><em>最大化</em>する。
+        </h2>
+        <div style="height:32px;"></div>
         <p class="about-body reveal reveal-up">
           Harmonie（アルモ）株式会社は、福岡を拠点とする総合プロデュース企業です。
           サイネージ・貸しサロン・整体・医療開業支援という、一見バラバラに見える様々な事業——
@@ -2085,14 +1746,13 @@
           私たちは「ビジネス」だけを作るのではなく、そこに集う人々の体験と感情をデザインします。
           調和（Harmonie）とは、単なるスローガンではなく、私たちの行動指針そのものです。
         </p>
-
-        <a href="#" class="about-link">
+        <a href="#" class="about-link reveal reveal-up">
           会社概要を見る
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M1 8h14M9 2l6 6-6 6"/>
           </svg>
         </a>
-
+        
         <div class="about-values">
           <div class="about-value reveal reveal-pop">
             <div class="about-value-num">— 01</div>
@@ -2104,43 +1764,26 @@
             <div class="about-value-title">Mission</div>
             <p class="about-value-text">それぞれの専門性で、最高の体験を届けつづける。</p>
           </div>
-          <div class="about-value reveal reveal-pop">
-            <div class="about-value-num">— 03</div>
-            <div class="about-value-title">Value</div>
-            <p class="about-value-text">誠実さ・多様性・創造性を軸に、挑戦を続ける。</p>
-          </div>
-          <div class="about-value reveal reveal-pop">
-            <div class="about-value-num">— 04</div>
-            <div class="about-value-title">Culture</div>
-            <p class="about-value-text">チームの「調和」が、最高のアウトプットを生む。</p>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== BUSINESS ===== -->
-  <section class="business" id="business">
-    <div class="business-header reveal reveal-up">
+  <section class="business-section" id="business">
+    <div class="container business-header">
       <div>
-        <span class="eyebrow">事業内容</span>
-        <h2 class="business-heading">
-          様々な事業が、<br>
-          <em>ひとつの調和</em>へ
-        </h2>
+        <span class="eyebrow" style="color:var(--orange);">Our Expertise</span>
+        <h2 class="business-heading">多角的なアプローチで<br>空間に<em>価値</em>を。</h2>
       </div>
-      <div class="business-count" aria-hidden="true">∞</div>
+      <div class="business-count">04</div>
     </div>
 
     <div class="business-track-wrap">
       <div class="business-track">
-
-        <!-- Card 1: サイネージ -->
         <article class="biz-card reveal reveal-pop">
-          <img src="images/pic_signage.jpg" alt="サイネージ" class="biz-card-img">
+          <div class="biz-card-img-placeholder signage"></div>
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
-            <!-- Monitor icon -->
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="3" width="14" height="10" rx="1" stroke-width="1.2"/>
               <path d="M6 15h6M9 13v2" stroke-width="1.2" stroke-linecap="round"/>
@@ -2150,69 +1793,61 @@
             <div class="biz-card-num">01</div>
             <h3 class="biz-card-title">サイネージ</h3>
             <p class="biz-card-sub">先進的な映像技術で、空間に新しい命を吹き込む。</p>
-            <span class="biz-card-tag">デジタルサイネージ</span>
+            <span class="biz-card-tag">Digital Signage</span>
           </div>
         </article>
 
-        <!-- Card 2: 貸しサロン（クリックで入居サロン一覧モーダルを表示） -->
         <button type="button" class="biz-card reveal reveal-pop" id="salon-card-trigger" aria-haspopup="dialog">
-          <img src="images/pic_salon.jpg" alt="貸しサロン" class="biz-card-img">
+          <div class="biz-card-img-placeholder salon"></div>
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
-            <!-- Scissors icon -->
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="5" cy="5" r="2.5" stroke-width="1.2"/>
-              <circle cx="5" cy="13" r="2.5" stroke-width="1.2"/>
-              <path d="M7.5 5L14 13M7.5 13L14 5" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M4 3h10v12H4z" stroke-width="1.2"/>
+              <path d="M7 7h4M7 10h4" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="biz-card-content">
             <div class="biz-card-num">02</div>
             <h3 class="biz-card-title">貸しサロン</h3>
-            <p class="biz-card-sub">美と癒やしのプロたちに、最高の空間を。</p>
-            <span class="biz-card-tag">レンタルサロン</span>
+            <p class="biz-card-sub">美と健康のプロフェッショナルが集う、洗練された共有空間。</p>
+            <span class="biz-card-tag">Shared Salon</span>
           </div>
         </button>
 
-        <!-- Card 3: 整体 -->
         <a href="https://kaitaishinshou.jp/" target="_blank" rel="noopener" class="biz-card reveal reveal-pop">
-          <img src="images/pic_kaitaishinshou.jpg" alt="整体・理学塾" class="biz-card-img">
+          <div class="biz-card-img-placeholder seitai"></div>
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
-            <!-- Heart icon -->
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 15s-6-4.5-6-8a4 4 0 018 0 4 4 0 018 0c0 3.5-6 8-6 8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="9" cy="5" r="3" stroke-width="1.2"/>
+              <path d="M3 15c0-3 2.5-5 6-5s6 2 6 5" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="biz-card-content">
             <div class="biz-card-num">03</div>
-            <h3 class="biz-card-title">整体・理学塾</h3>
-            <p class="biz-card-sub">身体の調和を取り戻す、科学的アプローチ。</p>
-            <span class="biz-card-tag">整体・ヘルスケア</span>
+            <h3 class="biz-card-title">整体院・理学塾</h3>
+            <p class="biz-card-sub">身体の本質にアプローチし、健やかなライフスタイルをサポート。</p>
+            <span class="biz-card-tag">Body Care / Education</span>
           </div>
         </a>
 
-        <!-- Card 4: フラッグラボ -->
         <article class="biz-card reveal reveal-pop">
-          <img src="images/pic_flgp.jpg" alt="フラッグラボ" class="biz-card-img">
+          <div class="biz-card-img-placeholder marry"></div>
           <div class="biz-card-overlay"></div>
           <div class="biz-card-icon">
-            <!-- Briefcase icon -->
             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="6" width="14" height="10" rx="1" stroke-width="1.2"/>
-              <path d="M6 6V4a2 2 0 014 0v2" stroke-width="1.2" stroke-linecap="round"/>
-              <path d="M2 10h14" stroke-width="1.2"/>
+              <path d="M9 2l7 5v9H2V7l7-5z" stroke-width="1.2"/>
+              <path d="M9 6v6M6 9h6" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="biz-card-content">
             <div class="biz-card-num">04</div>
-            <h3 class="biz-card-title">フラッグラボ</h3>
-            <p class="biz-card-sub">医療・クリニック・薬局の開業を、チームでサポート。</p>
-            <span class="biz-card-tag">医療開業支援</span>
+            <h3 class="biz-card-title">医療開業支援</h3>
+            <p class="biz-card-sub">ドクターの理想を形にする、医療施設のトータルプロデュース。</p>
+            <span class="biz-card-tag">Medical Development</span>
           </div>
         </article>
 
-        <!-- Card 5: 今後の事業のための増枠プレースホルダー（常時表示） -->
         <article class="biz-card biz-card-future reveal reveal-pop">
           <div class="biz-card-future-inner">
             <div class="biz-card-future-icon">
@@ -2225,7 +1860,6 @@
             <span class="biz-card-future-tag">準備中</span>
           </div>
         </article>
-
       </div>
     </div>
 
@@ -2237,58 +1871,51 @@
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
+  <section class="marquee-section">
+    <div class="marquee-wrap">
+      <div class="marquee-group">
+        <span class="marquee-text">DIGITAL SIGNAGE</span><div class="marquee-dot"></div>
+        <span class="marquee-text">SHARED SALON</span><div class="marquee-dot"></div>
+        <span class="marquee-text">MEDICAL DEVELOPMENT</span><div class="marquee-dot"></div>
+        <span class="marquee-text">BODY CARE & EDUCATION</span><div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-group">
+        <span class="marquee-text">DIGITAL SIGNAGE</span><div class="marquee-dot"></div>
+        <span class="marquee-text">SHARED SALON</span><div class="marquee-dot"></div>
+        <span class="marquee-text">MEDICAL DEVELOPMENT</span><div class="marquee-dot"></div>
+        <span class="marquee-text">BODY CARE & EDUCATION</span><div class="marquee-dot"></div>
+      </div>
+    </div>
+  </section>
+
   <section class="contact-section" id="contact">
+    <svg class="contact-orbit" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="190" cy="190" r="189" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+      <circle cx="190" cy="190" r="130" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </svg>
+    
     <div class="contact-inner">
-
-      <!-- 左：連絡先情報 -->
       <div class="contact-info reveal reveal-left">
-        <svg class="contact-orbit" viewBox="0 0 380 380" aria-hidden="true">
-          <circle cx="190" cy="190" r="170" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-          <circle cx="190" cy="190" r="120" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-          <circle cx="190" cy="190" r="70" fill="none" stroke="rgba(255,101,0,.18)" stroke-width="1"/>
-          <circle cx="190" cy="120" r="2.5" fill="rgba(255,101,0,.5)"/>
-          <circle cx="280" cy="210" r="2" fill="rgba(255,255,255,.3)"/>
-          <circle cx="120" cy="260" r="1.5" fill="rgba(255,255,255,.2)"/>
-        </svg>
-        <span class="eyebrow" style="color: var(--orange);">お問い合わせ</span>
-        <h2 class="contact-heading">
-          人と空間を繋ぐ。<br>
-          まずはお気軽にご相談ください。
-        </h2>
-
+        <span class="eyebrow" style="color:var(--orange);">Connect With Us</span>
+        <h2 class="contact-heading">新しい調和を、<br>共につくりましょう。</h2>
         <div class="contact-divider"></div>
-
         <ul class="contact-detail-list">
           <li class="contact-detail-item">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" class="contact-detail-icon"><path d="M2 5l7 5 7-5M2 5v8h14V5H2z"/></svg>
-            <a href="mailto:info@harmo.co.jp">info@harmo.co.jp</a>
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5"><path d="M1 3h14v10H1z"/><path d="M1 4l7 5 7-5"/></svg>
+            <div>
+              <span class="contact-meta-label">メールでお問い合わせ</span>
+              <a href="mailto:info@harmo.co.jp">info@harmo.co.jp</a>
+            </div>
           </li>
           <li class="contact-detail-item">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" class="contact-detail-icon"><path d="M3 4c0-1 1-1 1-1h2l1.5 4L6 8.5a8 8 0 005.5 5.5L13 12.5l4 1.5s0 1-1 1-4 .5-7-1.5S3.5 9 3.5 9 3 5 3 4z"/></svg>
-            <a href="tel:09086482850">090-8648-2850</a>
-          </li>
-          <li class="contact-detail-item contact-detail-address">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" class="contact-detail-icon"><path d="M9 16s6-5.5 6-9.5a6 6 0 10-12 0C3 10.5 9 16 9 16z"/><circle cx="9" cy="6.5" r="2"/></svg>
-            <span>
-              〒812-0013　福岡県福岡市博多区博多駅東1-3-3　博多ダイチビル402
-            </span>
-          </li>
-          <li class="contact-detail-item">
-            <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" class="contact-detail-icon"><rect x="2" y="2" width="14" height="14" rx="4"/><circle cx="9" cy="9" r="3.2"/><circle cx="12.6" cy="5.4" r="0.6" fill="currentColor" stroke="none"/></svg>
-            <a href="https://www.instagram.com/harmonie_arma/" target="_blank" rel="noopener">@harmonie_arma</a>
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5"><path d="M8 15s6-4.5 6-9A6 6 0 102 6c0 4.5 6 9 6 9z"/><circle cx="8" cy="6" r="1.5"/></svg>
+            <div>
+              <span class="contact-meta-label">オフィス所在地</span>
+              <span>〒812-0013 福岡県福岡市博多区博多駅東1-3-3 博多ダイチビル402</span>
+            </div>
           </li>
         </ul>
-
-        <div class="contact-divider"></div>
-
-        <a href="mailto:info@harmo.co.jp" class="btn-cta-orange">
-          お問い合わせする
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M1 7h12M8 2l5 5-5 5"/>
-          </svg>
-        </a>
-
+        
         <div class="contact-meta">
           <div>
             <span class="contact-meta-label">代表者</span>
@@ -2300,42 +1927,172 @@
           </div>
         </div>
       </div>
-
-      <!-- 右：地図 -->
+      
       <div class="contact-map reveal reveal-right">
-        <iframe
-          src="https://www.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%8D%9A%E5%A4%9A%E9%A7%85%E6%9D%B1%EF%BC%91-3-3%E3%80%80%E5%8D%9A%E5%A4%9A%E3%83%80%E3%82%A4%E3%83%81%E3%83%93%E3%83%AB402&output=embed"
-          width="100%"
-          height="100%"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Harmonie本社所在地マップ">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m2!1m3!1m2!1s0x354191c7ec601efb%3A0x6bba84752538cb3!2z44CSODEyLTAwMTMg56aP5bKh55yM56aP5bKh5biC5Y2a5aSa5Yy65Y2a5aSa6aeF5p2x77yR5LiB55uu77yT4oiS77yT!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">Harmonie Inc.</div>
-      <a href="tel:09086482850" style="font-size: 14px; letter-spacing: .1em; color: rgba(255,255,255,.4);">TEL: 090-8648-2850</a>
-      <p class="footer-copy">© 2025 Harmonie Inc. All rights reserved.</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2026 Harmonie Inc. All rights reserved.</p>
+      <ul class="footer-sns">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">X (Twitter)</a></li>
+      </ul>
     </div>
   </footer>
 
   <script>
   /* ═══════════════════════════════════════════
-     MEGA MENU TOGGLE
-  ═══════════════════════════════════════════ */
+     OPENING INTERACTIVE CANVAS INTRO
+     ═══════════════════════════════════════════ */
   (function(){
-    const btn     = document.getElementById('hamburger-btn');
-    const menu    = document.getElementById('mega-menu');
+    const screen = document.getElementById('intro-screen');
+    const txt = document.getElementById('intro-text');
+    if(!screen || !txt) return;
+
+    const canvas = document.getElementById('intro-canvas');
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    let CX = W / 2, CY = H / 2;
+
+    let particles = [];
+    let frame = 0, rafId = null;
+    let mode = 'assemble'; // assemble -> wait -> scatter
+
+    const logoImg = new Image();
+    logoImg.src = window.LOGO_SRC || '';
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    function resize(){
+      W = window.innerWidth; H = window.innerHeight;
+      CX = W / 2; CY = H / 2;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr, dpr);
+    }
+
+    function extractPts(){
+      const sz = Math.round(Math.min(W, H) * .40);
+      const ox = CX - sz / 2;
+      const oy = CY - sz / 2 - Math.min(W, H) * .06;
+
+      const off = document.createElement('canvas');
+      off.width = sz; off.height = sz;
+      const octx = off.getContext('2d');
+      octx.drawImage(logoImg, 0, 0, sz, sz);
+
+      let imgData;
+      try {
+        imgData = octx.getImageData(0, 0, sz, sz);
+      } catch(e){
+        return [];
+      }
+      const data = imgData.data;
+      const step = Math.max(3, Math.round(sz / 84));
+      const res = [];
+
+      for(let y=0; y<sz; y+=step){
+        for(let x=0; x<sz; x+=step){
+          const i = (y * sz + x) * 4;
+          const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+          if(a > 60 && !(r > 220 && g > 220 && b > 220)){
+            res.push({ x: ox + x, y: oy + y, r, g, b });
+          }
+        }
+      }
+      return res;
+    }
+
+    class P {
+      constructor(t){
+        const a = rand(0, Math.PI * 2);
+        const d = Math.max(W, H) * rand(.6, 1.2);
+        this.x = CX + Math.cos(a) * d;
+        this.y = CY + Math.sin(a) * d;
+        this.tx = t.x; this.ty = t.y;
+        this.vx = 0; this.vy = 0;
+        this.r = t.r; this.g = t.g; this.b = t.b;
+        this.size = rand(1.0, 2.4);
+        this.seed = rand(0.4, 1.6);
+      }
+      update(f){
+        if(mode === 'assemble'){
+          const dx = this.tx - this.x, dy = this.ty - this.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          const speed = Math.min(6, d * 0.04 * this.seed);
+          if(d > 0.5){
+            this.x += (dx / d) * speed;
+            this.y += (dy / d) * speed;
+          }
+        } else if(mode === 'scatter'){
+          this.vx += rand(-0.15, 0.15);
+          this.vy += rand(-0.05, 0.22);
+          this.vx *= 0.97; this.vy *= 0.97;
+          this.x += this.vx; this.y += this.vy;
+        }
+      }
+      draw(){
+        ctx.fillStyle = `rgba(${this.r},${this.g},${this.b},0.85)`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    function drawGlow(){
+      ctx.fillStyle = 'rgba(255,101,0,0.015)';
+      ctx.beginPath();
+      ctx.arc(CX, CY, Math.min(W,H)*0.25, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    function loop(){
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#111008';
+      ctx.fillRect(0, 0, W, H);
+      drawGlow();
+      for(const p of particles) { p.update(frame); p.draw(); }
+      frame++;
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function init(){
+      resize();
+      const pts = extractPts();
+      particles = pts.map(t => new P(t));
+    }
+
+    function startTimeline(){
+      setTimeout(() => { txt.classList.add('show'); }, 800);
+      setTimeout(() => { mode = 'scatter'; }, 3600);
+      setTimeout(() => {
+        cancelAnimationFrame(rafId);
+        screen.classList.add('hide');
+        document.querySelector('.hero').classList.add('hero-show');
+      }, 5000);
+    }
+
+    window.addEventListener('resize', () => { cancelAnimationFrame(rafId); init(); loop(); });
+    logoImg.onload = () => { init(); loop(); startTimeline(); };
+    if(logoImg.complete && logoImg.naturalWidth > 0){ init(); loop(); startTimeline(); }
+  })();
+  </script>
+
+  <script>
+  /* ═══════════════════════════════════════════
+     MEGA MENU TOGGLE (右上のハンバーガー開閉メニュー)
+     ═══════════════════════════════════════════ */
+  (function(){
+    const btn = document.getElementById('hamburger-btn');
+    const menu = document.getElementById('mega-menu');
     const overlay = document.getElementById('mega-overlay');
     const closeBtn = document.getElementById('mega-close');
+    if(!btn || !menu || !overlay) return;
 
     function openMenu(){
       menu.classList.add('open');
@@ -2353,27 +2110,34 @@
     btn.addEventListener('click', () => {
       menu.classList.contains('open') ? closeMenu() : openMenu();
     });
-    closeBtn.addEventListener('click', closeMenu);
+    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
     overlay.addEventListener('click', closeMenu);
 
-    /* メニュー内リンククリックで自動的に閉じる */
-    menu.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', closeMenu);
+    /* メニュー内リンククリックで自動的に閉じる（ただし外部サイトを除く） */
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          closeMenu();
+        }
+      });
     });
   })();
   </script>
 
   <script>
   /* ═══════════════════════════════════════════
-     SALON LIST MODAL TOGGLE（貸しサロン入居一覧）
-  ═══════════════════════════════════════════ */
+     SALON LIST MODAL TOGGLE (貸しサロンの一覧モーダル開閉)
+     ═══════════════════════════════════════════ */
   (function(){
-    const trigger  = document.getElementById('salon-card-trigger');
-    const modal    = document.getElementById('salon-modal');
-    const overlay  = document.getElementById('salon-modal-overlay');
+    const trigger = document.getElementById('salon-card-trigger');
+    const modal = document.getElementById('salon-modal');
+    const overlay = document.getElementById('salon-overlay');
     const closeBtn = document.getElementById('salon-modal-close');
+    if(!trigger || !modal || !overlay) return;
 
-    function openModal(){
+    function openModal(e){
+      if(e) e.preventDefault();
       modal.classList.add('open');
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -2385,195 +2149,20 @@
     }
 
     trigger.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
+    if(closeBtn) closeBtn.addEventListener('click', closeModal);
     overlay.addEventListener('click', closeModal);
 
-    /* ESCキーで閉じる */
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-    });
-
-    /* 仮データ（href="#"）のサロンはクリックしても遷移しない */
-    modal.querySelectorAll('.salon-item-placeholder .salon-item-link').forEach(a => {
-      a.addEventListener('click', (e) => e.preventDefault());
+    // ESCキーで閉じる
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
     });
   })();
   </script>
 
   <script>
   /* ═══════════════════════════════════════════
-     PARTICLE OPENING ANIMATION
-     流れ:
-       0.0s  パーティクルが画面外から集合 → ロゴ形成
-       2.4s  キャッチコピーフェードイン
-       3.6s  パーティクル散乱開始（scatterモード）
-       5.0s  イントロ非表示（フェードアウト） → 下に既にあるヘッダー＆Heroが見える
-  ═══════════════════════════════════════════ */
-
-  (function(){
-    const intro  = document.getElementById('intro-screen');
-    const canvas = document.getElementById('intro-canvas');
-    const ctx    = canvas.getContext('2d');
-    const introText = document.getElementById('intro-text');
-
-    let W, H, CX, CY, dpr;
-    let particles = [], mode = 'assemble', frame = 0, rafId;
-    let mx = -9999, my = -9999;
-
-    /* ── マウス追跡 ── */
-    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
-    /* ── ロゴ画像（base64）── */
-    const logoImg = new Image();
-    logoImg.src = window.LOGO_SRC;
-
-    function rand(a, b){ return a + Math.random() * (b - a); }
-
-    function resize(){
-      dpr = window.devicePixelRatio || 1;
-      W = window.innerWidth; H = window.innerHeight;
-      CX = W / 2; CY = H / 2;
-      canvas.width  = W * dpr; canvas.height = H * dpr;
-      canvas.style.width  = W + 'px'; canvas.style.height = H + 'px';
-      ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr, dpr);
-    }
-
-    function extractPts(){
-      const sz = Math.round(Math.min(W, H) * .40);
-      const ox = CX - sz / 2;
-      const oy = CY - sz / 2 - Math.min(W, H) * .06;
-      const off = document.createElement('canvas');
-      off.width = sz; off.height = sz;
-      const oc = off.getContext('2d');
-      oc.drawImage(logoImg, 0, 0, sz, sz);
-      const data = oc.getImageData(0, 0, sz, sz).data;
-      const res = [];
-      const step = Math.max(1, Math.round(sz / 90));
-      for(let y = 0; y < sz; y += step){
-        for(let x = 0; x < sz; x += step){
-          const i = (y * sz + x) * 4;
-          const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
-          /* 透明ピクセルと白抜き（背景）は除外 */
-          if(a > 60 && !(r > 220 && g > 220 && b > 220)){
-            res.push({ x: ox + x, y: oy + y, r, g, b });
-          }
-        }
-      }
-      return res;
-    }
-
-    class P {
-      constructor(t){
-        const a = rand(0, Math.PI * 2);
-        const d = Math.max(W, H) * rand(.6, 1.2);
-        this.x = CX + Math.cos(a) * d;
-        this.y = CY + Math.sin(a) * d;
-        this.vx = 0; this.vy = 0;
-        this.homeX = t.x; this.homeY = t.y;
-        this.r = t.r; this.g = t.g; this.b = t.b;
-        this.alpha = rand(.6, 1);
-        this.size  = rand(1.4, 3.2);
-        this.oa = rand(0, Math.PI*2);
-        this.os = rand(.004, .014) * (Math.random() < .5 ? 1 : -1);
-        this.or = rand(4, 22);
-        this.ph = rand(0, Math.PI*2);
-        this.tw = rand(0, Math.PI*2);
-        this.delay = rand(0, 40);
-        this.born  = false;
-      }
-      update(f){
-        if(!this.born){ if(f > this.delay) this.born = true; else return; }
-        if(mode === 'assemble'){
-          this.vx += (this.homeX - this.x) * .07;
-          this.vy += (this.homeY - this.y) * .07;
-        } else if(mode === 'scatter'){
-          const a = Math.atan2(this.y - CY, this.x - CX) + rand(-.5, .5);
-          this.vx += Math.cos(a) * 2.2;
-          this.vy += Math.sin(a) * 2.2;
-        }
-        /* カーソル斥力 */
-        const dx = this.x - mx, dy = this.y - my;
-        const md = Math.sqrt(dx*dx + dy*dy);
-        if(md < 95 && md > 0){
-          const f2 = (95 - md) / 95 * 3.2;
-          this.vx += dx / md * f2; this.vy += dy / md * f2;
-        }
-        this.vx *= .86; this.vy *= .86;
-        this.x += this.vx; this.y += this.vy;
-        if(mode === 'scatter'){
-          if(this.x < -40) this.x = W + 40;
-          if(this.x > W + 40) this.x = -40;
-          if(this.y < -40) this.y = H + 40;
-          if(this.y > H + 40) this.y = -40;
-        }
-        this.tw += .035;
-      }
-      draw(){
-        if(!this.born) return;
-        const a = this.alpha * (.78 + .22 * Math.sin(this.tw));
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${this.r},${this.g},${this.b},${a})`;
-        ctx.fill();
-      }
-    }
-
-    function drawGlow(){
-      const g = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.min(W,H) * .32);
-      g.addColorStop(0, 'rgba(216,90,48,.045)');
-      g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(CX, CY, Math.min(W,H) * .32, 0, Math.PI*2); ctx.fill();
-    }
-
-    function loop(){
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = '#111008'; ctx.fillRect(0, 0, W, H);
-      drawGlow();
-      for(const p of particles){ p.update(frame); p.draw(); }
-      frame++;
-      rafId = requestAnimationFrame(loop);
-    }
-
-    function init(){
-      resize();
-      const pts = extractPts();
-      particles = pts.map(t => new P(t));
-    }
-
-    /* ── 演出タイムライン ── */
-    function startTimeline(){
-      /* 2.4s: キャッチコピー表示 */
-      setTimeout(() => { introText.classList.add('show'); }, 2400);
-
-      /* 3.6s: scatterモードへ → パーティクル四散 */
-      setTimeout(() => { mode = 'scatter'; }, 3600);
-
-      /* 5.0s: イントロ非表示 → Hero表示（ヘッダーロゴは既に存在しフェードで見える） */
-      setTimeout(() => {
-        cancelAnimationFrame(rafId);
-        intro.classList.add('hide');
-        document.querySelector('.hero').classList.add('hero-show');
-      }, 5000);
-    }
-
-    window.addEventListener('resize', () => {
-      cancelAnimationFrame(rafId);
-      init(); loop();
-    });
-
-    logoImg.onload = () => { init(); loop(); startTimeline(); };
-    if(logoImg.complete && logoImg.naturalWidth > 0){ init(); loop(); startTimeline(); }
-
-  })();
-  </script>
-
-  <script>
-  /* ═══════════════════════════════════════════
-     SCROLL REVEAL
-     .reveal が付いた要素が画面内に入ったら
-     .is-visible を付与してフェード＋スライド表示
-  ═══════════════════════════════════════════ */
+     SCROLL REVEAL (画面スクロールでフェードイン表示)
+     ═══════════════════════════════════════════ */
   (function(){
     const targets = document.querySelectorAll('.reveal');
     if(!targets.length) return;
@@ -2599,9 +2188,8 @@
 
   <script>
   /* ═══════════════════════════════════════════
-     BUSINESS：PCでもドラッグで横スクロールできるように
-     （クリックしたまま左右に動かすと scrollLeft が動く）
-  ═══════════════════════════════════════════ */
+     BUSINESS CARDS: PCドラッグ横スクロール
+     ═══════════════════════════════════════════ */
   (function(){
     const wrap = document.querySelector('.business-track-wrap');
     if(!wrap) return;
@@ -2609,11 +2197,11 @@
     let isDown = false;
     let startX = 0;
     let scrollStart = 0;
-    let moved = false;
 
     wrap.addEventListener('mousedown', (e) => {
+      // aタグやbuttonの上でのドラッグ操作を有効にする
+      if(e.target.closest('a') && e.target.closest('a').getAttribute('target') === '_blank') return;
       isDown = true;
-      moved = false;
       startX = e.pageX;
       scrollStart = wrap.scrollLeft;
       wrap.classList.add('is-dragging');
@@ -2628,22 +2216,12 @@
       if(!isDown) return;
       e.preventDefault();
       const dx = e.pageX - startX;
-      if(Math.abs(dx) > 4) moved = true;
       wrap.scrollLeft = scrollStart - dx;
     });
-
-    /* ドラッグ後にカード（リンク/ボタン）のクリックが誤発火しないようにする */
-    wrap.addEventListener('click', (e) => {
-      if(moved){
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
   })();
   </script>
 
 </body>
 </html>
-
 
 
