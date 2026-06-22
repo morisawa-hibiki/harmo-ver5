@@ -898,6 +898,16 @@
       overflow-x: auto;
       padding: 0 var(--gutter) 20px;
       scrollbar-width: none;
+      cursor: grab;
+    }
+
+    .business-track-wrap.is-dragging {
+      cursor: grabbing;
+      user-select: none;
+    }
+
+    .business-track-wrap.is-dragging .biz-card {
+      pointer-events: none;
     }
 
     .business-track-wrap::-webkit-scrollbar { display: none; }
@@ -2584,6 +2594,51 @@
     }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
 
     targets.forEach(el => observer.observe(el));
+  })();
+  </script>
+
+  <script>
+  /* ═══════════════════════════════════════════
+     BUSINESS：PCでもドラッグで横スクロールできるように
+     （クリックしたまま左右に動かすと scrollLeft が動く）
+  ═══════════════════════════════════════════ */
+  (function(){
+    const wrap = document.querySelector('.business-track-wrap');
+    if(!wrap) return;
+
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let moved = false;
+
+    wrap.addEventListener('mousedown', (e) => {
+      isDown = true;
+      moved = false;
+      startX = e.pageX;
+      scrollStart = wrap.scrollLeft;
+      wrap.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+      wrap.classList.remove('is-dragging');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if(!isDown) return;
+      e.preventDefault();
+      const dx = e.pageX - startX;
+      if(Math.abs(dx) > 4) moved = true;
+      wrap.scrollLeft = scrollStart - dx;
+    });
+
+    /* ドラッグ後にカード（リンク/ボタン）のクリックが誤発火しないようにする */
+    wrap.addEventListener('click', (e) => {
+      if(moved){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
   })();
   </script>
 
