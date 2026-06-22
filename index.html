@@ -1092,6 +1092,97 @@
 
     .biz-card:hover .biz-card-icon svg { stroke: var(--orange); }
 
+    /* ===== 増枠用プレースホルダーカード ===== */
+    .biz-card-future {
+      background: transparent;
+      border: 1.5px dashed rgba(255,255,255,.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      aspect-ratio: 3/4;
+      transition: border-color .4s ease, background .4s ease;
+    }
+
+    .biz-card-future:hover {
+      border-color: rgba(255,101,0,.5);
+      background: rgba(255,101,0,.04);
+    }
+
+    .biz-card-future-inner {
+      text-align: center;
+      padding: 28px 24px;
+    }
+
+    .biz-card-future-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 18px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .4s ease, background .4s ease;
+    }
+
+    .biz-card-future:hover .biz-card-future-icon {
+      border-color: var(--orange);
+      background: rgba(255,101,0,.12);
+    }
+
+    .biz-card-future-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: rgba(255,255,255,.45);
+      transition: stroke .4s ease;
+    }
+
+    .biz-card-future:hover .biz-card-future-icon svg { stroke: var(--orange); }
+
+    .biz-card-future-title {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.2vw, 26px);
+      font-weight: 400;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 12px;
+      transition: color .4s ease;
+    }
+
+    .biz-card-future:hover .biz-card-future-title { color: var(--white); }
+
+    .biz-card-future-sub {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.7;
+      letter-spacing: .04em;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 18px;
+    }
+
+    .biz-card-future-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      transition: border-color .4s ease, color .4s ease;
+    }
+
+    .biz-card-future:hover .biz-card-future-tag {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    @media (max-width: 767px) {
+      .biz-card-future { aspect-ratio: 16/10; }
+    }
+
     /* scroll hint */
     .business-scroll-hint {
       padding: 32px var(--gutter) 0;
@@ -1566,6 +1657,10 @@
     .business-track .biz-card:nth-child(2) { transition-delay: .12s; }
     .business-track .biz-card:nth-child(3) { transition-delay: .24s; }
     .business-track .biz-card:nth-child(4) { transition-delay: .36s; }
+    .business-track .biz-card:nth-child(5) { transition-delay: .48s; }
+    .business-track .biz-card:nth-child(6) { transition-delay: .6s; }
+    .business-track .biz-card:nth-child(7) { transition-delay: .72s; }
+    .business-track .biz-card:nth-child(8) { transition-delay: .84s; }
 
     /* ABOUT VALUESの順番ずらし */
     .about-values .about-value:nth-child(1) { transition-delay: 0s; }
@@ -2104,6 +2199,20 @@
             <h3 class="biz-card-title">フラッグラボ</h3>
             <p class="biz-card-sub">医療・クリニック・薬局の開業を、チームでサポート。</p>
             <span class="biz-card-tag">医療開業支援</span>
+          </div>
+        </article>
+
+        <!-- Card 5: 今後の事業のための増枠プレースホルダー（常時表示） -->
+        <article class="biz-card biz-card-future reveal reveal-pop">
+          <div class="biz-card-future-inner">
+            <div class="biz-card-future-icon">
+              <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 2v14M2 9h14" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="biz-card-future-title">Coming Soon</h3>
+            <p class="biz-card-future-sub">次の事業、近日公開。<br>アルモは、調和の輪を広げていきます。</p>
+            <span class="biz-card-future-tag">準備中</span>
           </div>
         </article>
 
