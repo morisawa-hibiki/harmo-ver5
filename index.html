@@ -2601,10 +2601,23 @@
   /* ═══════════════════════════════════════════
      BUSINESS：PCでもドラッグで横スクロールできるように
      （クリックしたまま左右に動かすと scrollLeft が動く）
+
+     ※修正履歴：
+     以前は mousedown の時点で即座に is-dragging クラス
+     （= 全カードに pointer-events:none）を付けていたため、
+     普通にカードを「クリック」しただけでも mouseup 時に
+     そのカード自身が透過状態になり、click イベントが
+     一度も発火しない＝「押しても何も起きない」状態に
+     なっていた。
+     → 実際に DRAG_THRESHOLD 以上動いた時だけ
+       is-dragging を付与するように変更し、
+       通常のクリックでは pointer-events に触れないようにした。
   ═══════════════════════════════════════════ */
   (function(){
     const wrap = document.querySelector('.business-track-wrap');
     if(!wrap) return;
+
+    const DRAG_THRESHOLD = 6; // px：これを超えたら「ドラッグ」と判定
 
     let isDown = false;
     let startX = 0;
@@ -2616,7 +2629,7 @@
       moved = false;
       startX = e.pageX;
       scrollStart = wrap.scrollLeft;
-      wrap.classList.add('is-dragging');
+      /* ここでは is-dragging を付けない（クリックを殺さないため） */
     });
 
     window.addEventListener('mouseup', () => {
@@ -2626,10 +2639,17 @@
 
     window.addEventListener('mousemove', (e) => {
       if(!isDown) return;
-      e.preventDefault();
       const dx = e.pageX - startX;
-      if(Math.abs(dx) > 4) moved = true;
-      wrap.scrollLeft = scrollStart - dx;
+
+      if(!moved && Math.abs(dx) > DRAG_THRESHOLD){
+        moved = true;
+        wrap.classList.add('is-dragging'); // 実際にドラッグと判定されてから付与
+      }
+
+      if(moved){
+        e.preventDefault();
+        wrap.scrollLeft = scrollStart - dx;
+      }
     });
 
     /* ドラッグ後にカード（リンク/ボタン）のクリックが誤発火しないようにする */
