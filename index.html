@@ -525,6 +525,123 @@
       color: var(--muted);
     }
 
+    /* ===== SALON CALENDAR（貸しサロン 予約カレンダー） ===== */
+    .salon-cal {
+      background: var(--navy);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .salon-cal.has-photo {
+      background-image: linear-gradient(180deg, rgba(10,25,47,.5), rgba(10,25,47,.92)), url('images/salon_calendar_bg.jpg');
+    }
+
+    .salon-cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .salon-cal-nav-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.25);
+      background: transparent;
+      color: var(--white);
+      font-size: 14px;
+      line-height: 1;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .salon-cal-nav-btn:hover:not(:disabled) {
+      border-color: var(--orange);
+      background: rgba(255,101,0,.12);
+    }
+
+    .salon-cal-nav-btn:disabled { opacity: .25; cursor: default; }
+
+    .salon-cal-title-wrap { text-align: center; }
+
+    .salon-cal-eyebrow {
+      display: block;
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 2px;
+    }
+
+    .salon-cal-title {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    .salon-cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,.4);
+      padding: 14px 14px 4px;
+    }
+
+    .salon-cal-weekdays .sun { color: #e0645f; }
+    .salon-cal-weekdays .sat { color: #5f9fe0; }
+
+    .salon-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      padding: 6px 14px 8px;
+      touch-action: pan-y;
+    }
+
+    .salon-cal-day {
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      background: rgba(255,255,255,.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--white);
+      font-size: 12px;
+      transition: background .2s, border-color .2s;
+      border: 1px solid transparent;
+    }
+
+    .salon-cal-day:hover { border-color: var(--orange); }
+    .salon-cal-day.empty { visibility: hidden; }
+    .salon-cal-day .d-status { margin-top: 3px; font-size: 10px; line-height: 1.1; text-align: center; }
+    .salon-cal-day.available .d-status { color: #4fbf8a; font-size: 13px; }
+    .salon-cal-day.full .d-status { color: #e0645f; }
+    .salon-cal-day.time .d-status { color: var(--orange); font-size: 9px; }
+    .salon-cal-day.unknown .d-status { color: rgba(255,255,255,.25); }
+
+    .salon-cal-footnote {
+      padding: 4px 20px 20px;
+      font-size: 11px;
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+      .salon-cal-title { font-size: 18px; }
+      .salon-cal-day { font-size: 11px; }
+    }
+
+
     @media (max-width: 600px) {
       .salon-modal {
         padding: 40px 24px;
@@ -1913,6 +2030,22 @@
     <h3 class="salon-modal-title" id="salon-modal-title">入居サロン一覧</h3>
     <p class="salon-modal-lead">Harmonieの貸しサロンには、様々なプロフェッショナルが入居しています。気になるサロンをお選びください。</p>
 
+    <div class="salon-cal" id="salon-cal-root">
+      <div class="salon-cal-header">
+        <button type="button" class="salon-cal-nav-btn salon-cal-prev" aria-label="前の月">‹</button>
+        <div class="salon-cal-title-wrap">
+          <span class="salon-cal-eyebrow">空き状況</span>
+          <span class="salon-cal-title"></span>
+        </div>
+        <button type="button" class="salon-cal-nav-btn salon-cal-next" aria-label="次の月">›</button>
+      </div>
+      <div class="salon-cal-weekdays">
+        <span class="sun">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span class="sat">土</span>
+      </div>
+      <div class="salon-cal-grid"></div>
+      <p class="salon-cal-footnote">○：空きあり／満室／時間表記は一部空きあり／－：情報準備中<br>日付をタップするとお問い合わせへ進みます</p>
+    </div>
+
     <ul class="salon-modal-list">
 
       <!-- サロン1: フェリアパートナーズ（結婚相談所） -->
@@ -2659,6 +2792,120 @@
         e.stopPropagation();
       }
     }, true);
+  })();
+  </script>
+
+  <script>
+  (function(){
+    /* =====================================================================
+       貸しサロン 予約カレンダー データ
+       -------------------------------------------------------------------
+       ・キーは "YYYY-MM" 形式。古い順（今月→来月）に並べてください。
+       ・値は次のいずれか
+           "available"        → ○（空きあり）
+           "full"             → 満室
+           "10:00〜15:00" など → その文字列がそのまま表示（一部時間帯のみ空き）
+           書かない／null      → － （情報準備中）
+       ・先頭の月（＝今月）には自動で背景画像 images/salon_calendar_bg.jpg が
+         適用されます（ChatGPT等で生成した画像に差し替えてください）。
+       ※ 下のデータはサンプルです。公開前に実際の空き状況へ書き換えてください。
+       ===================================================================== */
+    var SALON_CALENDAR_DATA = {
+      "2026-07": {
+        10: "available", 11: "full", 12: "10:00〜15:00", 13: "available",
+        14: "available", 17: "full", 18: "available", 19: "10:00〜",
+        20: "available", 21: "full", 24: "available", 25: "available",
+        26: "10:00〜15:00", 27: "full", 28: "available", 31: "available"
+      },
+      "2026-08": {
+        1: "available", 2: "available", 3: "full", 4: "10:00〜15:00",
+        7: "available", 8: "available", 9: "full", 10: "available",
+        11: "10:00〜", 14: "available", 15: "available", 16: "full",
+        17: "available", 18: "10:00〜15:00", 21: "available", 22: "full"
+      }
+    };
+
+    var monthKeys = Object.keys(SALON_CALENDAR_DATA).sort();
+    var current = 0;
+
+    var root = document.getElementById('salon-cal-root');
+    if (!root) return;
+
+    var titleEl = root.querySelector('.salon-cal-title');
+    var gridEl  = root.querySelector('.salon-cal-grid');
+    var prevBtn = root.querySelector('.salon-cal-prev');
+    var nextBtn = root.querySelector('.salon-cal-next');
+
+    function render() {
+      var key = monthKeys[current];
+      var parts = key.split('-');
+      var year = parseInt(parts[0], 10);
+      var month = parseInt(parts[1], 10);
+
+      titleEl.textContent = year + '年' + month + '月';
+      root.classList.toggle('has-photo', current === 0);
+
+      var firstWeekday = new Date(year, month - 1, 1).getDay();
+      var daysInMonth  = new Date(year, month, 0).getDate();
+      var data = SALON_CALENDAR_DATA[key] || {};
+
+      var html = '';
+      for (var i = 0; i < firstWeekday; i++) {
+        html += '<div class="salon-cal-day empty"></div>';
+      }
+      for (var d = 1; d <= daysInMonth; d++) {
+        var status = data[d];
+        var cls = 'salon-cal-day';
+        var statusHtml = '<span class="d-status">－</span>';
+
+        if (status === 'available') {
+          cls += ' available';
+          statusHtml = '<span class="d-status">○</span>';
+        } else if (status === 'full') {
+          cls += ' full';
+          statusHtml = '<span class="d-status">満室</span>';
+        } else if (status) {
+          cls += ' time';
+          statusHtml = '<span class="d-status">' + status + '</span>';
+        } else {
+          cls += ' unknown';
+        }
+
+        var dateStr = year + '年' + month + '月' + d + '日';
+        var subject = encodeURIComponent('貸しサロン予約について（' + dateStr + '）');
+        var body = encodeURIComponent(dateStr + ' の貸しサロン利用についてお問い合わせします。');
+        var mailHref = 'mailto:info@harmo.co.jp?subject=' + subject + '&body=' + body;
+
+        html += '<a class="' + cls + '" href="' + mailHref + '">'
+          + '<span class="d-num">' + d + '</span>' + statusHtml
+          + '</a>';
+      }
+
+      gridEl.innerHTML = html;
+      prevBtn.disabled = (current === 0);
+      nextBtn.disabled = (current === monthKeys.length - 1);
+    }
+
+    prevBtn.addEventListener('click', function () {
+      if (current > 0) { current--; render(); }
+    });
+    nextBtn.addEventListener('click', function () {
+      if (current < monthKeys.length - 1) { current++; render(); }
+    });
+
+    var startX = null;
+    gridEl.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+    gridEl.addEventListener('touchend', function (e) {
+      if (startX === null) return;
+      var diff = e.changedTouches[0].clientX - startX;
+      if (diff > 40 && current > 0) { current--; render(); }
+      else if (diff < -40 && current < monthKeys.length - 1) { current++; render(); }
+      startX = null;
+    }, { passive: true });
+
+    render();
   })();
   </script>
 
