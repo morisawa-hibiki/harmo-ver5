@@ -525,10 +525,14 @@
       color: var(--muted);
     }
 
-    /* ===== SALON CALENDAR（貸しサロン 予約カレンダー） ===== */
+    /* ===== SALON CALENDAR（貸しサロン 予約カレンダー）=====
+       全体デザイン「アジェンダリスト」案：
+       ヘッダー＝月を大きく表示／本文＝左にミニカレンダー（ドットのみ）＋右に日程リスト
+       ※ --font-display（Cormorant Garamond）は和文＋数字混在の文字列に使うと
+         フォントが崩れるため、この見出しは --font-body（DM Sans）に統一しています。 */
     .salon-cal {
       background: var(--navy);
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       margin-bottom: 32px;
       background-size: cover;
@@ -541,10 +545,56 @@
 
     .salon-cal-header {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
-      padding: 18px 20px;
+      padding: 22px 24px 18px;
       border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .salon-cal-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .salon-cal-year {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .06em;
+    }
+
+    .salon-cal-month-num {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 34px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .salon-cal-month-unit {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .salon-cal-header-right { text-align: right; }
+
+    .salon-cal-eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .salon-cal-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 8px;
     }
 
     .salon-cal-nav-btn {
@@ -567,78 +617,152 @@
 
     .salon-cal-nav-btn:disabled { opacity: .25; cursor: default; }
 
-    .salon-cal-title-wrap { text-align: center; }
-
-    .salon-cal-eyebrow {
-      display: block;
-      font-size: 10px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 2px;
+    .salon-cal-body {
+      display: grid;
+      grid-template-columns: 148px 1fr;
     }
 
-    .salon-cal-title {
-      font-family: var(--font-display);
-      font-size: 21px;
-      font-weight: 400;
-      color: var(--white);
+    /* --- 左：ミニカレンダー（ドットのみで月全体の空き状況を俯瞰） --- */
+    .salon-cal-mini {
+      padding: 18px 16px;
+      border-right: 1px solid rgba(255,255,255,.08);
     }
 
-    .salon-cal-weekdays {
+    .salon-cal-mini-wd {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
+      font-size: 8px;
       text-align: center;
-      font-size: 11px;
-      color: rgba(255,255,255,.4);
-      padding: 14px 14px 4px;
+      color: rgba(255,255,255,.3);
+      margin-bottom: 4px;
     }
 
-    .salon-cal-weekdays .sun { color: #e0645f; }
-    .salon-cal-weekdays .sat { color: #5f9fe0; }
+    .salon-cal-mini-wd .sun { color: rgba(224,101,95,.7); }
+    .salon-cal-mini-wd .sat { color: rgba(95,159,224,.7); }
 
-    .salon-cal-grid {
+    .salon-cal-mini-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-      padding: 6px 14px 8px;
-      touch-action: pan-y;
+      gap: 3px;
     }
 
-    .salon-cal-day {
+    .salon-cal-mini-day {
       aspect-ratio: 1 / 1;
-      border-radius: 8px;
+      border-radius: 3px;
       background: rgba(255,255,255,.05);
+      position: relative;
+    }
+
+    .salon-cal-mini-day.empty { visibility: hidden; }
+
+    .salon-cal-mini-day::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+    }
+
+    .salon-cal-mini-day.available::after { background: var(--orange); }
+    .salon-cal-mini-day.time::after { background: rgba(255,150,80,.85); }
+    .salon-cal-mini-day.full::after { background: rgba(255,255,255,.2); }
+
+    /* --- 右：日程リスト（空き・満室・時間限定のみ。情報準備中の日は省略） --- */
+    .salon-cal-list {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: var(--white);
-      font-size: 12px;
-      transition: background .2s, border-color .2s;
-      border: 1px solid transparent;
     }
 
-    .salon-cal-day:hover { border-color: var(--orange); }
-    .salon-cal-day.empty { visibility: hidden; }
-    .salon-cal-day .d-status { margin-top: 3px; font-size: 10px; line-height: 1.1; text-align: center; }
-    .salon-cal-day.available .d-status { color: #4fbf8a; font-size: 13px; }
-    .salon-cal-day.full .d-status { color: #e0645f; }
-    .salon-cal-day.time .d-status { color: var(--orange); font-size: 9px; }
-    .salon-cal-day.unknown .d-status { color: rgba(255,255,255,.25); }
+    .salon-cal-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 22px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      text-decoration: none;
+      transition: background .2s;
+    }
+
+    .salon-cal-row:last-child { border-bottom: none; }
+    .salon-cal-row:hover { background: rgba(255,255,255,.03); }
+
+    .salon-cal-row-date {
+      width: 42px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .salon-cal-row-date .d {
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .salon-cal-row-date .w {
+      font-family: var(--font-body);
+      font-size: 9px;
+      color: rgba(255,255,255,.4);
+      margin-top: 2px;
+    }
+
+    .salon-cal-row.available .salon-cal-row-date .d { color: var(--orange); }
+
+    .salon-cal-row.full .salon-cal-row-date .d,
+    .salon-cal-row.full .salon-cal-row-date .w,
+    .salon-cal-row.full .salon-cal-row-label { opacity: .4; }
+
+    .salon-cal-row-label {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      color: rgba(255,255,255,.85);
+    }
+
+    .salon-cal-row-badge {
+      font-family: var(--font-body);
+      font-size: 9.5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .salon-cal-row.available .salon-cal-row-badge {
+      background: rgba(255,101,0,.15);
+      color: var(--orange);
+    }
+
+    .salon-cal-row.time .salon-cal-row-badge {
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.7);
+    }
+
+    .salon-cal-empty-note {
+      padding: 28px 22px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+    }
 
     .salon-cal-footnote {
-      padding: 4px 20px 20px;
+      padding: 14px 22px 20px;
       font-size: 11px;
       color: rgba(255,255,255,.4);
       text-align: center;
       line-height: 1.7;
+      border-top: 1px solid rgba(255,255,255,.06);
     }
 
     @media (max-width: 600px) {
-      .salon-cal-title { font-size: 18px; }
-      .salon-cal-day { font-size: 11px; }
+      .salon-cal-mini { display: none; }
+      .salon-cal-body { grid-template-columns: 1fr; }
+      .salon-cal-month-num { font-size: 28px; }
+      .salon-cal-row { padding: 11px 18px; }
     }
 
 
@@ -2032,18 +2156,27 @@
 
     <div class="salon-cal" id="salon-cal-root">
       <div class="salon-cal-header">
-        <button type="button" class="salon-cal-nav-btn salon-cal-prev" aria-label="前の月">‹</button>
         <div class="salon-cal-title-wrap">
-          <span class="salon-cal-eyebrow">空き状況</span>
-          <span class="salon-cal-title"></span>
+          <span class="salon-cal-year"></span><span class="salon-cal-month-num"></span><span class="salon-cal-month-unit">月</span>
         </div>
-        <button type="button" class="salon-cal-nav-btn salon-cal-next" aria-label="次の月">›</button>
+        <div class="salon-cal-header-right">
+          <span class="salon-cal-eyebrow">空き状況</span>
+          <div class="salon-cal-nav">
+            <button type="button" class="salon-cal-nav-btn salon-cal-prev" aria-label="前の月">‹</button>
+            <button type="button" class="salon-cal-nav-btn salon-cal-next" aria-label="次の月">›</button>
+          </div>
+        </div>
       </div>
-      <div class="salon-cal-weekdays">
-        <span class="sun">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span class="sat">土</span>
+      <div class="salon-cal-body">
+        <div class="salon-cal-mini">
+          <div class="salon-cal-mini-wd">
+            <span class="sun">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span class="sat">土</span>
+          </div>
+          <div class="salon-cal-mini-grid"></div>
+        </div>
+        <div class="salon-cal-list"></div>
       </div>
-      <div class="salon-cal-grid"></div>
-      <p class="salon-cal-footnote">○：空きあり／満室／時間表記は一部空きあり／－：情報準備中<br>日付をタップするとお問い合わせへ進みます</p>
+      <p class="salon-cal-footnote">○：空きあり／満室／時間表記は一部空きあり時間帯あり<br>表示のない日は情報準備中です。日付をタップするとお問い合わせへ進みます。</p>
     </div>
 
     <ul class="salon-modal-list">
@@ -2827,14 +2960,18 @@
 
     var monthKeys = Object.keys(SALON_CALENDAR_DATA).sort();
     var current = 0;
+    var WEEKDAY_JP = ['日', '月', '火', '水', '木', '金', '土'];
 
     var root = document.getElementById('salon-cal-root');
     if (!root) return;
 
-    var titleEl = root.querySelector('.salon-cal-title');
-    var gridEl  = root.querySelector('.salon-cal-grid');
-    var prevBtn = root.querySelector('.salon-cal-prev');
-    var nextBtn = root.querySelector('.salon-cal-next');
+    var yearEl   = root.querySelector('.salon-cal-year');
+    var numEl    = root.querySelector('.salon-cal-month-num');
+    var headerEl = root.querySelector('.salon-cal-header');
+    var miniEl   = root.querySelector('.salon-cal-mini-grid');
+    var listEl   = root.querySelector('.salon-cal-list');
+    var prevBtn  = root.querySelector('.salon-cal-prev');
+    var nextBtn  = root.querySelector('.salon-cal-next');
 
     function render() {
       var key = monthKeys[current];
@@ -2842,46 +2979,70 @@
       var year = parseInt(parts[0], 10);
       var month = parseInt(parts[1], 10);
 
-      titleEl.textContent = year + '年' + month + '月';
+      yearEl.textContent = year;
+      numEl.textContent = month;
       root.classList.toggle('has-photo', current === 0);
 
       var firstWeekday = new Date(year, month - 1, 1).getDay();
       var daysInMonth  = new Date(year, month, 0).getDate();
       var data = SALON_CALENDAR_DATA[key] || {};
 
-      var html = '';
+      /* --- 左：ミニカレンダー（ドットのみで月全体を俯瞰） --- */
+      var miniHtml = '';
       for (var i = 0; i < firstWeekday; i++) {
-        html += '<div class="salon-cal-day empty"></div>';
+        miniHtml += '<div class="salon-cal-mini-day empty"></div>';
       }
       for (var d = 1; d <= daysInMonth; d++) {
-        var status = data[d];
-        var cls = 'salon-cal-day';
-        var statusHtml = '<span class="d-status">－</span>';
+        var s = data[d];
+        var mCls = 'salon-cal-mini-day';
+        if (s === 'available') mCls += ' available';
+        else if (s === 'full') mCls += ' full';
+        else if (s) mCls += ' time';
+        miniHtml += '<div class="' + mCls + '"></div>';
+      }
+      miniEl.innerHTML = miniHtml;
+
+      /* --- 右：日程リスト（空き・満室・時間限定のみ表示、情報準備中の日は省略） --- */
+      var listHtml = '';
+      for (var d2 = 1; d2 <= daysInMonth; d2++) {
+        var status = data[d2];
+        if (!status) continue;
+
+        var dow = new Date(year, month - 1, d2).getDay();
+        var rCls = 'salon-cal-row';
+        var label = '';
+        var badgeHtml = '';
 
         if (status === 'available') {
-          cls += ' available';
-          statusHtml = '<span class="d-status">○</span>';
+          rCls += ' available';
+          label = '空きあり';
+          badgeHtml = '<span class="salon-cal-row-badge">○</span>';
         } else if (status === 'full') {
-          cls += ' full';
-          statusHtml = '<span class="d-status">満室</span>';
-        } else if (status) {
-          cls += ' time';
-          statusHtml = '<span class="d-status">' + status + '</span>';
+          rCls += ' full';
+          label = '満室';
         } else {
-          cls += ' unknown';
+          rCls += ' time';
+          label = status;
+          badgeHtml = '<span class="salon-cal-row-badge">一部空きあり</span>';
         }
 
-        var dateStr = year + '年' + month + '月' + d + '日';
+        var dateStr = year + '年' + month + '月' + d2 + '日';
         var subject = encodeURIComponent('貸しサロン予約について（' + dateStr + '）');
         var body = encodeURIComponent(dateStr + ' の貸しサロン利用についてお問い合わせします。');
         var mailHref = 'mailto:info@harmo.co.jp?subject=' + subject + '&body=' + body;
 
-        html += '<a class="' + cls + '" href="' + mailHref + '">'
-          + '<span class="d-num">' + d + '</span>' + statusHtml
+        listHtml += '<a class="' + rCls + '" href="' + mailHref + '">'
+          + '<span class="salon-cal-row-date"><span class="d">' + d2 + '</span><span class="w">' + WEEKDAY_JP[dow] + '</span></span>'
+          + '<span class="salon-cal-row-label">' + label + '</span>'
+          + badgeHtml
           + '</a>';
       }
 
-      gridEl.innerHTML = html;
+      if (!listHtml) {
+        listHtml = '<p class="salon-cal-empty-note">今月の情報は準備中です。</p>';
+      }
+      listEl.innerHTML = listHtml;
+
       prevBtn.disabled = (current === 0);
       nextBtn.disabled = (current === monthKeys.length - 1);
     }
@@ -2893,11 +3054,13 @@
       if (current < monthKeys.length - 1) { current++; render(); }
     });
 
+    /* スワイプでの月送りは、日程リストのタップ／縦スクロールと干渉しないよう
+       ヘッダー部分（見出し・ミニカレンダー側）に限定しています。 */
     var startX = null;
-    gridEl.addEventListener('touchstart', function (e) {
+    headerEl.addEventListener('touchstart', function (e) {
       startX = e.touches[0].clientX;
     }, { passive: true });
-    gridEl.addEventListener('touchend', function (e) {
+    headerEl.addEventListener('touchend', function (e) {
       if (startX === null) return;
       var diff = e.changedTouches[0].clientX - startX;
       if (diff > 40 && current > 0) { current--; render(); }
@@ -2911,5 +3074,6 @@
 
 </body>
 </html>
+
 
 
