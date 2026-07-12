@@ -539,6 +539,32 @@
       background-image: linear-gradient(180deg, rgba(10,25,47,.5), rgba(10,25,47,.92)), url('images/salon_calendar_bg.jpg');
     }
 
+    /* ===== [TRIAL] 貸しサロンカード横の試験用カレンダータイル =====
+       不要になったらこのブロックと、HTML側の
+       <!-- [TRIAL CALENDAR TILE START] --> 〜 <!-- [TRIAL CALENDAR TILE END] -->
+       を削除してください。 */
+    .biz-cal-trial {
+      width: clamp(280px, 36vw, 520px);
+      flex-shrink: 0;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .biz-cal-trial .salon-cal { margin-bottom: 0; }
+    .biz-cal-trial-label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.35);
+      text-align: center;
+      margin-top: 8px;
+    }
+    @media (max-width: 860px) {
+      .biz-cal-trial { width: 100%; }
+    }
+
     .salon-cal-header {
       display: flex;
       align-items: center;
@@ -2031,7 +2057,7 @@
     <h3 class="salon-modal-title" id="salon-modal-title">入居サロン一覧</h3>
     <p class="salon-modal-lead">Harmonieの貸しサロンには、様々なプロフェッショナルが入居しています。気になるサロンをお選びください。</p>
 
-    <div class="salon-cal" id="salon-cal-root">
+    <div class="salon-cal" id="salon-cal-root" data-salon-cal>
       <div class="salon-cal-header">
         <button type="button" class="salon-cal-nav-btn salon-cal-prev" aria-label="前の月">‹</button>
         <div class="salon-cal-title-wrap">
@@ -2304,9 +2330,30 @@
             <div class="biz-card-num">02</div>
             <h3 class="biz-card-title">貸しサロン</h3>
             <p class="biz-card-sub">美と癒やしのプロたちに、最高の空間を。</p>
-            <span class="biz-card-tag">レンタルサロン</span>
+            <span class="biz-card-tag">空き状況</span>
           </div>
         </button>
+
+        <!-- [TRIAL CALENDAR TILE START] 貸しサロン横の試験表示。不要なら丸ごと削除OK -->
+        <div class="biz-cal-trial reveal reveal-pop">
+          <div class="salon-cal" data-salon-cal>
+            <div class="salon-cal-header">
+              <button type="button" class="salon-cal-nav-btn salon-cal-prev" aria-label="前の月">‹</button>
+              <div class="salon-cal-title-wrap">
+                <span class="salon-cal-eyebrow">空き状況</span>
+                <span class="salon-cal-title"></span>
+              </div>
+              <button type="button" class="salon-cal-nav-btn salon-cal-next" aria-label="次の月">›</button>
+            </div>
+            <div class="salon-cal-weekdays">
+              <span class="sun">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span class="sat">土</span>
+            </div>
+            <div class="salon-cal-grid"></div>
+            <p class="salon-cal-footnote">○：空きあり／満室／時間表記は一部空きあり／－：情報準備中<br>日付をタップするとお問い合わせへ進みます</p>
+          </div>
+          <span class="biz-cal-trial-label">※試験表示（貸しサロン空き状況）</span>
+        </div>
+        <!-- [TRIAL CALENDAR TILE END] -->
 
         <!-- Card 3: 整体 -->
         <a href="https://kaitaishinshou.jp/" target="_blank" rel="noopener" class="biz-card reveal reveal-pop">
@@ -2827,91 +2874,98 @@
     };
 
     var monthKeys = Object.keys(SALON_CALENDAR_DATA).sort();
-    var current = 0;
 
-    var root = document.getElementById('salon-cal-root');
-    if (!root) return;
+    /* ページ内に .salon-cal（data-salon-cal）が複数あってもそれぞれ独立して
+       動くように、1つずつ初期化する（貸しサロン横の試験表示にも対応）。 */
+    function initSalonCal(root) {
+      var current = 0;
 
-    var titleEl = root.querySelector('.salon-cal-title');
-    var gridEl  = root.querySelector('.salon-cal-grid');
-    var prevBtn = root.querySelector('.salon-cal-prev');
-    var nextBtn = root.querySelector('.salon-cal-next');
+      var titleEl = root.querySelector('.salon-cal-title');
+      var gridEl  = root.querySelector('.salon-cal-grid');
+      var prevBtn = root.querySelector('.salon-cal-prev');
+      var nextBtn = root.querySelector('.salon-cal-next');
+      if (!titleEl || !gridEl || !prevBtn || !nextBtn) return;
 
-    function render() {
-      var key = monthKeys[current];
-      var parts = key.split('-');
-      var year = parseInt(parts[0], 10);
-      var month = parseInt(parts[1], 10);
+      function render() {
+        var key = monthKeys[current];
+        var parts = key.split('-');
+        var year = parseInt(parts[0], 10);
+        var month = parseInt(parts[1], 10);
 
-      titleEl.textContent = year + '年' + month + '月';
-      root.classList.toggle('has-photo', current === 0);
+        titleEl.textContent = year + '年' + month + '月';
+        root.classList.toggle('has-photo', current === 0);
 
-      var firstWeekday = new Date(year, month - 1, 1).getDay();
-      var daysInMonth  = new Date(year, month, 0).getDate();
-      var data = SALON_CALENDAR_DATA[key] || {};
+        var firstWeekday = new Date(year, month - 1, 1).getDay();
+        var daysInMonth  = new Date(year, month, 0).getDate();
+        var data = SALON_CALENDAR_DATA[key] || {};
 
-      var html = '';
-      for (var i = 0; i < firstWeekday; i++) {
-        html += '<div class="salon-cal-day empty"></div>';
-      }
-      for (var d = 1; d <= daysInMonth; d++) {
-        var status = data[d];
-        var cls = 'salon-cal-day';
-        var statusHtml = '<span class="d-status">－</span>';
+        var html = '';
+        for (var i = 0; i < firstWeekday; i++) {
+          html += '<div class="salon-cal-day empty"></div>';
+        }
+        for (var d = 1; d <= daysInMonth; d++) {
+          var status = data[d];
+          var cls = 'salon-cal-day';
+          var statusHtml = '<span class="d-status">－</span>';
 
-        if (status === 'available') {
-          cls += ' available';
-          statusHtml = '<span class="d-status">○</span>';
-        } else if (status === 'full') {
-          cls += ' full';
-          statusHtml = '<span class="d-status">満室</span>';
-        } else if (status) {
-          cls += ' time';
-          statusHtml = '<span class="d-status">' + status + '</span>';
-        } else {
-          cls += ' unknown';
+          if (status === 'available') {
+            cls += ' available';
+            statusHtml = '<span class="d-status">○</span>';
+          } else if (status === 'full') {
+            cls += ' full';
+            statusHtml = '<span class="d-status">満室</span>';
+          } else if (status) {
+            cls += ' time';
+            statusHtml = '<span class="d-status">' + status + '</span>';
+          } else {
+            cls += ' unknown';
+          }
+
+          var dateStr = year + '年' + month + '月' + d + '日';
+          var subject = encodeURIComponent('貸しサロン予約について（' + dateStr + '）');
+          var body = encodeURIComponent(dateStr + ' の貸しサロン利用についてお問い合わせします。');
+          var mailHref = 'mailto:info@harmo.co.jp?subject=' + subject + '&body=' + body;
+
+          html += '<a class="' + cls + '" href="' + mailHref + '">'
+            + '<span class="d-num">' + d + '</span>' + statusHtml
+            + '</a>';
         }
 
-        var dateStr = year + '年' + month + '月' + d + '日';
-        var subject = encodeURIComponent('貸しサロン予約について（' + dateStr + '）');
-        var body = encodeURIComponent(dateStr + ' の貸しサロン利用についてお問い合わせします。');
-        var mailHref = 'mailto:info@harmo.co.jp?subject=' + subject + '&body=' + body;
-
-        html += '<a class="' + cls + '" href="' + mailHref + '">'
-          + '<span class="d-num">' + d + '</span>' + statusHtml
-          + '</a>';
+        gridEl.innerHTML = html;
+        prevBtn.disabled = (current === 0);
+        nextBtn.disabled = (current === monthKeys.length - 1);
       }
 
-      gridEl.innerHTML = html;
-      prevBtn.disabled = (current === 0);
-      nextBtn.disabled = (current === monthKeys.length - 1);
+      prevBtn.addEventListener('click', function () {
+        if (current > 0) { current--; render(); }
+      });
+      nextBtn.addEventListener('click', function () {
+        if (current < monthKeys.length - 1) { current++; render(); }
+      });
+
+      var startX = null;
+      gridEl.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      gridEl.addEventListener('touchend', function (e) {
+        if (startX === null) return;
+        var diff = e.changedTouches[0].clientX - startX;
+        if (diff > 40 && current > 0) { current--; render(); }
+        else if (diff < -40 && current < monthKeys.length - 1) { current++; render(); }
+        startX = null;
+      }, { passive: true });
+
+      render();
     }
 
-    prevBtn.addEventListener('click', function () {
-      if (current > 0) { current--; render(); }
-    });
-    nextBtn.addEventListener('click', function () {
-      if (current < monthKeys.length - 1) { current++; render(); }
-    });
-
-    var startX = null;
-    gridEl.addEventListener('touchstart', function (e) {
-      startX = e.touches[0].clientX;
-    }, { passive: true });
-    gridEl.addEventListener('touchend', function (e) {
-      if (startX === null) return;
-      var diff = e.changedTouches[0].clientX - startX;
-      if (diff > 40 && current > 0) { current--; render(); }
-      else if (diff < -40 && current < monthKeys.length - 1) { current++; render(); }
-      startX = null;
-    }, { passive: true });
-
-    render();
+    var allRoots = document.querySelectorAll('.salon-cal[data-salon-cal]');
+    allRoots.forEach(initSalonCal);
   })();
   </script>
 
 </body>
 </html>
+
 
 
 
