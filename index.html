@@ -539,32 +539,6 @@
       background-image: linear-gradient(180deg, rgba(10,25,47,.5), rgba(10,25,47,.92)), url('images/salon_calendar_bg.jpg');
     }
 
-    /* ===== [TRIAL] 貸しサロンカード横の試験用カレンダータイル =====
-       不要になったらこのブロックと、HTML側の
-       <!-- [TRIAL CALENDAR TILE START] --> 〜 <!-- [TRIAL CALENDAR TILE END] -->
-       を削除してください。 */
-    .biz-cal-trial {
-      width: clamp(280px, 36vw, 520px);
-      flex-shrink: 0;
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .biz-cal-trial .salon-cal { margin-bottom: 0; }
-    .biz-cal-trial-label {
-      display: block;
-      font-family: var(--font-body);
-      font-size: 11px;
-      letter-spacing: .08em;
-      color: rgba(255,255,255,.35);
-      text-align: center;
-      margin-top: 8px;
-    }
-    @media (max-width: 860px) {
-      .biz-cal-trial { width: 100%; }
-    }
-
     /* ===== SALON GALLERY（貸しサロン 室内写真セクション） ===== */
     .salon-gallery {
       background: var(--navy);
@@ -2453,27 +2427,6 @@
           </div>
         </button>
 
-        <!-- [TRIAL CALENDAR TILE START] 貸しサロン横の試験表示。不要なら丸ごと削除OK -->
-        <div class="biz-cal-trial reveal reveal-pop">
-          <div class="salon-cal" data-salon-cal>
-            <div class="salon-cal-header">
-              <button type="button" class="salon-cal-nav-btn salon-cal-prev" aria-label="前の月">‹</button>
-              <div class="salon-cal-title-wrap">
-                <span class="salon-cal-eyebrow">空き状況</span>
-                <span class="salon-cal-title"></span>
-              </div>
-              <button type="button" class="salon-cal-nav-btn salon-cal-next" aria-label="次の月">›</button>
-            </div>
-            <div class="salon-cal-weekdays">
-              <span class="sun">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span class="sat">土</span>
-            </div>
-            <div class="salon-cal-grid"></div>
-            <p class="salon-cal-footnote">○：空きあり／満室／時間表記は一部空きあり／－：情報準備中<br>日付をタップするとお問い合わせへ進みます</p>
-          </div>
-          <span class="biz-cal-trial-label">※試験表示（貸しサロン空き状況）</span>
-        </div>
-        <!-- [TRIAL CALENDAR TILE END] -->
-
         <!-- Card 3: 整体 -->
         <a href="https://kaitaishinshou.jp/" target="_blank" rel="noopener" class="biz-card reveal reveal-pop">
           <img src="images/pic_kaitaishinshou.jpg" alt="整体・理学塾" class="biz-card-img">
@@ -3174,6 +3127,7 @@
 
 </body>
 </html>
+
 
 
 
