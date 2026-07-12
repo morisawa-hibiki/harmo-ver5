@@ -565,6 +565,125 @@
       .biz-cal-trial { width: 100%; }
     }
 
+    /* ===== SALON GALLERY（貸しサロン 室内写真セクション） ===== */
+    .salon-gallery {
+      background: var(--navy);
+      padding: clamp(60px, 9vw, 120px) 0 clamp(80px, 12vw, 140px);
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .salon-gallery-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      margin-bottom: clamp(32px, 5vw, 56px);
+    }
+    .salon-gallery-heading {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(28px, 4vw, 44px);
+      color: #fff;
+      line-height: 1.3;
+    }
+    .salon-gallery-heading em {
+      font-style: italic;
+      color: var(--orange);
+    }
+    .salon-gallery-sub {
+      max-width: 420px;
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+      line-height: 1.8;
+    }
+    .salon-gallery-wrap {
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0 var(--gutter) 12px;
+      cursor: grab;
+    }
+    .salon-gallery-wrap::-webkit-scrollbar { display: none; }
+    .salon-gallery-wrap.is-dragging { cursor: grabbing; user-select: none; }
+    .salon-gallery-wrap.is-dragging .salon-gallery-item { pointer-events: none; }
+    .salon-gallery-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+    }
+    .salon-gallery-item {
+      width: clamp(220px, 24vw, 300px);
+      flex-shrink: 0;
+    }
+    .salon-gallery-photo {
+      aspect-ratio: 4/5;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #0F2540;
+      margin-bottom: 12px;
+    }
+    .salon-gallery-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.92) saturate(.95);
+      transition: transform .6s ease;
+    }
+    .salon-gallery-item:hover .salon-gallery-photo img { transform: scale(1.05); }
+    .salon-gallery-fallback {
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(160deg, rgba(255,101,0,.15) 0%, transparent 60%),
+        linear-gradient(200deg, #0F2540 0%, #0a1626 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 18px;
+    }
+    .salon-gallery-fallback-text {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.4vw, 28px);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,.22);
+      line-height: 1.25;
+    }
+    .salon-gallery-cap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+    }
+    .salon-gallery-num {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--orange);
+    }
+    .salon-gallery-hint {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: var(--max);
+      margin: 24px auto 0;
+      padding: 0 var(--gutter);
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.3);
+    }
+    @media (max-width: 640px) {
+      .salon-gallery-hint { display: flex; }
+    }
+    @media (min-width: 641px) {
+      .salon-gallery-hint { display: none; }
+    }
+
     .salon-cal-header {
       display: flex;
       align-items: center;
@@ -2418,6 +2537,93 @@
     </div>
   </section>
 
+  <!-- ===== SALON GALLERY（貸しサロン 室内写真） =====
+       写真は images/salon_room_01.jpg 〜 salon_room_07.jpg を差し替えてください。
+       未アップロードの間はオレンジのグラデーションのフォールバック表示になります。 -->
+  <section class="salon-gallery" id="salon-gallery">
+    <div class="salon-gallery-header reveal reveal-up">
+      <div>
+        <span class="eyebrow" style="color: var(--orange);">貸しサロン ― 室内紹介</span>
+        <h2 class="salon-gallery-heading">
+          光が差し込む、<br>
+          <em>静かな時間</em>のための空間。
+        </h2>
+      </div>
+      <p class="salon-gallery-sub">
+        施術スペースから待合、洗面まわりまで。Harmonieの貸しサロンの雰囲気を写真でご紹介します。
+      </p>
+    </div>
+
+    <div class="salon-gallery-wrap" id="salon-gallery-wrap">
+      <div class="salon-gallery-track">
+
+        <div class="salon-gallery-item reveal reveal-pop">
+          <div class="salon-gallery-photo">
+            <img src="images/salon_room_01.jpg" alt="貸しサロン 施術スペース"
+              onerror="this.parentElement.innerHTML='&lt;div class=\'salon-gallery-fallback\'&gt;&lt;span class=\'salon-gallery-fallback-text\'&gt;Treatment&lt;br&gt;Room&lt;/span&gt;&lt;/div&gt;'">
+          </div>
+          <p class="salon-gallery-cap"><span class="salon-gallery-num">01</span>施術スペース</p>
+        </div>
+
+        <div class="salon-gallery-item reveal reveal-pop">
+          <div class="salon-gallery-photo">
+            <img src="images/salon_room_02.jpg" alt="貸しサロン 待合スペース"
+              onerror="this.parentElement.innerHTML='&lt;div class=\'salon-gallery-fallback\'&gt;&lt;span class=\'salon-gallery-fallback-text\'&gt;Waiting&lt;br&gt;Area&lt;/span&gt;&lt;/div&gt;'">
+          </div>
+          <p class="salon-gallery-cap"><span class="salon-gallery-num">02</span>待合スペース</p>
+        </div>
+
+        <div class="salon-gallery-item reveal reveal-pop">
+          <div class="salon-gallery-photo">
+            <img src="images/salon_room_03.jpg" alt="貸しサロン 洗面まわり"
+              onerror="this.parentElement.innerHTML='&lt;div class=\'salon-gallery-fallback\'&gt;&lt;span class=\'salon-gallery-fallback-text\'&gt;Wash&lt;br&gt;Area&lt;/span&gt;&lt;/div&gt;'">
+          </div>
+          <p class="salon-gallery-cap"><span class="salon-gallery-num">03</span>洗面まわり</p>
+        </div>
+
+        <div class="salon-gallery-item reveal reveal-pop">
+          <div class="salon-gallery-photo">
+            <img src="images/salon_room_04.jpg" alt="貸しサロン 内装（全体）"
+              onerror="this.parentElement.innerHTML='&lt;div class=\'salon-gallery-fallback\'&gt;&lt;span class=\'salon-gallery-fallback-text\'&gt;Interior&lt;br&gt;View&lt;/span&gt;&lt;/div&gt;'">
+          </div>
+          <p class="salon-gallery-cap"><span class="salon-gallery-num">04</span>内装（全体）</p>
+        </div>
+
+        <div class="salon-gallery-item reveal reveal-pop">
+          <div class="salon-gallery-photo">
+            <img src="images/salon_room_05.jpg" alt="貸しサロン 収納・バックヤード"
+              onerror="this.parentElement.innerHTML='&lt;div class=\'salon-gallery-fallback\'&gt;&lt;span class=\'salon-gallery-fallback-text\'&gt;Storage&lt;br&gt;Space&lt;/span&gt;&lt;/div&gt;'">
+          </div>
+          <p class="salon-gallery-cap"><span class="salon-gallery-num">05</span>収納・バックヤード</p>
+        </div>
+
+        <div class="salon-gallery-item reveal reveal-pop">
+          <div class="salon-gallery-photo">
+            <img src="images/salon_room_06.jpg" alt="貸しサロン 外観・入口"
+              onerror="this.parentElement.innerHTML='&lt;div class=\'salon-gallery-fallback\'&gt;&lt;span class=\'salon-gallery-fallback-text\'&gt;Entrance&lt;/span&gt;&lt;/div&gt;'">
+          </div>
+          <p class="salon-gallery-cap"><span class="salon-gallery-num">06</span>外観・入口</p>
+        </div>
+
+        <div class="salon-gallery-item reveal reveal-pop">
+          <div class="salon-gallery-photo">
+            <img src="images/salon_room_07.jpg" alt="貸しサロン 夜間の様子"
+              onerror="this.parentElement.innerHTML='&lt;div class=\'salon-gallery-fallback\'&gt;&lt;span class=\'salon-gallery-fallback-text\'&gt;Evening&lt;br&gt;Mood&lt;/span&gt;&lt;/div&gt;'">
+          </div>
+          <p class="salon-gallery-cap"><span class="salon-gallery-num">07</span>夜間の様子</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="salon-gallery-hint">
+      <div class="scroll-arrow">
+        <span></span><span></span><span></span>
+      </div>
+      Swipe to explore
+    </div>
+  </section>
+
   <!-- ===== CTA ===== -->
   <section class="contact-section" id="contact">
     <div class="contact-inner">
@@ -2795,51 +3001,54 @@
        通常のクリックでは pointer-events に触れないようにした。
   ═══════════════════════════════════════════ */
   (function(){
-    const wrap = document.querySelector('.business-track-wrap');
-    if(!wrap) return;
+    function initDragScroll(wrap){
+      if(!wrap) return;
 
-    const DRAG_THRESHOLD = 6; // px：これを超えたら「ドラッグ」と判定
+      const DRAG_THRESHOLD = 6; // px：これを超えたら「ドラッグ」と判定
 
-    let isDown = false;
-    let startX = 0;
-    let scrollStart = 0;
-    let moved = false;
+      let isDown = false;
+      let startX = 0;
+      let scrollStart = 0;
+      let moved = false;
 
-    wrap.addEventListener('mousedown', (e) => {
-      isDown = true;
-      moved = false;
-      startX = e.pageX;
-      scrollStart = wrap.scrollLeft;
-      /* ここでは is-dragging を付けない（クリックを殺さないため） */
-    });
+      wrap.addEventListener('mousedown', (e) => {
+        isDown = true;
+        moved = false;
+        startX = e.pageX;
+        scrollStart = wrap.scrollLeft;
+        /* ここでは is-dragging を付けない（クリックを殺さないため） */
+      });
 
-    window.addEventListener('mouseup', () => {
-      isDown = false;
-      wrap.classList.remove('is-dragging');
-    });
+      window.addEventListener('mouseup', () => {
+        isDown = false;
+        wrap.classList.remove('is-dragging');
+      });
 
-    window.addEventListener('mousemove', (e) => {
-      if(!isDown) return;
-      const dx = e.pageX - startX;
+      window.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        const dx = e.pageX - startX;
 
-      if(!moved && Math.abs(dx) > DRAG_THRESHOLD){
-        moved = true;
-        wrap.classList.add('is-dragging'); // 実際にドラッグと判定されてから付与
-      }
+        if(!moved && Math.abs(dx) > DRAG_THRESHOLD){
+          moved = true;
+          wrap.classList.add('is-dragging'); // 実際にドラッグと判定されてから付与
+        }
 
-      if(moved){
-        e.preventDefault();
-        wrap.scrollLeft = scrollStart - dx;
-      }
-    });
+        if(moved){
+          e.preventDefault();
+          wrap.scrollLeft = scrollStart - dx;
+        }
+      });
 
-    /* ドラッグ後にカード（リンク/ボタン）のクリックが誤発火しないようにする */
-    wrap.addEventListener('click', (e) => {
-      if(moved){
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
+      /* ドラッグ後にカード（リンク/ボタン）のクリックが誤発火しないようにする */
+      wrap.addEventListener('click', (e) => {
+        if(moved){
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+    }
+
+    document.querySelectorAll('.business-track-wrap, .salon-gallery-wrap').forEach(initDragScroll);
   })();
   </script>
 
@@ -2965,6 +3174,7 @@
 
 </body>
 </html>
+
 
 
 
